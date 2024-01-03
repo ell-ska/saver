@@ -5,7 +5,7 @@ import { buttonVariants } from '@/components/ui/Button'
 
 const Header = () => {
   return (
-    <header className='absolute flex w-full items-center justify-between px-6 py-4'>
+    <header className='fixed flex w-full items-center justify-between bg-white px-6 py-4'>
       <Link href='/'>
         <h3 className='font-branding text-primary text-2xl'>saver</h3>
       </Link>
