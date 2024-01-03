@@ -11,14 +11,14 @@ export const metadata: Metadata = {
     icon: [
       {
         media: '(prefers-color-scheme: light)',
-        url: '/favicon-dark.svg'
+        url: '/favicon-dark.svg',
       },
       {
         media: '(prefers-color-scheme: dark)',
-        url: '/favicon-light.svg'
-      }
-    ]
-  }
+        url: '/favicon-light.svg',
+      },
+    ],
+  },
 }
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body className={inter.className}>{children}</body>
     </html>
   )
