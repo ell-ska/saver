@@ -1,8 +1,20 @@
+import { Outfit, Kalam } from 'next/font/google'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+
+import { cn } from '@/utils/classnames'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const outfit = Outfit({
+  subsets: ['latin'],
+  weight: 'variable',
+  variable: '--font-primary',
+})
+
+const kalam = Kalam({
+  subsets: ['latin'],
+  weight: '700',
+  variable: '--font-branding',
+})
 
 export const metadata: Metadata = {
   title: 'Saver',
@@ -28,7 +40,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body
+        className={cn(
+          outfit.variable,
+          kalam.variable,
+          'font-primary text-slate-800',
+        )}
+      >
+        {children}
+      </body>
     </html>
   )
 }
