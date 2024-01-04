@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  [data-sonner-toast] [data-title] {
+    font-weight: 400 !important; /* sonners css specificity is difficult to overpower with tailwind */
+  }
+}

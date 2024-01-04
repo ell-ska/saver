@@ -1,5 +1,6 @@
-import { Outfit, Kalam } from 'next/font/google'
 import type { Metadata } from 'next'
+import { Outfit, Kalam } from 'next/font/google'
+import { Toaster } from 'sonner'
 
 import { cn } from '@/utils/classnames'
 import './globals.css'
@@ -44,10 +45,11 @@ export default function RootLayout({
         className={cn(
           outfit.variable,
           kalam.variable,
-          'font-primary flex min-h-svh flex-col text-slate-800',
+          'flex min-h-svh flex-col font-primary text-slate-800',
         )}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   )
