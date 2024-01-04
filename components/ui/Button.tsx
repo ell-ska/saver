@@ -1,9 +1,10 @@
 import { cva, VariantProps } from 'class-variance-authority'
+import { Loader2 } from 'lucide-react'
 
 import { cn } from '@/utils/classnames'
 
 export const buttonVariants = cva(
-  'inline-flex transition outline-none border border-transparent',
+  'inline-flex transition outline-none border border-transparent items-center justify-center',
   {
     variants: {
       variant: {
@@ -50,13 +51,14 @@ export const buttonVariants = cva(
 )
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants>
+  VariantProps<typeof buttonVariants> & { loader?: boolean }
 
 const Button = ({
   children,
   variant,
   size,
   className,
+  loader,
   ...props
 }: ButtonProps) => {
   size =
@@ -69,6 +71,7 @@ const Button = ({
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
     >
+      {loader && <Loader2 size={16} className='animate-spin' />}
       {children}
     </button>
   )
