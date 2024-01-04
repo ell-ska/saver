@@ -17,8 +17,6 @@ const CreateAccountForm = () => {
     resolver: zodResolver(createAccountSchema),
   })
 
-  // TODO: handle errors
-
   const onSubmit = (values: z.infer<typeof createAccountSchema>) => {
     // TODO: add create account functionality
     console.log({ values })
@@ -31,6 +29,7 @@ const CreateAccountForm = () => {
     >
       <FormField
         {...register('fullName')}
+        error={errors.fullName}
         type='text'
         labelText='enter your full name'
         placeholder='full name'
@@ -38,6 +37,7 @@ const CreateAccountForm = () => {
       />
       <FormField
         {...register('email')}
+        error={errors.email}
         type='email'
         labelText='enter your email'
         placeholder='email'
@@ -45,6 +45,7 @@ const CreateAccountForm = () => {
       />
       <FormField
         {...register('password')}
+        error={errors.password}
         type='password'
         labelText='enter your password'
         placeholder='password'
@@ -52,6 +53,7 @@ const CreateAccountForm = () => {
       />
       <FormField
         {...register('confirmPassword')}
+        error={errors.confirmPassword}
         type='password'
         labelText='confirm your password'
         placeholder='confirm password'

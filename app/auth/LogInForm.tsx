@@ -17,8 +17,6 @@ const LogInForm = () => {
     resolver: zodResolver(logInSchema),
   })
 
-  // TODO: handle errors
-
   const onSubmit = (values: z.infer<typeof logInSchema>) => {
     // TODO: add log in functionality
     console.log({ values })
@@ -31,6 +29,7 @@ const LogInForm = () => {
     >
       <FormField
         {...register('email')}
+        error={errors.email}
         type='email'
         labelText='enter your email'
         placeholder='email'
@@ -39,6 +38,7 @@ const LogInForm = () => {
       {/* TODO: add forgot password link */}
       <FormField
         {...register('password')}
+        error={errors.password}
         type='password'
         labelText='enter your password'
         placeholder='password'

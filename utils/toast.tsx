@@ -19,7 +19,7 @@ export const toast = (message: string, options?: toastOptions) => {
         color === 'secondary' &&
           'border-secondary-dark bg-secondary-light text-secondary-dark',
       ),
-      title: 'font-primary',
+      title: 'font-primary lowercase',
     },
     icon,
     ...options,
