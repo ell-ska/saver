@@ -44,7 +44,7 @@ export default function RootLayout({
         className={cn(
           outfit.variable,
           kalam.variable,
-          'font-primary text-slate-800',
+          'font-primary flex min-h-svh flex-col text-slate-800',
         )}
       >
         {children}

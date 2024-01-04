@@ -9,13 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.3.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.303.0",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
-    "tailwind-merge": "^2.2.0"
+    "react-hook-form": "^7.49.2",
+    "tailwind-merge": "^2.2.0",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",
