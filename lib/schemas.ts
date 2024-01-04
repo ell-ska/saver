@@ -10,3 +10,8 @@ export const createAccountSchema = z.object({
     message: 'a minimum of 6 characters required',
   }),
 })
+
+export const logInSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+})
