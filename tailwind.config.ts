@@ -29,6 +29,9 @@ const config: Config = {
           dark: '#84B00C',
         },
       },
+      screens: {
+        smh: { raw: '(min-height: 580px)' },
+      },
     },
   },
   future: {
