@@ -5,7 +5,9 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { logIn } from '@/actions/log-in'
 import { logInSchema } from '@/lib/schemas'
+import { toast } from '@/utils/toast'
 import Button from '@/components/ui/Button'
 import FormField from '@/components/ui/FormField'
 
@@ -23,9 +25,13 @@ const LogInForm = () => {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof logInSchema>) => {
-    // TODO: add log in functionality
-    console.log({ values })
+  const onSubmit = async (values: z.infer<typeof logInSchema>) => {
+    try {
+      const data = await logIn(values)
+      if (data?.error) toast(data.error)
+    } catch (error) {
+      toast('something went wrong')
+    }
   }
 
   return (
