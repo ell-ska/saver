@@ -10,6 +10,10 @@ export const {
   signOut,
   auth,
 } = NextAuth({
+  pages: {
+    signIn: '/auth/log-in',
+    error: '/auth/error',
+  },
   adapter: PrismaAdapter(db),
   session: { strategy: 'jwt' },
   ...authConfig,

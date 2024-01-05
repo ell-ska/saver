@@ -9,12 +9,31 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(cuid())
-  name     String
-  email    String? @unique
-  password String?
-  image    String?
+  id            String    @id @default(cuid())
+  name          String
+  email         String?   @unique
+  emailVerified DateTime?
+  password      String?
+  image         String?
+
+  accounts Account[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  type              String
+  provider          String
+  providerAccountId String
+  access_token      String? @db.Text
+  refresh_token     String? @db.Text
+  token_type        String?
+  scope             String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }

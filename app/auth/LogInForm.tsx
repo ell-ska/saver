@@ -13,6 +13,7 @@ import FormField from '@/components/ui/FormField'
 
 const LogInForm = () => {
   const searchParams = useSearchParams()
+  // TODO: handle url error 'OAuthAccountNotLinked'
 
   const {
     register,

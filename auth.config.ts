@@ -8,7 +8,10 @@ import { db } from './lib/db'
 
 export default {
   providers: [
-    GitHub,
+    GitHub({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    }),
     Credentials({
       authorize: async (credentials) => {
         const validatedCredentials = logInSchema.safeParse(credentials)

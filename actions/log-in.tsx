@@ -19,8 +19,11 @@ export const logIn = async (
   const { email, password } = validatedValues.data
 
   const existingUser = await db.user.findUnique({ where: { email } })
-  if (!existingUser || !existingUser.email || !existingUser.password)
+  if (!existingUser || !existingUser.email)
     return { error: 'email does not exist' }
+
+  if (!existingUser.password)
+    return { error: 'email in use with another provider' }
 
   try {
     await signIn('credentials', {
