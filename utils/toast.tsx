@@ -7,7 +7,7 @@ type toastColor = 'default' | 'secondary'
 type toastOptions = Omit<ExternalToast, 'unstyled'> & { color?: toastColor }
 
 export const toast = (message: string, options?: toastOptions) => {
-  const color = options?.color || 'default'
+  const color = options?.color || 'secondary'
   const icon = options?.icon || <AlertCircle size={18} />
 
   _toast(message, {
