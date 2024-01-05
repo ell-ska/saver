@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { createAccount } from '@/actions/create-account'
 import { createAccountSchema } from '@/lib/schemas'
+import { toast } from '@/utils/toast'
 import Button from '@/components/ui/Button'
 import FormField from '@/components/ui/FormField'
 
@@ -17,9 +19,13 @@ const CreateAccountForm = () => {
     resolver: zodResolver(createAccountSchema),
   })
 
-  const onSubmit = (values: z.infer<typeof createAccountSchema>) => {
-    // TODO: add create account functionality
-    console.log({ values })
+  const onSubmit = async (values: z.infer<typeof createAccountSchema>) => {
+    try {
+      const data = await createAccount(values)
+      if (data?.error) toast(data.error)
+    } catch (error) {
+      toast('something went wrong')
+    }
   }
 
   return (
@@ -28,8 +34,8 @@ const CreateAccountForm = () => {
       className='flex w-full grow flex-col gap-6'
     >
       <FormField
-        {...register('fullName')}
-        error={errors.fullName}
+        {...register('name')}
+        error={errors.name}
         type='text'
         labelText='enter your full name'
         placeholder='full name'
