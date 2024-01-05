@@ -15,7 +15,7 @@ const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
         <label htmlFor={name} hidden>
           {labelText}
         </label>
-        <Input ref={ref} name={name} isError={!!error} {...props} />
+        <Input ref={ref} name={name} id={name} isError={!!error} {...props} />
         {error && (
           <span className='text-sm lowercase text-secondary-dark'>
             {error.message}
