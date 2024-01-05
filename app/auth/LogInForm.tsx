@@ -1,5 +1,6 @@
 'use client'
 
+import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,12 +10,17 @@ import Button from '@/components/ui/Button'
 import FormField from '@/components/ui/FormField'
 
 const LogInForm = () => {
+  const searchParams = useSearchParams()
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<z.infer<typeof logInSchema>>({
     resolver: zodResolver(logInSchema),
+    defaultValues: {
+      email: searchParams.get('email') || '',
+    },
   })
 
   const onSubmit = (values: z.infer<typeof logInSchema>) => {
