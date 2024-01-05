@@ -16,5 +16,13 @@ export const {
   },
   adapter: PrismaAdapter(db),
   session: { strategy: 'jwt' },
+  callbacks: {
+    session: async ({ token, session }) => {
+      if (token.sub && session.user) {
+        session.user.id = token.sub
+      }
+      return session
+    },
+  },
   ...authConfig,
 })
