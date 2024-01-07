@@ -1,5 +1,6 @@
 'use server'
 
+import { isRedirectError } from 'next/dist/client/components/redirect'
 import { AuthError } from 'next-auth'
 import { z } from 'zod'
 
@@ -7,7 +8,6 @@ import { signIn } from '@/auth'
 import { getDefaultLoginRedirect } from '@/routes'
 import { logInSchema } from '@/lib/schemas'
 import { db } from '@/lib/db'
-import { isRedirectError } from 'next/dist/client/components/redirect'
 
 export const logIn = async (
   values: z.infer<typeof logInSchema>,
