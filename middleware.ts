@@ -1,16 +1,12 @@
-import NextAuth from 'next-auth'
-
-import authConfig from '@/auth.config'
+import { auth } from '@/auth'
 import {
   apiAuthPrefix,
   authRoutes,
-  defaultLoginRedirect,
+  getDefaultLoginRedirect,
   publicRoutes,
 } from '@/routes'
 
-const { auth } = NextAuth(authConfig)
-
-export default auth((req) => {
+export default auth(async (req) => {
   const { nextUrl } = req
   const isLoggedIn = !!req.auth
 
@@ -22,19 +18,15 @@ export default auth((req) => {
 
   if (isAuthRoute) {
     if (isLoggedIn)
-      return Response.redirect(new URL(defaultLoginRedirect, nextUrl))
+      return Response.redirect(
+        new URL(getDefaultLoginRedirect(req.auth?.user?.id), nextUrl),
+      )
     return null
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-    let callbackUrl = nextUrl.pathname
-    if (nextUrl.search) callbackUrl += nextUrl.search
-
-    const encodedCallbackUrl = encodeURI(callbackUrl)
-
-    return Response.redirect(
-      new URL(`/auth/log-in?callbackUrl=${encodedCallbackUrl}`, nextUrl),
-    )
+    // TODO: add callback urls
+    return Response.redirect('/auth/log-in')
   }
 
   return null

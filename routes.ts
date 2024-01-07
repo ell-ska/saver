@@ -1,5 +1,3 @@
-export const defaultLoginRedirect = '/'
-
 export const apiAuthPrefix = '/api/auth'
 
 export const publicRoutes = ['/']
@@ -9,3 +7,7 @@ export const authRoutes = [
   '/auth/log-in',
   '/auth/error',
 ]
+
+export const getDefaultLoginRedirect = (userId: string | undefined) => {
+  return userId ? `/${userId}` : '/'
+}

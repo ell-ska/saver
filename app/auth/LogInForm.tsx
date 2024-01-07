@@ -28,6 +28,7 @@ const LogInForm = () => {
 
   const onSubmit = async (values: z.infer<typeof logInSchema>) => {
     try {
+      // TODO: add callback url
       const data = await logIn(values)
       if (data?.error) toast(data.error)
     } catch (error) {
