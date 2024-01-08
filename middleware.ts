@@ -24,7 +24,7 @@ export default auth(async (req) => {
 
   if (!isLoggedIn && !isPublicRoute) {
     // TODO: add callback urls
-    return Response.redirect('/auth/log-in')
+    return Response.redirect(new URL('/auth/log-in', nextUrl))
   }
 
   return null
