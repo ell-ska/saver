@@ -3,6 +3,7 @@ import { Outfit, Kalam } from 'next/font/google'
 import { Toaster } from 'sonner'
 
 import { cn } from '@/utils/classnames'
+import SessionProvider from '@/providers/SessionProvider'
 import './globals.css'
 
 const outfit = Outfit({
@@ -48,7 +49,7 @@ export default function RootLayout({
           'flex min-h-svh flex-col font-primary text-slate-800',
         )}
       >
-        {children}
+        <SessionProvider>{children}</SessionProvider>
         <Toaster />
       </body>
     </html>
