@@ -4,7 +4,7 @@ import BottomNavigation from '@/components/BottomNavigation'
 const Navigation = () => {
   return (
     <>
-      <Sidebar className='hidden md:flex' />
+      <Sidebar className='hidden md:block' />
       <BottomNavigation className='md:hidden' />
     </>
   )

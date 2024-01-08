@@ -26,10 +26,10 @@ export const useSidebar = create<SidebarStore>((set, get) => ({
     const sidebar = get().sidebarRef.current
     if (!sidebar) return
 
-    set({ isTransitioning: true, isCollapsed: true })
-    sidebar.style.width = '0'
+    set({ isTransitioning: true })
+    sidebar.style.width = '0px'
 
-    setTimeout(() => set({ isTransitioning: false }), 150)
+    setTimeout(() => set({ isTransitioning: false, isCollapsed: true }), 150)
   },
   resetWidth: () => {
     const sidebar = get().sidebarRef.current

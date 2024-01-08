@@ -1,17 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
-import { ChevronsLeft, CircleUserRound, Inbox } from 'lucide-react'
+import { ChevronsLeft } from 'lucide-react'
 
 import { useSidebar } from '@/hooks/useSidebar'
 import { cn } from '@/utils/classnames'
-import Button, { buttonVariants } from '@/components/ui/Button'
+import SidebarNavigation from '@/components/SidebarNavigation'
+import Button from '@/components/ui/Button'
 
 type SidebarProps = { className: string }
 
 const Sidebar = ({ className }: SidebarProps) => {
-  const user = useSession().data?.user
   const {
     sidebarRef,
     isCollapsed,
@@ -25,10 +24,10 @@ const Sidebar = ({ className }: SidebarProps) => {
     <aside
       ref={sidebarRef}
       className={cn(
-        'group/sidebar relative flex w-60 flex-col justify-between bg-slate-50 px-4 py-6 text-slate-400 opacity-100',
-        isTransitioning && 'transition-all',
-        isCollapsed && 'opacity-0',
         className,
+        'group/sidebar relative w-60 bg-slate-50 text-slate-400',
+        isTransitioning && 'transition-all',
+        isCollapsed && 'invisible',
       )}
     >
       <div
@@ -36,48 +35,25 @@ const Sidebar = ({ className }: SidebarProps) => {
         onClick={resetWidth}
         className='absolute right-0 top-0 h-full w-1 cursor-ew-resize bg-slate-200 opacity-0 transition group-hover/sidebar:opacity-100'
       />
-      <div>
-        <div className='flex items-center justify-between'>
-          <Link href={`/home`} className='font-branding text-xl text-primary'>
-            saver
-          </Link>
-          <Button
-            onClick={collapse}
-            variant='ghost'
-            size='icon'
-            className='opacity-0 group-hover/sidebar:opacity-100'
-          >
-            <ChevronsLeft size={20} />
-          </Button>
+      <div className='flex h-full flex-col justify-between px-4 py-6'>
+        <div>
+          <div className='flex items-center justify-between'>
+            <Link href='/home' className='font-branding text-xl text-primary'>
+              saver
+            </Link>
+            <Button
+              onClick={collapse}
+              variant='ghost'
+              size='icon'
+              className='opacity-0 group-hover/sidebar:opacity-100'
+            >
+              <ChevronsLeft size={20} />
+            </Button>
+          </div>
+          <div>favorites</div>
+          <div>boards</div>
         </div>
-        <div>favorites</div>
-        <div>boards</div>
-      </div>
-      <div className='flex flex-col'>
-        <Link
-          href='/sort-later'
-          className={cn(
-            buttonVariants({
-              variant: 'ghost',
-              className: 'justify-start gap-2 px-2 py-1',
-            }),
-          )}
-        >
-          <Inbox size={20} />
-          <span>sort later</span>
-        </Link>
-        <Link
-          href='/profile'
-          className={cn(
-            buttonVariants({
-              variant: 'ghost',
-              className: 'justify-start gap-2 px-2 py-1',
-            }),
-          )}
-        >
-          <CircleUserRound size={20} />
-          <span>{user?.name}</span>
-        </Link>
+        <SidebarNavigation />
       </div>
     </aside>
   )
