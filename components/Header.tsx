@@ -13,7 +13,7 @@ const Header = () => {
   ])
 
   return (
-    <header className='sticky top-0 flex w-full items-center justify-between bg-white p-4 md:px-8 md:py-6'>
+    <header className='sticky top-0 flex h-20 w-full items-center justify-between bg-white px-4 md:px-8'>
       <div>
         <Button
           onClick={openSidebar}

@@ -7,7 +7,9 @@ const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
       <Navigation />
       <div className='grow overflow-scroll'>
         <Header />
-        <main>{children}</main>
+        <main className='grid h-[calc(100%-5rem)] px-4 py-4 md:px-20'>
+          {children}
+        </main>
       </div>
     </div>
   )
