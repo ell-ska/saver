@@ -40,7 +40,7 @@ export const buttonVariants = cva(
       size: {
         md: 'gap-2 px-4 py-2 text-base',
         sm: 'gap-1 px-2 py-[2px] text-sm',
-        icon: 'p-1',
+        icon: 'p-[2px]',
       },
     },
     defaultVariants: {
