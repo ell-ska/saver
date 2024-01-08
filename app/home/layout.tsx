@@ -3,7 +3,7 @@ import Header from '@/components/Header'
 
 const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='flex h-screen overflow-hidden'>
+    <div className='flex h-svh overflow-hidden'>
       <Navigation />
       <div className='grow overflow-scroll'>
         <Header />
