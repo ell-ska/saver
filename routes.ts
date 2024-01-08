@@ -8,6 +8,4 @@ export const authRoutes = [
   '/auth/error',
 ]
 
-export const getDefaultLoginRedirect = (userId: string | undefined) => {
-  return userId ? `/${userId}` : '/'
-}
+export const defaultLoginRedirect = '/home'

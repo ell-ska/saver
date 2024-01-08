@@ -5,7 +5,7 @@ import { AuthError } from 'next-auth'
 import { z } from 'zod'
 
 import { signIn } from '@/auth'
-import { getDefaultLoginRedirect } from '@/routes'
+import { defaultLoginRedirect } from '@/routes'
 import { logInSchema } from '@/lib/schemas'
 import { db } from '@/lib/db'
 
@@ -29,7 +29,7 @@ export const logIn = async (
     await signIn('credentials', {
       email,
       password,
-      redirectTo: callbackUrl || getDefaultLoginRedirect(existingUser.id),
+      redirectTo: callbackUrl || defaultLoginRedirect,
     })
   } catch (error) {
     if (error instanceof AuthError && error.type === 'CredentialsSignin')

@@ -2,7 +2,7 @@ import { auth } from '@/auth'
 import {
   apiAuthPrefix,
   authRoutes,
-  getDefaultLoginRedirect,
+  defaultLoginRedirect,
   publicRoutes,
 } from '@/routes'
 
@@ -18,9 +18,7 @@ export default auth(async (req) => {
 
   if (isAuthRoute) {
     if (isLoggedIn)
-      return Response.redirect(
-        new URL(getDefaultLoginRedirect(req.auth?.user?.id), nextUrl),
-      )
+      return Response.redirect(new URL(defaultLoginRedirect, nextUrl))
     return null
   }
 
