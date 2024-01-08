@@ -4,9 +4,16 @@ import { CircleUserRound, Home, Inbox, Plus, Search } from 'lucide-react'
 import { cn } from '@/utils/classnames'
 import Button, { buttonVariants } from '@/components/ui/Button'
 
-const BottomNavigation = () => {
+type BottomNavigationProps = { className: string }
+
+const BottomNavigation = ({ className }: BottomNavigationProps) => {
   return (
-    <nav className='absolute bottom-0 flex w-full items-center justify-between bg-white px-12 py-4'>
+    <nav
+      className={cn(
+        'absolute bottom-0 flex w-full items-center justify-between bg-white px-12 py-4',
+        className,
+      )}
+    >
       <Link
         href='/home'
         className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}

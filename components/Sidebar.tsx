@@ -8,7 +8,9 @@ import { useSidebar } from '@/hooks/useSidebar'
 import { cn } from '@/utils/classnames'
 import Button, { buttonVariants } from '@/components/ui/Button'
 
-const Sidebar = () => {
+type SidebarProps = { className: string }
+
+const Sidebar = ({ className }: SidebarProps) => {
   const user = useSession().data?.user
   const {
     sidebarRef,
@@ -26,6 +28,7 @@ const Sidebar = () => {
         'group/sidebar relative flex w-60 flex-col justify-between bg-slate-50 px-4 py-6 text-slate-400 opacity-100',
         isTransitioning && 'transition-all',
         isCollapsed && 'opacity-0',
+        className,
       )}
     >
       <div
