@@ -1,7 +1,7 @@
 import { ElementRef, createRef } from 'react'
 import { create } from 'zustand'
 
-type NavigationStore = {
+type SidebarStore = {
   sidebarRef: React.MutableRefObject<ElementRef<'aside'> | null>
   isResizing: React.MutableRefObject<boolean | null>
   isCollapsed: boolean
@@ -17,7 +17,7 @@ type NavigationStore = {
   }
 }
 
-export const useSidebar = create<NavigationStore>((set, get) => ({
+export const useSidebar = create<SidebarStore>((set, get) => ({
   sidebarRef: createRef(),
   isResizing: createRef(),
   isCollapsed: false,
