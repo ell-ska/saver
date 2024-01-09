@@ -32,9 +32,7 @@ const SidebarNavigation = () => {
             className='justify-start gap-2 py-1'
           >
             <Icon size={20} className='shrink-0' />
-            <span className='overflow-hidden text-ellipsis whitespace-nowrap'>
-              {text}
-            </span>
+            <span className='truncate'>{text}</span>
           </Button>
         )
       })}
