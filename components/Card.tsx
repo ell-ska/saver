@@ -22,19 +22,18 @@ const Card = ({
   className,
   ...props
 }: CardProps) => {
+  className = cn(cardVariants({ rounded, width, className }))
+
   if (href) {
     return (
-      <Link
-        href={href}
-        className={cn(cardVariants({ rounded, width, className }))}
-      >
+      <Link href={href} className={className}>
         {children}
       </Link>
     )
   }
 
   return (
-    <div className={cn(cardVariants({ rounded, width, className }))} {...props}>
+    <div className={className} {...props}>
       {children}
     </div>
   )

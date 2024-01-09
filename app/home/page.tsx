@@ -1,7 +1,8 @@
 'use client'
 
-import Button from '@/components/ui/Button'
 import { Plus } from 'lucide-react'
+
+import Button from '@/components/ui/Button'
 
 const HomePage = () => {
   return (

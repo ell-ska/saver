@@ -1,7 +1,4 @@
-import Link from 'next/link'
-
-import { cn } from '@/utils/classnames'
-import { buttonVariants } from '@/components/ui/Button'
+import Button from '@/components/ui/Button'
 import Social from '../Social'
 import LogInForm from '../LogInForm'
 
@@ -15,15 +12,15 @@ const LogInPage = () => {
       <Social type='log-in' />
       <span className='mb-4'>or</span>
       <LogInForm />
-      <Link
+      <Button
+        asLink
         href='/auth/create-account'
-        className={cn(
-          buttonVariants({ variant: 'ghost', size: 'sm', className: 'mt-8' }),
-        )}
+        variant='ghost'
+        className='mt-8'
       >
         don&apos;t have an account?{' '}
         <span className='font-bold'>create one</span>
-      </Link>
+      </Button>
     </>
   )
 }

@@ -1,8 +1,7 @@
-import Link from 'next/link'
 import { CircleUserRound, Home, Inbox, Plus, Search } from 'lucide-react'
 
 import { cn } from '@/utils/classnames'
-import Button, { buttonVariants } from '@/components/ui/Button'
+import Button from '@/components/ui/Button'
 
 type BottomNavigationProps = { className: string }
 
@@ -14,33 +13,21 @@ const BottomNavigation = ({ className }: BottomNavigationProps) => {
         className,
       )}
     >
-      <Link
-        href='/home'
-        className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
-      >
+      <Button asLink href='/home' variant='ghost' size='icon'>
         <Home />
-      </Link>
-      <Link
-        href='/search'
-        className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
-      >
+      </Button>
+      <Button asLink href='/search' variant='ghost' size='icon'>
         <Search />
-      </Link>
+      </Button>
       <Button variant='ghost' size='icon'>
         <Plus />
       </Button>
-      <Link
-        href='/sort-later'
-        className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
-      >
+      <Button asLink href='/sort-later' variant='ghost' size='icon'>
         <Inbox />
-      </Link>
-      <Link
-        href='/profile'
-        className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }))}
-      >
+      </Button>
+      <Button asLink href='/profile' variant='ghost' size='icon'>
         <CircleUserRound />
-      </Link>
+      </Button>
     </nav>
   )
 }

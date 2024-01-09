@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { cva, VariantProps } from 'class-variance-authority'
 import { Loader2 } from 'lucide-react'
 
@@ -51,14 +52,20 @@ export const buttonVariants = cva(
 )
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof buttonVariants> & { loader?: boolean }
+  VariantProps<typeof buttonVariants> & {
+    asLink?: boolean
+    href?: string
+    loader?: boolean
+  }
 
 const Button = ({
   children,
   variant,
   size,
-  className,
+  asLink,
+  href,
   loader,
+  className,
   ...props
 }: ButtonProps) => {
   size =
@@ -66,11 +73,19 @@ const Button = ({
       ? 'sm'
       : size
 
+  className = cn(buttonVariants({ variant, size, className }))
+
+  if (asLink && href) {
+    return (
+      <Link href={href} className={className}>
+        {loader && <Loader2 size={16} className='animate-spin' />}
+        {children}
+      </Link>
+    )
+  }
+
   return (
-    <button
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    >
+    <button className={className} {...props}>
       {loader && <Loader2 size={16} className='animate-spin' />}
       {children}
     </button>

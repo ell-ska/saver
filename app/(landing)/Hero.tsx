@@ -1,7 +1,6 @@
-import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 
-import { buttonVariants } from '@/components/ui/Button'
+import Button from '@/components/ui/Button'
 import { cn } from '@/utils/classnames'
 
 const Hero = () => {
@@ -15,10 +14,10 @@ const Hero = () => {
           welcome to <span className='font-branding text-5xl'>saver</span>
         </span>
       </h1>
-      <Link href='/auth/create-account' className={cn(buttonVariants())}>
+      <Button asLink href='/auth/create-account'>
         <span>get saver for free!</span>
         <ChevronRight />
-      </Link>
+      </Button>
     </section>
   )
 }
