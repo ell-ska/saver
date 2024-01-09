@@ -26,7 +26,7 @@ const Card = ({
 
   if (href) {
     return (
-      <Link href={href} className={className}>
+      <Link href={href} className={cn(className, 'block')}>
         {children}
       </Link>
     )
