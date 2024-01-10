@@ -62,8 +62,9 @@ model Member {
 
 model Board {
   id          String  @id @default(cuid())
-  title       String
+  title       String?
   description String?
+  isFavorite  Boolean @default(false)
   isArchived  Boolean @default(false)
   // order       Int
 
@@ -90,9 +91,9 @@ enum Width {
 
 model Card {
   id         String  @id @default(cuid())
-  title      String
+  title      String?
   caption    String?
-  width      Width
+  width      Width   @default(HALF)
   isArchived Boolean @default(false)
   // order      Int
 
@@ -137,8 +138,7 @@ model Image {
 
 model Link {
   id          String  @id @default(cuid())
-  title       String
-  url         String
+  url         String?
   faviconUrl  String?
   description String?
 
