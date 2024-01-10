@@ -3,18 +3,18 @@ import NextImage, { ImageProps as NextImageProps } from 'next/image'
 import { cn } from '@/utils/classnames'
 
 type ImageProps = NextImageProps & {
-  aspect?: 'original' | '1:1' | '3:4' | '9:16'
+  aspectRatio?: 'original' | '1:1' | '3:4' | '9:16'
   orientation?: 'landscape' | 'portrait'
 }
 
 const Image = ({
-  aspect = 'original',
+  aspectRatio = 'original',
   orientation = 'landscape',
   className,
   ...props
 }: ImageProps) => {
   const getDimension = () => {
-    switch (aspect) {
+    switch (aspectRatio) {
       case 'original':
         return 'aspect-auto'
       case '1:1':

@@ -17,6 +17,7 @@ model User {
   image         String?
 
   accounts Account[]
+  members  Member[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -27,8 +28,8 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  access_token      String? @db.Text
-  refresh_token     String? @db.Text
+  access_token      String?
+  refresh_token     String?
   token_type        String?
   scope             String?
 
@@ -36,4 +37,116 @@ model Account {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+}
+
+enum Role {
+  OWNER
+  COLLABORATOR
+  GUEST
+}
+
+model Member {
+  id   String @id @default(cuid())
+  role Role
+
+  userId  String @unique
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  boardId String
+  board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Board {
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+  isArchived  Boolean @default(false)
+  // order       Int
+
+  parentBoardId String?
+  parentBoard   Board?  @relation("parentBoardChildBoards", fields: [parentBoardId], references: [id])
+  childBoards   Board[] @relation("parentBoardChildBoards")
+
+  members Member[]
+  cards   Card[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum CardType {
+  IMAGE
+  LINK
+}
+
+enum Width {
+  HALF
+  FULL
+}
+
+model Card {
+  id         String  @id @default(cuid())
+  title      String
+  caption    String?
+  width      Width
+  isArchived Boolean @default(false)
+  // order      Int
+
+  type  CardType
+  image Image?
+  link  Link?
+
+  parentBoardId String
+  parentBoard   Board  @relation(fields: [parentBoardId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Orientation {
+  LANDSCAPE
+  PORTRAIT
+}
+
+enum AspectRatio {
+  ORIGINAL
+  ONE_TO_ONE
+  THREE_TO_FOUR
+  NINE_TO_SIXTEEN
+}
+
+model Image {
+  id          String      @id @default(cuid())
+  url         String
+  orientation Orientation @default(LANDSCAPE)
+  aspectRatio AspectRatio @default(ORIGINAL)
+  width       Int
+  height      Int
+
+  cardId String? @unique
+  card   Card?   @relation(fields: [cardId], references: [id], onDelete: Cascade)
+  Link   Link?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Link {
+  id          String  @id @default(cuid())
+  title       String
+  url         String
+  faviconUrl  String?
+  description String?
+
+  imageId String? @unique
+  image   Image?  @relation(fields: [imageId], references: [id], onDelete: Cascade)
+  cardId  String  @unique
+  card    Card    @relation(fields: [cardId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
