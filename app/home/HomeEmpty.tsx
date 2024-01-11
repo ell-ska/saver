@@ -27,13 +27,14 @@ const HomeEmpty = () => {
         you don&apos;t have any boards yet!
       </h3>
       <Button
+        onClick={onClick}
         disabled={isLoading}
         loader={isLoading}
-        onClick={onClick}
         variant='secondary'
         className='w-full justify-between md:w-min'
+        icon={<Plus size={20} />}
       >
-        create new board <Plus size={20} />
+        {isLoading ? 'creating board' : 'create new board'}
       </Button>
     </div>
   )

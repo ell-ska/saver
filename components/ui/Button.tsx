@@ -55,6 +55,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
     asLink?: boolean
     href?: string
+    icon?: React.ReactNode
     loader?: boolean
   }
 
@@ -64,6 +65,7 @@ const Button = ({
   size,
   asLink,
   href,
+  icon,
   loader,
   className,
   ...props
@@ -78,16 +80,23 @@ const Button = ({
   if (asLink && href) {
     return (
       <Link href={href} className={className}>
-        {loader && <Loader2 size={16} className='animate-spin' />}
         {children}
+        {icon}
       </Link>
     )
   }
 
   return (
     <button className={className} {...props}>
-      {loader && <Loader2 size={16} className='animate-spin' />}
-      {children}
+      {children && (
+        <div
+          className={cn('flex items-center', size === 'sm' ? 'gap-1' : 'gap-2')}
+        >
+          {loader && <Loader2 size={16} className='animate-spin' />}
+          {children}
+        </div>
+      )}
+      {icon}
     </button>
   )
 }

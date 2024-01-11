@@ -13,21 +13,29 @@ const BottomNavigation = ({ className }: BottomNavigationProps) => {
         className,
       )}
     >
-      <Button asLink href='/home' variant='ghost' size='icon'>
-        <Home />
-      </Button>
-      <Button asLink href='/search' variant='ghost' size='icon'>
-        <Search />
-      </Button>
-      <Button variant='ghost' size='icon'>
-        <Plus />
-      </Button>
-      <Button asLink href='/sort-later' variant='ghost' size='icon'>
-        <Inbox />
-      </Button>
-      <Button asLink href='/profile' variant='ghost' size='icon'>
-        <CircleUserRound />
-      </Button>
+      <Button asLink href='/home' variant='ghost' size='icon' icon={<Home />} />
+      <Button
+        asLink
+        href='/search'
+        variant='ghost'
+        size='icon'
+        icon={<Search />}
+      />
+      <Button variant='ghost' size='icon' icon={<Plus />} />
+      <Button
+        asLink
+        href='/sort-later'
+        variant='ghost'
+        size='icon'
+        icon={<Inbox />}
+      />
+      <Button
+        asLink
+        href='/profile'
+        variant='ghost'
+        size='icon'
+        icon={<CircleUserRound />}
+      />
     </nav>
   )
 }

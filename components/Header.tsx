@@ -20,17 +20,17 @@ const Header = () => {
           variant='ghost'
           size='icon'
           className={cn('hidden', isCollapsed && 'inline-flex')}
-        >
-          <ChevronsRight />
-        </Button>
+          icon={<ChevronsRight />}
+        />
       </div>
       <div className='space-x-4'>
-        <Button variant='ghost' size='icon' className='hidden md:inline-flex'>
-          <Search />
-        </Button>
-        <Button variant='ghost' size='icon'>
-          <MoreVertical />
-        </Button>
+        <Button
+          variant='ghost'
+          size='icon'
+          className='hidden md:inline-flex'
+          icon={<Search />}
+        />
+        <Button variant='ghost' size='icon' icon={<MoreVertical />} />
       </div>
     </header>
   )

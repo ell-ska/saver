@@ -14,9 +14,8 @@ const Hero = () => {
           welcome to <span className='font-branding text-5xl'>saver</span>
         </span>
       </h1>
-      <Button asLink href='/auth/create-account'>
+      <Button asLink href='/auth/create-account' icon={<ChevronRight />}>
         <span>get saver for free!</span>
-        <ChevronRight />
       </Button>
     </section>
   )

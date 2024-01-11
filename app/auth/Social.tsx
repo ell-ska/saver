@@ -27,13 +27,13 @@ const Social = ({ type }: SocialProps) => {
       loader={isLoading}
       variant='secondary'
       className='mb-4 w-full'
+      icon={<Github size={16} />}
     >
       {isLoading
         ? 'redirecting to Github'
         : type === 'create-account'
           ? 'create an account with Github'
-          : 'log in with Github'}{' '}
-      <Github size={16} />
+          : 'log in with Github'}
     </Button>
   )
 }

@@ -46,9 +46,8 @@ const Sidebar = ({ className }: SidebarProps) => {
               variant='ghost'
               size='icon'
               className='opacity-0 group-hover/sidebar:opacity-100'
-            >
-              <ChevronsLeft size={20} />
-            </Button>
+              icon={<ChevronsLeft size={20} />}
+            />
           </div>
           <div>favorites</div>
           <div>boards</div>
