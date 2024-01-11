@@ -1,5 +1,4 @@
-import { slugify } from '@/utils/slugify'
-import Card from '@/components/Card'
+import CardWrapper from '@/components/card/CardWrapper'
 
 type BoardProps = {
   id: string
@@ -10,9 +9,9 @@ type BoardProps = {
 
 const Board = ({ id, title, itemCount, previewCards }: BoardProps) => {
   return (
-    <Card
+    <CardWrapper
       width='full'
-      href={`/board/${slugify(title)}-${id}`}
+      href={`/board/${id}`}
       className='space-y-2 p-4 pb-6'
     >
       <div>
@@ -23,13 +22,13 @@ const Board = ({ id, title, itemCount, previewCards }: BoardProps) => {
       <div className='flex gap-2'>
         {previewCards.map((card) => (
           // TODO: map over actual cards
-          <Card
+          <CardWrapper
             key={card}
             className='aspect-square w-full flex-1 bg-primary'
-          ></Card>
+          ></CardWrapper>
         ))}
       </div>
-    </Card>
+    </CardWrapper>
   )
 }
 

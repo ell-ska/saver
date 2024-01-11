@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
-import Card from '@/components/Card'
+import CardWrapper from '@/components/card/CardWrapper'
 
 type PreviewProps = {
   type: 'card' | 'board'
   id: string
-  title: string
+  title?: string
   parentTitle?: string
   previewCard: any // TODO: change to card type when implemented
 }
@@ -19,12 +19,15 @@ const Preview = ({
 }: PreviewProps) => {
   return (
     <Link
-      href={`/${type}/${title}-${id}`}
+      href={`/${type}/${id}`}
       className='flex w-full items-center justify-between gap-8'
     >
       <div className='flex min-w-0 items-center gap-4'>
         {/* TODO: add actual card */}
-        <Card rounded='sm' className='size-4 shrink-0 bg-primary'></Card>
+        <CardWrapper
+          rounded='sm'
+          className='size-4 shrink-0 bg-primary'
+        ></CardWrapper>
         <h4 className='truncate'>{title}</h4>
       </div>
       {parentTitle && (
