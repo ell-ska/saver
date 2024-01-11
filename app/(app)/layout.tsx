@@ -1,4 +1,4 @@
-import Navigation from '@/components/Navigation'
+import Navigation from '@/components/navigation/Navigation'
 import Header from '@/components/Header'
 
 const HomeLayout = async ({ children }: { children: React.ReactNode }) => {

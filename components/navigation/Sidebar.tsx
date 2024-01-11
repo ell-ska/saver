@@ -5,7 +5,7 @@ import { ChevronsLeft } from 'lucide-react'
 
 import { useSidebar } from '@/hooks/useSidebar'
 import { cn } from '@/utils/classnames'
-import SidebarNavigation from '@/components/SidebarNavigation'
+import SidebarNavigation from '@/components/navigation/SidebarNavigation'
 import Button from '@/components/ui/Button'
 
 type SidebarProps = { className: string }

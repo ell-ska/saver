@@ -1,5 +1,5 @@
-import Sidebar from '@/components/Sidebar'
-import BottomNavigation from '@/components/BottomNavigation'
+import Sidebar from '@/components/navigation/Sidebar'
+import BottomNavigation from '@/components/navigation/BottomNavigation'
 
 const Navigation = () => {
   return (

@@ -11,17 +11,17 @@ const cardVariants = cva('border border-slate-200 overflow-hidden', {
   defaultVariants: { rounded: 'lg', width: 'half' },
 })
 
-type CardProps = React.HTMLAttributes<HTMLDivElement> &
+type CardWrapperProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof cardVariants> & { href?: string }
 
-const Card = ({
+const CardWrapper = ({
   children,
   rounded,
   width,
   href,
   className,
   ...props
-}: CardProps) => {
+}: CardWrapperProps) => {
   className = cn(cardVariants({ rounded, width, className }))
 
   if (href) {
@@ -39,4 +39,4 @@ const Card = ({
   )
 }
 
-export default Card
+export default CardWrapper
