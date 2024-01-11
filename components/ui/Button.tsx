@@ -88,13 +88,18 @@ const Button = ({
 
   return (
     <button className={className} {...props}>
-      {children && (
+      {className.includes('justify-between') ? (
         <div
           className={cn('flex items-center', size === 'sm' ? 'gap-1' : 'gap-2')}
         >
           {loader && <Loader2 size={16} className='animate-spin' />}
           {children}
         </div>
+      ) : (
+        <>
+          {loader && <Loader2 size={16} className='animate-spin' />}
+          {children}
+        </>
       )}
       {icon}
     </button>
