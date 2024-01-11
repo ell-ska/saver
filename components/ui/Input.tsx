@@ -17,6 +17,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           border &&
             'rounded-lg border border-slate-300 px-2 py-1 focus-visible:border-primary-dark',
           isError && 'border-secondary-dark',
+          className,
         )}
         {...props}
       />

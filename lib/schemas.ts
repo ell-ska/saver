@@ -19,3 +19,8 @@ export const logInSchema = z.object({
     message: 'password is required',
   }),
 })
+
+export const detailsSchema = z.object({
+  title: z.string().optional(),
+  description: z.string().optional(),
+})
