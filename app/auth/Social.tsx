@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useTransition } from 'react'
 import { signIn } from 'next-auth/react'
 import { Github } from 'lucide-react'
 
@@ -11,12 +11,13 @@ type SocialProps = {
 }
 
 const Social = ({ type }: SocialProps) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, startTransition] = useTransition()
 
   const onClick = async () => {
-    setIsLoading(true)
-    // TODO: add callback url
-    await signIn('github')
+    startTransition(async () => {
+      // TODO: add callback url
+      await signIn('github')
+    })
   }
 
   return (
