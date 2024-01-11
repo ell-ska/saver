@@ -49,7 +49,7 @@ model Member {
   id   String @id @default(cuid())
   role Role
 
-  userId  String @unique
+  userId  String
   user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   boardId String
   board   Board  @relation(fields: [boardId], references: [id], onDelete: Cascade)
