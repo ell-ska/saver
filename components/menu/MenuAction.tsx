@@ -1,20 +1,46 @@
+import { Loader2 } from 'lucide-react'
+
+import { cn } from '@/utils/classnames'
+
 type MenuActionProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   icon: React.ReactNode
   text: string
   shortcut?: string
+  isLoading?: boolean
 }
 
-const MenuAction = ({ icon, text, shortcut, ...props }: MenuActionProps) => {
+const MenuAction = ({
+  icon,
+  text,
+  shortcut,
+  isLoading,
+  ...props
+}: MenuActionProps) => {
   return (
     <button
       className='inline-flex items-center justify-between gap-16 px-4 py-2 hover:bg-slate-100'
+      disabled={isLoading}
       {...props}
     >
-      <div className='flex items-center gap-4 text-primary'>
-        {icon}
-        <span className='text-slate-800'>{text}</span>
+      <div
+        className={cn(
+          'flex items-center gap-4 text-primary',
+          isLoading && 'text-slate-300',
+        )}
+      >
+        {isLoading ? <Loader2 size={16} className='animate-spin' /> : icon}
+        <span className={cn('text-slate-800', isLoading && 'text-slate-300')}>
+          {text}
+        </span>
       </div>
-      <kbd className='hidden text-xs text-slate-400 md:inline'>{shortcut}</kbd>
+      <kbd
+        className={cn(
+          'hidden text-xs text-slate-400 md:inline',
+          isLoading && 'text-slate-300',
+        )}
+      >
+        {shortcut}
+      </kbd>
     </button>
   )
 }

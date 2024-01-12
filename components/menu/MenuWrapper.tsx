@@ -1,10 +1,12 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 
 import { menuType, useMenu } from '@/hooks/useMenu'
 import { cn } from '@/utils/classnames'
+import { useEffect } from 'react'
 
 type MenuWrapperProps = {
   children: React.ReactNode
@@ -21,6 +23,12 @@ const MenuWrapper = ({
 }: MenuWrapperProps) => {
   const { type: openType, isOpen, onClose } = useMenu()
   const modalIsOpen = isOpen && openType === type
+
+  const path = usePathname()
+
+  useEffect(() => {
+    onClose()
+  }, [path, onClose])
 
   return (
     <Dialog.Root open={modalIsOpen} onOpenChange={onClose}>
