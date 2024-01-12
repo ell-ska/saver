@@ -1,9 +1,14 @@
 import { useSession } from 'next-auth/react'
 import { CircleUserRound, Inbox } from 'lucide-react'
 
+import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
 
-const SidebarNavigation = () => {
+type SidebarNavigationProps = {
+  isCardBoardMenu: boolean
+}
+
+const SidebarNavigation = ({ isCardBoardMenu }: SidebarNavigationProps) => {
   const user = useSession().data?.user
 
   const items = [
@@ -20,7 +25,9 @@ const SidebarNavigation = () => {
   ]
 
   return (
-    <nav className='flex flex-col'>
+    <nav
+      className={cn('flex flex-col', isCardBoardMenu && 'items-center gap-2')}
+    >
       {items.map(({ path, icon, text }) => {
         const Icon = icon
         return (
@@ -31,8 +38,8 @@ const SidebarNavigation = () => {
             variant='ghost'
             className='justify-start gap-2 py-1'
           >
-            <Icon size={20} className='shrink-0' />
-            <span className='truncate'>{text}</span>
+            <Icon size={isCardBoardMenu ? 24 : 20} className='shrink-0' />
+            {!isCardBoardMenu && <span className='truncate'>{text}</span>}
           </Button>
         )
       })}

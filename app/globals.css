@@ -7,3 +7,9 @@
     font-weight: 400 !important; /* sonners css specificity is difficult to overpower with tailwind */
   }
 }
+
+@layer utilities {
+  .path-slate-50 path {
+    @apply text-slate-50;
+  }
+}
