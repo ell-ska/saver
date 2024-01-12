@@ -30,6 +30,20 @@ const config: Config = {
           dark: '#84B00C',
         },
       },
+      keyframes: {
+        'fade-in': {
+          from: { opacity: '0' },
+          to: { opacity: '100' },
+        },
+        'fade-out': {
+          from: { opacity: '100' },
+          to: { opacity: '0' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 75ms',
+        'fade-out': 'fade-out 75ms',
+      },
       screens: {
         smh: { raw: '(min-height: 580px)' },
       },
