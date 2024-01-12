@@ -4,8 +4,9 @@ import { redirect } from 'next/navigation'
 
 import { auth } from '@/auth'
 import { db } from '@/lib/db'
+import type { ActionReturn } from '@/lib/types'
 
-export const createBoard = async () => {
+export const createBoard = async (): Promise<ActionReturn<undefined>> => {
   const session = await auth()
 
   if (!session?.user) return { error: 'unauthenticated' }

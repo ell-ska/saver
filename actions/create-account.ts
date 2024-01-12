@@ -6,10 +6,11 @@ import bcrypt from 'bcryptjs'
 
 import { createAccountSchema } from '@/lib/schemas'
 import { db } from '@/lib/db'
+import type { ActionReturn } from '@/lib/types'
 
 export const createAccount = async (
   values: z.infer<typeof createAccountSchema>,
-): Promise<{ error: string } | undefined> => {
+): Promise<ActionReturn<undefined>> => {
   const validatedValues = createAccountSchema.safeParse(values)
   if (!validatedValues.success) return { error: 'invalid fields' }
 

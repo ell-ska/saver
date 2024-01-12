@@ -8,11 +8,12 @@ import { signIn } from '@/auth'
 import { defaultLoginRedirect } from '@/routes'
 import { logInSchema } from '@/lib/schemas'
 import { db } from '@/lib/db'
+import type { ActionReturn } from '@/lib/types'
 
 export const logIn = async (
   values: z.infer<typeof logInSchema>,
   callbackUrl?: string,
-): Promise<{ error: string } | undefined> => {
+): Promise<ActionReturn<undefined>> => {
   const validatedValues = logInSchema.safeParse(values)
   if (!validatedValues.success) return { error: 'invalid fields' }
 
