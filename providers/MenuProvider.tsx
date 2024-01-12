@@ -1,5 +1,6 @@
 'use client'
 
+import AddMenu from '@/components/menu/AddMenu'
 import { useEffect, useState } from 'react'
 
 const MenuProvider = () => {
@@ -11,7 +12,11 @@ const MenuProvider = () => {
 
   if (!isMounted) return null
 
-  return <></>
+  return (
+    <>
+      <AddMenu />
+    </>
+  )
 }
 
 export default MenuProvider

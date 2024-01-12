@@ -1,15 +1,20 @@
+'use client'
+
 import { CircleUserRound, Home, Inbox, Plus, Search } from 'lucide-react'
 
+import { useMenu } from '@/hooks/useMenu'
 import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
 
 type BottomNavigationProps = { className: string }
 
 const BottomNavigation = ({ className }: BottomNavigationProps) => {
+  const [openMenu] = useMenu((state) => [state.onOpen])
+
   return (
     <nav
       className={cn(
-        'absolute bottom-0 flex w-full items-center justify-between bg-white px-12 py-4',
+        'absolute bottom-0 z-30 flex w-full items-center justify-between bg-white px-12 py-4',
         className,
       )}
     >
@@ -21,7 +26,14 @@ const BottomNavigation = ({ className }: BottomNavigationProps) => {
         size='icon'
         icon={<Search />}
       />
-      <Button variant='ghost' size='icon' icon={<Plus />} />
+      <Button
+        onClick={() => {
+          openMenu('add')
+        }}
+        variant='ghost'
+        size='icon'
+        icon={<Plus />}
+      />
       <Button
         asLink
         href='/sort-later'

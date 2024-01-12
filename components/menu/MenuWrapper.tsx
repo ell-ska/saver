@@ -25,10 +25,10 @@ const MenuWrapper = ({
   return (
     <Dialog.Root open={modalIsOpen} onOpenChange={onClose}>
       <Dialog.Portal>
-        <Dialog.Overlay className='absolute inset-0 bg-slate-800/50 md:hidden' />
+        <Dialog.Overlay className='absolute inset-0 z-40 bg-slate-800/50 md:hidden' />
         <Dialog.Content
           className={cn(
-            'absolute bottom-0 left-0 right-0 rounded-t-lg border-slate-300 bg-white md:bottom-auto md:left-auto md:right-8 md:top-20 md:rounded-lg md:border',
+            'absolute bottom-0 left-0 right-0 z-50 rounded-t-lg border-slate-300 bg-white md:bottom-auto md:left-auto md:right-8 md:top-20 md:rounded-lg md:border',
             className,
           )}
         >

@@ -5,8 +5,8 @@ import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 type TooltipProps = {
   children: React.ReactNode
   label: string
-  side: 'top' | 'right' | 'bottom' | 'left'
-  align: 'start' | 'center' | 'end'
+  side?: 'top' | 'right' | 'bottom' | 'left'
+  align?: 'start' | 'center' | 'end'
 }
 
 const Tooltip = ({
