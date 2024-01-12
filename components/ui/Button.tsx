@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import Link from 'next/link'
 import { cva, VariantProps } from 'class-variance-authority'
 import { Loader2 } from 'lucide-react'
@@ -59,51 +60,60 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
     loader?: boolean
   }
 
-const Button = ({
-  children,
-  variant,
-  size,
-  asLink,
-  href,
-  icon,
-  loader,
-  className,
-  ...props
-}: ButtonProps) => {
-  size =
-    size === undefined && (variant === 'subtle' || variant === 'ghost')
-      ? 'sm'
-      : size
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      variant,
+      size,
+      asLink,
+      href,
+      icon,
+      loader,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
+    size =
+      size === undefined && (variant === 'subtle' || variant === 'ghost')
+        ? 'sm'
+        : size
 
-  className = cn(buttonVariants({ variant, size, className }))
+    className = cn(buttonVariants({ variant, size, className }))
 
-  if (asLink && href) {
+    if (asLink && href) {
+      return (
+        <Link href={href} className={className}>
+          {children}
+          {icon}
+        </Link>
+      )
+    }
+
     return (
-      <Link href={href} className={className}>
-        {children}
+      <button ref={ref} className={className} {...props}>
+        {className.includes('justify-between') ? (
+          <div
+            className={cn(
+              'flex items-center',
+              size === 'sm' ? 'gap-1' : 'gap-2',
+            )}
+          >
+            {loader && <Loader2 size={16} className='animate-spin' />}
+            {children}
+          </div>
+        ) : (
+          <>
+            {loader && <Loader2 size={16} className='animate-spin' />}
+            {children}
+          </>
+        )}
         {icon}
-      </Link>
+      </button>
     )
-  }
-
-  return (
-    <button className={className} {...props}>
-      {className.includes('justify-between') ? (
-        <div
-          className={cn('flex items-center', size === 'sm' ? 'gap-1' : 'gap-2')}
-        >
-          {loader && <Loader2 size={16} className='animate-spin' />}
-          {children}
-        </div>
-      ) : (
-        <>
-          {loader && <Loader2 size={16} className='animate-spin' />}
-          {children}
-        </>
-      )}
-      {icon}
-    </button>
-  )
-}
+  },
+)
+Button.displayName = 'Button'
 
 export default Button
