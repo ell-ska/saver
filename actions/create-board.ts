@@ -8,7 +8,6 @@ import type { ActionReturn } from '@/lib/types'
 
 export const createBoard = async (): Promise<ActionReturn<undefined>> => {
   const session = await auth()
-
   if (!session?.user) return { error: 'unauthenticated' }
 
   let board

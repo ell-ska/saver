@@ -91,7 +91,6 @@ enum Width {
 
 model Card {
   id         String  @id @default(cuid())
-  title      String?
   caption    String?
   width      Width   @default(HALF)
   isArchived Boolean @default(false)
@@ -138,7 +137,8 @@ model Image {
 
 model Link {
   id          String  @id @default(cuid())
-  url         String?
+  url         String
+  title       String?
   faviconUrl  String?
   description String?
 
