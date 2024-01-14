@@ -5,8 +5,9 @@ import { Card, CardType } from '@prisma/client'
 
 import { auth } from '@/auth'
 import { db } from '@/lib/db'
-import { createCardSchema, createLinkCardSchema } from '@/lib/schemas'
+import { createCardSchema } from '@/lib/schemas'
 import type { ActionReturn } from '@/lib/types'
+import { getOgData } from '@/utils/getOgData'
 
 export const createCard = async (
   values: z.infer<typeof createCardSchema>,
@@ -35,12 +36,28 @@ export const createCard = async (
 
   switch (type) {
     case CardType.LINK:
-      // TODO: generate og data from url
-      const { url } = validatedData as z.infer<typeof createLinkCardSchema>
+      const { url } = validatedData
+      const ogData = await getOgData(url)
+
+      const image = ogData?.image && {
+        url: ogData.image.url,
+        width: ogData.image.width || 500,
+        height: ogData.image.height || 375,
+      }
 
       data = {
         link: {
-          create: { url },
+          create: {
+            url,
+            title: ogData?.title,
+            description: ogData?.description,
+            faviconUrl: ogData?.faviconUrl,
+            image: image && {
+              create: {
+                ...image,
+              },
+            },
+          },
         },
       }
       break
