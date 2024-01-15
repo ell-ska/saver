@@ -18,7 +18,7 @@ const MenuAction = ({
 }: MenuActionProps) => {
   return (
     <button
-      className='inline-flex items-center justify-between gap-16 border border-transparent px-4 py-2 outline-none hover:bg-slate-100 focus-visible:border-primary-dark'
+      className='inline-flex w-full items-center justify-between gap-16 border border-transparent px-4 py-2 outline-none hover:bg-slate-100 focus-visible:border-primary-dark'
       disabled={isLoading}
       {...props}
     >

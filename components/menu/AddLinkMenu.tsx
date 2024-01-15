@@ -20,10 +20,11 @@ const schema = createLinkCardSchema.omit({
 
 const AddLinkMenu = () => {
   const params = useParams()
-  const [closeMenu] = useMenu((state) => [state.close])
+  const [closeMenu, openMenu] = useMenu((state) => [state.close, state.open])
 
-  const { execute, isLoading, data } = useAction(createCard, {
+  const { execute, isLoading } = useAction(createCard, {
     onError: (error) => toast(error),
+    onSuccess: closeMenu,
   })
 
   const {
@@ -39,14 +40,16 @@ const AddLinkMenu = () => {
 
   const onSubmit = async (values: z.infer<typeof schema>) => {
     const parentBoardId = params.boardId
-    if (!parentBoardId || typeof parentBoardId !== 'string') return // redirect to "add to" menu
+    if (!parentBoardId || typeof parentBoardId !== 'string') {
+      return openMenu('pick-board', {
+        pickBoard: { type: 'add', values },
+      })
+    }
 
-    await execute({
+    execute({
       ...values,
       parentBoardId,
     })
-
-    closeMenu()
   }
 
   return (

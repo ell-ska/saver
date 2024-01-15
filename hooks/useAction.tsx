@@ -2,13 +2,14 @@ import { useCallback, useState } from 'react'
 
 import { ActionReturn } from '@/utils/createSafeAction'
 
-type ActionOptions = {
+type ActionOptions<Output> = {
   onError?: (error: string) => void
+  onSuccess?: (data: Output) => void
 }
 
 export const useAction = <Input, Output>(
   action: (data: Input) => Promise<ActionReturn<Output>>,
-  options: ActionOptions = {},
+  options: ActionOptions<Output> = {},
 ) => {
   const [data, setData] = useState<Output | undefined>(undefined)
   const [error, setError] = useState<string | undefined>(undefined)
@@ -29,6 +30,7 @@ export const useAction = <Input, Output>(
 
         if (result.data) {
           setData(result.data)
+          options.onSuccess?.(result.data)
         }
       } finally {
         setIsLoading(false)

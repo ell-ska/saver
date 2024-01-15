@@ -47,7 +47,7 @@ export const createLinkCardSchema = baseCardSchema.merge(
   }),
 )
 
-export const createCardSchema = z.union([
+export const createCardSchema = z.discriminatedUnion('type', [
   createImageCardSchema,
   createLinkCardSchema,
 ])
