@@ -6,20 +6,16 @@ import { Card, CardType } from '@prisma/client'
 import { auth } from '@/auth'
 import { db } from '@/lib/db'
 import { createCardSchema } from '@/lib/schemas'
-import type { ActionReturn } from '@/lib/types'
+import { ActionReturn, createSafeAction } from '@/utils/createSafeAction'
 import { getOgData } from '@/utils/getOgData'
 
-export const createCard = async (
+const handler = async (
   values: z.infer<typeof createCardSchema>,
 ): Promise<ActionReturn<Card>> => {
   const session = await auth()
   if (!session?.user) return { error: 'unauthenticated' }
 
-  const validatedValues = createCardSchema.safeParse(values)
-  if (!validatedValues.success) return { error: 'invalid fields' }
-
-  const { parentBoardId, type, caption, ...validatedData } =
-    validatedValues.data
+  const { parentBoardId, type, caption, ...validatedData } = values
 
   const parentBoard = await db.board.findUnique({
     where: { id: parentBoardId },
@@ -80,3 +76,5 @@ export const createCard = async (
 
   return { data: card }
 }
+
+export const createCard = createSafeAction(handler, createCardSchema)

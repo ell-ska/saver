@@ -18,7 +18,7 @@ const HomeEmpty = () => {
         you don&apos;t have any boards yet!
       </h3>
       <Button
-        onClick={() => execute()}
+        onClick={() => execute({})}
         disabled={isLoading}
         loader={isLoading}
         variant='secondary'

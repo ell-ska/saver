@@ -8,16 +8,13 @@ import { signIn } from '@/auth'
 import { defaultLoginRedirect } from '@/routes'
 import { logInSchema } from '@/lib/schemas'
 import { db } from '@/lib/db'
-import type { ActionReturn } from '@/lib/types'
+import { ActionReturn, createSafeAction } from '@/utils/createSafeAction'
 
-export const logIn = async (
+const handler = async (
   values: z.infer<typeof logInSchema>,
   callbackUrl?: string,
 ): Promise<ActionReturn<undefined>> => {
-  const validatedValues = logInSchema.safeParse(values)
-  if (!validatedValues.success) return { error: 'invalid fields' }
-
-  const { email, password } = validatedValues.data
+  const { email, password } = values
 
   const existingUser = await db.user.findUnique({ where: { email } })
   if (!existingUser || !existingUser.email)
@@ -42,3 +39,5 @@ export const logIn = async (
     return { error: 'something went wrong' }
   }
 }
+
+export const logIn = createSafeAction(handler, logInSchema)

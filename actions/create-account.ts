@@ -6,15 +6,12 @@ import bcrypt from 'bcryptjs'
 
 import { createAccountSchema } from '@/lib/schemas'
 import { db } from '@/lib/db'
-import type { ActionReturn } from '@/lib/types'
+import { ActionReturn, createSafeAction } from '@/utils/createSafeAction'
 
-export const createAccount = async (
+const handler = async (
   values: z.infer<typeof createAccountSchema>,
 ): Promise<ActionReturn<undefined>> => {
-  const validatedValues = createAccountSchema.safeParse(values)
-  if (!validatedValues.success) return { error: 'invalid fields' }
-
-  const { email, name, password, confirmPassword } = validatedValues.data
+  const { email, name, password, confirmPassword } = values
 
   const existingUser = await db.user.findUnique({ where: { email } })
   if (existingUser) return { error: 'email already taken' }
@@ -32,3 +29,5 @@ export const createAccount = async (
 
   redirect(`/auth/log-in?email=${email}`)
 }
+
+export const createAccount = createSafeAction(handler, createAccountSchema)

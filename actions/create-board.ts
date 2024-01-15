@@ -1,12 +1,13 @@
 'use server'
 
 import { redirect } from 'next/navigation'
+import { z } from 'zod'
 
 import { auth } from '@/auth'
 import { db } from '@/lib/db'
-import type { ActionReturn } from '@/lib/types'
+import { ActionReturn, createSafeAction } from '@/utils/createSafeAction'
 
-export const createBoard = async (): Promise<ActionReturn<undefined>> => {
+const handler = async (): Promise<ActionReturn<undefined>> => {
   const session = await auth()
   if (!session?.user) return { error: 'unauthenticated' }
 
@@ -27,3 +28,5 @@ export const createBoard = async (): Promise<ActionReturn<undefined>> => {
 
   redirect(`/board/${board.id}`)
 }
+
+export const createBoard = createSafeAction(handler, z.object({}))
