@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export type ActionReturn<Output> = undefined | { error?: string; data?: Output }
+export type ActionReturn<Output> = { error?: string; data?: Output }
 
 export const createSafeAction = <Input, Output>(
   handler: (data: Input) => Promise<ActionReturn<Output>>,
