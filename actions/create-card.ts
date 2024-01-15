@@ -1,13 +1,13 @@
 'use server'
 
 import { z } from 'zod'
-import { Card, CardType } from '@prisma/client'
+import { Card } from '@prisma/client'
 
 import { auth } from '@/auth'
 import { db } from '@/lib/db'
 import { createCardSchema } from '@/lib/schemas'
+import { generateCardData } from '@/lib/generateCardData'
 import { ActionReturn, createSafeAction } from '@/utils/createSafeAction'
-import { getOgData } from '@/utils/getOgData'
 
 const handler = async (
   values: z.infer<typeof createCardSchema>,
@@ -15,7 +15,7 @@ const handler = async (
   const session = await auth()
   if (!session?.user) return { error: 'unauthenticated' }
 
-  const { parentBoardId, type, caption, ...validatedData } = values
+  const { parentBoardId, type, caption, ...cardData } = values
 
   const parentBoard = await db.board.findUnique({
     where: { id: parentBoardId },
@@ -28,40 +28,8 @@ const handler = async (
   )
   if (!isMember) return { error: 'unauthorized' }
 
-  let data
-
-  switch (type) {
-    case CardType.LINK:
-      const { url } = validatedData
-      const ogData = await getOgData(url)
-
-      const image = ogData?.image && {
-        url: ogData.image.url,
-        width: ogData.image.width || 500,
-        height: ogData.image.height || 375,
-      }
-
-      data = {
-        link: {
-          create: {
-            url,
-            title: ogData?.title,
-            description: ogData?.description,
-            faviconUrl: ogData?.faviconUrl,
-            image: image && {
-              create: {
-                ...image,
-              },
-            },
-          },
-        },
-      }
-      break
-    case CardType.IMAGE:
-      // TODO: upload image to edgestore or attach url
-      data = {}
-      break
-  }
+  const data = generateCardData(values)
+  if (!data) return { error: 'missing data' }
 
   let card
 
