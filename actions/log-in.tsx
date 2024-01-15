@@ -38,6 +38,8 @@ const handler = async (
     console.log('LOG_IN_ACTION_ERROR', error)
     return { error: 'something went wrong' }
   }
+
+  return { error: 'something went wrong' }
 }
 
 export const logIn = createSafeAction(handler, logInSchema)
