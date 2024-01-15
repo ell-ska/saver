@@ -18,7 +18,7 @@ const SidebarAddMenu = () => {
     {
       tooltip: 'image', // or video
       icon: <ImageIcon />,
-      onClick: () => {},
+      onClick: () => openMenu('add-image'),
     },
     // TODO: add when implemented
     // {

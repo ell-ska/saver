@@ -17,6 +17,7 @@ const AddMenu = () => {
     {
       icon: <ImageIcon />,
       text: 'image', // or video
+      onClick: () => openMenu('add-image'),
     },
     // {
     //   icon: <Camera />,
