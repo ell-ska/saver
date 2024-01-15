@@ -1,7 +1,9 @@
 'use client'
 
-import AddMenu from '@/components/menu/AddMenu'
 import { useEffect, useState } from 'react'
+
+import AddMenu from '@/components/menu/AddMenu'
+import AddLinkMenu from '@/components/menu/AddLinkMenu'
 
 const MenuProvider = () => {
   const [isMounted, setIsMounted] = useState(false)
@@ -15,6 +17,7 @@ const MenuProvider = () => {
   return (
     <>
       <AddMenu />
+      <AddLinkMenu />
     </>
   )
 }

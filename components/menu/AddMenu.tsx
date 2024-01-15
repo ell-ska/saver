@@ -1,21 +1,18 @@
 import { Image as ImageIcon, Link, PlusCircle } from 'lucide-react'
 
-import { useAction } from '@/hooks/useAction'
-import { createBoard } from '@/actions/create-board'
-import { toast } from '@/utils/toast'
+import { useMenu } from '@/hooks/useMenu'
 import MenuWrapper from './MenuWrapper'
 import MenuAction from './MenuAction'
 
 const AddMenu = () => {
-  const { execute, isLoading } = useAction(createBoard, {
-    onError: (error) => toast(error),
-  })
+  const [openMenu] = useMenu((state) => [state.open])
 
   const options = [
     // TODO: change to 'paste' if something copied to clipboard
     {
       icon: <Link />,
       text: 'link',
+      onClick: () => openMenu('add-link'),
     },
     {
       icon: <ImageIcon />,
@@ -35,10 +32,8 @@ const AddMenu = () => {
     // },
     {
       icon: <PlusCircle className='path-white fill-primary' />,
-      text: isLoading ? 'creating new board' : 'create new board',
-      onClick: () => execute(),
-      isLoading,
-      disabled: isLoading,
+      text: 'create new board',
+      onClick: () => {},
     },
   ]
 

@@ -2,23 +2,18 @@
 
 import { Image as ImageIcon, Link, PlusCircle } from 'lucide-react'
 
+import { useMenu } from '@/hooks/useMenu'
 import Button from '@/components/ui/Button'
 import Tooltip from '@/components/ui/Tooltip'
-import { useAction } from '@/hooks/useAction'
-import { createBoard } from '@/actions/create-board'
-import { toast } from '@/utils/toast'
 
 const SidebarAddMenu = () => {
-  // TODO: fix loading state
-  const { execute } = useAction(createBoard, {
-    onError: (error) => toast(error),
-  })
+  const [openMenu] = useMenu((state) => [state.open])
 
   const options = [
     {
       tooltip: 'link',
       icon: <Link />,
-      onClick: () => {},
+      onClick: () => openMenu('add-link'),
     },
     {
       tooltip: 'image', // or video
@@ -39,7 +34,7 @@ const SidebarAddMenu = () => {
     {
       tooltip: 'create new board',
       icon: <PlusCircle className='path-slate-50 fill-slate-800' />,
-      onClick: () => execute(),
+      onClick: () => {},
     },
   ]
 

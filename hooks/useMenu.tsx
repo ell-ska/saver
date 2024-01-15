@@ -7,19 +7,20 @@ export type menuType =
   | 'card'
   | 'confirm'
   | 'move'
-  | 'image'
   | 'collaborators'
+  | 'add-link'
+  | 'add-image'
 
 type menu = {
   type: menuType | null
   isOpen: boolean
-  onOpen: (type: menuType) => void
-  onClose: () => void
+  open: (type: menuType) => void
+  close: () => void
 }
 
 export const useMenu = create<menu>((set) => ({
   type: null,
   isOpen: false,
-  onOpen: (type) => set({ isOpen: true, type }),
-  onClose: () => set({ isOpen: false, type: null }),
+  open: (type) => set({ isOpen: true, type }),
+  close: () => set({ isOpen: false, type: null }),
 }))

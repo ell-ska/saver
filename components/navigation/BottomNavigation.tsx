@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button'
 type BottomNavigationProps = { className: string }
 
 const BottomNavigation = ({ className }: BottomNavigationProps) => {
-  const [openMenu] = useMenu((state) => [state.onOpen])
+  const [openMenu] = useMenu((state) => [state.open])
 
   return (
     <nav
