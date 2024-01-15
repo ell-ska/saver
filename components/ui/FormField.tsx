@@ -1,21 +1,45 @@
 import { forwardRef } from 'react'
 import { FieldError } from 'react-hook-form'
 
+import { cn } from '@/utils/classnames'
 import Input, { InputProps } from './Input'
 
 type FormFieldProps = Omit<InputProps, 'id' | 'htmlFor'> & {
   labelText: string
+  labelHidden?: boolean
   error?: FieldError
+  unstyled?: boolean
 }
 
 const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
-  ({ labelText, name, error, ...props }, ref) => {
+  (
+    { labelText, labelHidden, error, unstyled, name, placeholder, ...props },
+    ref,
+  ) => {
     return (
-      <div>
-        <label htmlFor={name} hidden>
+      <div className='group relative'>
+        <Input
+          ref={ref}
+          name={name}
+          id={name}
+          isError={!!error}
+          unstyled={unstyled}
+          placeholderVisible={unstyled || labelHidden}
+          placeholder={placeholder || labelText}
+          {...props}
+        />
+        <label
+          htmlFor={name}
+          hidden={unstyled || labelHidden}
+          className={cn(
+            'absolute -top-2 left-2 text-xs text-slate-500 transition-all',
+            'peer-focus-visible:-top-2 peer-focus-visible:left-2 peer-focus-visible:text-xs',
+            'peer-placeholder-shown:left-4 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base',
+            error && '-top-4 peer-focus-visible:-top-4',
+          )}
+        >
           {labelText}
         </label>
-        <Input ref={ref} name={name} id={name} isError={!!error} {...props} />
         {error && (
           <span className='text-sm lowercase text-secondary-dark'>
             {error.message}

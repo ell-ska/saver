@@ -9,12 +9,7 @@ const AddLinkMenu = () => {
     <MenuWrapper type='add-link' position='center' closeButton className='p-4'>
       <h3 className='mb-4 text-lg font-bold'>add link</h3>
       <form className='flex flex-col gap-4'>
-        <FormField
-          type='url'
-          labelText='paste link'
-          placeholder='paste link'
-          border
-        />
+        <FormField type='url' labelText='paste link' placeholder='paste link' />
         <Button type='submit'>add link</Button>
       </form>
     </MenuWrapper>

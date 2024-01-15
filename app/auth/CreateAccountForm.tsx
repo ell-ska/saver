@@ -37,33 +37,25 @@ const CreateAccountForm = () => {
         {...register('name')}
         error={errors.name}
         type='text'
-        labelText='enter your full name'
-        placeholder='full name'
-        border
+        labelText='full name'
       />
       <FormField
         {...register('email')}
         error={errors.email}
         type='email'
-        labelText='enter your email'
-        placeholder='email'
-        border
+        labelText='email'
       />
       <FormField
         {...register('password')}
         error={errors.password}
         type='password'
-        labelText='enter your password'
-        placeholder='password'
-        border
+        labelText='password'
       />
       <FormField
         {...register('confirmPassword')}
         error={errors.confirmPassword}
         type='password'
-        labelText='confirm your password'
-        placeholder='confirm password'
-        border
+        labelText='confirm password'
       />
       <Button type='submit' disabled={isSubmitting} loader={isSubmitting}>
         {isSubmitting ? 'creating account' : 'create account'}

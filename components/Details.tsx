@@ -47,6 +47,7 @@ const Details = ({ title, description }: DetailsProps) => {
           labelText='board title'
           type='text'
           placeholder='give me a name'
+          unstyled
           className='mb-[1px] text-2xl font-bold placeholder:text-slate-400'
         />
         <FormField
@@ -57,6 +58,7 @@ const Details = ({ title, description }: DetailsProps) => {
           labelText='board description'
           type='text'
           placeholder='add a description'
+          unstyled
           className='text-sm placeholder:text-slate-400'
         />
         <input type='submit' hidden />

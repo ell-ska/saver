@@ -45,18 +45,14 @@ const LogInForm = () => {
         {...register('email')}
         error={errors.email}
         type='email'
-        labelText='enter your email'
-        placeholder='email'
-        border
+        labelText='email'
       />
       {/* TODO: add forgot password link */}
       <FormField
         {...register('password')}
         error={errors.password}
         type='password'
-        labelText='enter your password'
-        placeholder='password'
-        border
+        labelText='password'
       />
       <Button type='submit' disabled={isSubmitting} loader={isSubmitting}>
         {isSubmitting ? 'logging in' : 'log in'}
