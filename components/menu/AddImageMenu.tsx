@@ -4,7 +4,6 @@ import { Link, UploadCloud } from 'lucide-react'
 import Button from '@/components/ui/Button'
 import FormField from '@/components/ui/FormField'
 import MenuWrapper from './MenuWrapper'
-import { cn } from '@/utils/classnames'
 
 const triggers = [
   {
