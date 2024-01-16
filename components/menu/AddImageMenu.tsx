@@ -12,7 +12,7 @@ import { isImage } from '@/utils/isImage'
 import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
 import FormField from '@/components/ui/FormField'
-import Dropzone from '@/components/Dropzone'
+// import Dropzone from '@/components/Dropzone'
 import MenuWrapper from './MenuWrapper'
 
 const triggers = [
@@ -31,57 +31,57 @@ const triggers = [
 const schema = createImageCardSchema.omit({ parentBoardId: true })
 
 const AddImageMenu = () => {
-  const [imageFile, setImageFile] = useState<File | undefined>(undefined)
-  const [imageUrl, setImageUrl] = useState<string>('')
+  // const [imageFile, setImageFile] = useState<File | undefined>(undefined)
+  // const [imageUrl, setImageUrl] = useState<string>('')
 
-  const [closeMenu] = useMenu((state) => [state.close])
-  const { parentBoardId, redirectToPickBoard } = useParentBoard()
+  // const [closeMenu] = useMenu((state) => [state.close])
+  // const { parentBoardId, redirectToPickBoard } = useParentBoard()
 
-  const { execute, isLoading } = useAction(createCard, {
-    onError: (error) => toast(error),
-    onSuccess: closeMenu,
-  })
+  // const { execute, isLoading } = useAction(createCard, {
+  //   onError: (error) => toast(error),
+  //   onSuccess: closeMenu,
+  // })
 
-  const onClick = async (type: 'url' | 'file') => {
-    let data
+  // const onClick = async (type: 'url' | 'file') => {
+  //   let data
 
-    if (type === 'url') {
-      if (!imageUrl) return toast('please provide a link')
-      if (!(await isImage(imageUrl))) return toast("that's not an image")
+  //   if (type === 'url') {
+  //     if (!imageUrl) return toast('please provide a link')
+  //     if (!(await isImage(imageUrl))) return toast("that's not an image")
 
-      data = {
-        type: 'IMAGE',
-        image: imageUrl,
-      }
-    }
+  //     data = {
+  //       type: 'IMAGE',
+  //       image: imageUrl,
+  //     }
+  //   }
 
-    if (type === 'file') {
-      if (!imageFile) return toast('please provide a file')
+  //   if (type === 'file') {
+  //     if (!imageFile) return toast('please provide a file')
 
-      const imageForm = new FormData()
-      imageForm.append('image', imageFile)
+  //     const imageForm = new FormData()
+  //     imageForm.append('image', imageFile)
 
-      data = {
-        type: 'IMAGE',
-        image: imageForm,
-      }
-    }
+  //     data = {
+  //       type: 'IMAGE',
+  //       image: imageForm,
+  //     }
+  //   }
 
-    const validated = schema.safeParse(data)
-    if (!validated.success) return toast('invalid image')
+  //   const validated = schema.safeParse(data)
+  //   if (!validated.success) return toast('invalid image')
 
-    if (!parentBoardId) return redirectToPickBoard('add', validated.data)
+  //   if (!parentBoardId) return redirectToPickBoard('add', validated.data)
 
-    execute({
-      ...validated.data,
-      parentBoardId,
-    })
-  }
+  //   execute({
+  //     ...validated.data,
+  //     parentBoardId,
+  //   })
+  // }
 
   return (
     <MenuWrapper type='add-image' position='center' closeButton className='p-4'>
       <h3 className='mb-4 text-lg font-bold'>add image</h3>
-      <Tabs.Root className='h-full'>
+      {/* <Tabs.Root className='h-full'>
         <Tabs.List className='mb-2 space-x-1'>
           {triggers.map(({ value, text, icon }) => (
             <Tabs.Trigger key={value} value={value} asChild>
@@ -132,7 +132,7 @@ const AddImageMenu = () => {
             {isLoading ? 'finding image' : 'embed image'}
           </Button>
         </Tabs.Content>
-      </Tabs.Root>
+      </Tabs.Root> */}
     </MenuWrapper>
   )
 }
