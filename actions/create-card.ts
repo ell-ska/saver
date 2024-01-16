@@ -33,14 +33,14 @@ const handler = async (
 
   let card
 
-  try {
-    card = await db.card.create({
-      data: { parentBoardId, type, caption, ...data },
-    })
-  } catch (error) {
-    console.log('CREATE_CARD_ACTION_ERROR', error)
-    return { error: 'something went wrong' }
-  }
+  // try {
+  //   card = await db.card.create({
+  //     data: { parentBoardId, type, caption, ...data },
+  //   })
+  // } catch (error) {
+  //   console.log('CREATE_CARD_ACTION_ERROR', error)
+  //   return { error: 'something went wrong' }
+  // }
 
   return { data: card }
 }

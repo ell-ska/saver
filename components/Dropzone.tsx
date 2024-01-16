@@ -4,9 +4,9 @@ import { forwardRef, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { UploadCloud, XCircle } from 'lucide-react'
 
-import ImageCard from '@/components/card/ImageCard'
 import { getImageDimensions } from '@/utils/getImageDimensions'
 import { cn } from '@/utils/classnames'
+import ImageCard from '@/components/card/ImageCard'
 
 type Image = {
   url: string

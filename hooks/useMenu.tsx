@@ -1,7 +1,6 @@
 import { create } from 'zustand'
-import { z } from 'zod'
 
-import { createLinkCardSchema } from '@/lib/schemas'
+import { PickBoardType, PickBoardValues } from '@/lib/types'
 
 export type menuType =
   | 'add'
@@ -14,12 +13,10 @@ export type menuType =
   | 'add-link'
   | 'add-image'
 
-const linkSchema = createLinkCardSchema.omit({ parentBoardId: true })
-
 type menuData = {
   pickBoard?: {
-    type: 'move' | 'add' | 'copy'
-    values: z.infer<typeof linkSchema>
+    type: PickBoardType
+    values: PickBoardValues
   }
 }
 

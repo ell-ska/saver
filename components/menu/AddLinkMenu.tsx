@@ -1,11 +1,11 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useMenu } from '@/hooks/useMenu'
+import { useParentBoard } from '@/hooks/useParentBoard'
 import { useAction } from '@/hooks/useAction'
 import { createCard } from '@/actions/create-card'
 import { createLinkCardSchema } from '@/lib/schemas'
@@ -19,8 +19,8 @@ const schema = createLinkCardSchema.omit({
 })
 
 const AddLinkMenu = () => {
-  const params = useParams()
-  const [closeMenu, openMenu] = useMenu((state) => [state.close, state.open])
+  const [closeMenu] = useMenu((state) => [state.close])
+  const { parentBoardId, redirectToPickBoard } = useParentBoard()
 
   const { execute, isLoading } = useAction(createCard, {
     onError: (error) => toast(error),
@@ -39,12 +39,7 @@ const AddLinkMenu = () => {
   })
 
   const onSubmit = async (values: z.infer<typeof schema>) => {
-    const parentBoardId = params.boardId
-    if (!parentBoardId || typeof parentBoardId !== 'string') {
-      return openMenu('pick-board', {
-        pickBoard: { type: 'add', values },
-      })
-    }
+    if (!parentBoardId) return redirectToPickBoard('add', values)
 
     execute({
       ...values,

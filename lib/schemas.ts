@@ -34,9 +34,7 @@ const baseCardSchema = z.object({
 export const createImageCardSchema = baseCardSchema.merge(
   z.object({
     type: z.literal(CardType.IMAGE),
-    url: z.string().url(),
-    width: z.number(),
-    height: z.number(),
+    image: z.union([z.instanceof(FormData), z.string().url()]),
   }),
 )
 
