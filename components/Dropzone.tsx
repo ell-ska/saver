@@ -4,7 +4,7 @@ import { forwardRef, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { UploadCloud, XCircle } from 'lucide-react'
 
-import { getImageDimensions } from '@/utils/getImageDimensions'
+import { getImageDimensions } from '@/utils/getClientImageDimensions'
 import { cn } from '@/utils/classnames'
 import ImageCard from '@/components/card/ImageCard'
 
@@ -27,7 +27,7 @@ const Dropzone = forwardRef<HTMLInputElement, DropzoneProps>(
     const [image, setImage] = useState<Image | undefined>(undefined)
 
     const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
-      accept: { 'image/*': [] },
+      accept: { 'image/jpeg': [], 'image/png': [], 'image/webp': [] },
       multiple: false,
       disabled,
       onDrop: (acceptedFiles) => {

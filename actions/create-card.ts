@@ -28,19 +28,19 @@ const handler = async (
   )
   if (!isMember) return { error: 'unauthorized' }
 
-  const data = generateCardData(values)
+  const data = await generateCardData(values)
   if (!data) return { error: 'missing data' }
 
   let card
 
-  // try {
-  //   card = await db.card.create({
-  //     data: { parentBoardId, type, caption, ...data },
-  //   })
-  // } catch (error) {
-  //   console.log('CREATE_CARD_ACTION_ERROR', error)
-  //   return { error: 'something went wrong' }
-  // }
+  try {
+    card = await db.card.create({
+      data: { parentBoardId, type, caption, ...data },
+    })
+  } catch (error) {
+    console.log('CREATE_CARD_ACTION_ERROR', error)
+    return { error: 'something went wrong' }
+  }
 
   return { data: card }
 }

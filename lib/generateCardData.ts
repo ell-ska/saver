@@ -1,3 +1,4 @@
+import sharp from 'sharp'
 import { z } from 'zod'
 import { CardType } from '@prisma/client'
 
@@ -6,7 +7,10 @@ import {
   createLinkCardSchema,
   createImageCardSchema,
 } from '@/lib/schemas'
+import { backendClient } from '@/lib/edgestore'
+import { getImageOrientation } from '@/lib/getImageOrientation'
 import { getOgData } from '@/utils/getOgData'
+import { getImageDimensions } from '@/utils/getServerImageDimensions'
 
 export const generateCardData = async (
   values: z.infer<typeof createCardSchema>,
@@ -39,7 +43,60 @@ export const generateCardData = async (
   }
 
   if (values.type === CardType.IMAGE) {
-    return undefined
+    const { image } = values as z.infer<typeof createImageCardSchema>
+    if (!image) return undefined
+
+    if (typeof image === 'string') {
+      const { width, height } = await getImageDimensions(image)
+      const orientation = getImageOrientation({ width, height })
+
+      return {
+        image: {
+          create: {
+            url: image,
+            width,
+            height,
+            orientation,
+          },
+        },
+      }
+    }
+
+    const file = image.get('image') as File | null
+    if (!file || !file.type.startsWith('image/')) return undefined
+
+    const buffer = await file.arrayBuffer()
+    const resizedFile = await sharp(buffer)
+      .resize(1500, 1500, {
+        withoutEnlargement: true,
+        fit: 'inside',
+      })
+      .jpeg({ quality: 80 })
+      .toBuffer()
+
+    const blob = new Blob(new Array(resizedFile), { type: 'image/*' })
+    const extension = file.type.split('/')[1]
+
+    const uploadResponse = await backendClient.publicFiles.upload({
+      content: {
+        blob,
+        extension,
+      },
+    })
+
+    const { width, height } = await getImageDimensions(uploadResponse.url)
+    const orientation = getImageOrientation({ width, height })
+
+    return {
+      image: {
+        create: {
+          url: uploadResponse.url,
+          width,
+          height,
+          orientation,
+        },
+      },
+    }
   }
 
   return undefined

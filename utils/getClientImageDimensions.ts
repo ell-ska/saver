@@ -1,5 +1,3 @@
-'use client'
-
 export const getImageDimensions = (url: string) => {
   let image = new Image()
 
