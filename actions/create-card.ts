@@ -6,7 +6,7 @@ import { Card } from '@prisma/client'
 import { auth } from '@/auth'
 import { db } from '@/lib/db'
 import { createCardSchema } from '@/lib/schemas'
-// import { generateCardData } from '@/lib/generateCardData'
+import { generateCardData } from '@/lib/generateCardData'
 import { ActionReturn, createSafeAction } from '@/utils/createSafeAction'
 
 const handler = async (
@@ -28,19 +28,19 @@ const handler = async (
   )
   if (!isMember) return { error: 'unauthorized' }
 
-  // const data = await generateCardData(values)
-  // if (!data) return { error: 'missing data' }
+  const data = await generateCardData(values)
+  if (!data) return { error: 'missing data' }
 
   let card
 
-  // try {
-  //   card = await db.card.create({
-  //     data: { parentBoardId, type, caption, ...data },
-  //   })
-  // } catch (error) {
-  //   console.log('CREATE_CARD_ACTION_ERROR', error)
-  //   return { error: 'something went wrong' }
-  // }
+  try {
+    card = await db.card.create({
+      data: { parentBoardId, type, caption, ...data },
+    })
+  } catch (error) {
+    console.log('CREATE_CARD_ACTION_ERROR', error)
+    return { error: 'something went wrong' }
+  }
 
   return { data: card }
 }
