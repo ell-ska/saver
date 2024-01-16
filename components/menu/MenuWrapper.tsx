@@ -44,7 +44,7 @@ const MenuWrapper = ({
         />
         <Dialog.Content
           className={cn(
-            'absolute bottom-0 left-0 right-0 z-50 rounded-t-lg border-slate-300 bg-white md:bottom-auto md:left-auto md:right-8 md:top-20 md:rounded-lg md:border',
+            'absolute bottom-0 left-0 right-0 z-50 max-h-[calc(100vh-4rem)] rounded-t-lg border-slate-300 bg-white md:bottom-auto md:left-auto md:right-8 md:top-20 md:rounded-lg md:border',
             position === 'center' &&
               'w-full md:left-1/2 md:top-1/2 md:max-w-sm md:-translate-x-1/2 md:-translate-y-1/2',
             className,
