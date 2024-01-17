@@ -1,3 +1,4 @@
+import { Card, Image, Link } from '@prisma/client'
 import { z } from 'zod'
 
 import { createImageCardSchema, createLinkCardSchema } from '@/lib/schemas'
@@ -10,3 +11,8 @@ export type PickBoardValues =
   | z.infer<typeof imageSchema>
 
 export type PickBoardType = 'move' | 'add' | 'copy'
+
+export type CardWithNested = Card & {
+  image: Image | null
+  link: (Link & { image: Image | null }) | null
+}

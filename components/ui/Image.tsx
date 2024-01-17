@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import NextImage, { ImageProps as NextImageProps } from 'next/image'
 
 import { cn } from '@/utils/classnames'
@@ -13,6 +16,8 @@ const Image = ({
   className,
   ...props
 }: ImageProps) => {
+  const [error, setError] = useState(false)
+
   const getDimension = () => {
     switch (aspectRatio) {
       case 'original':
@@ -28,7 +33,13 @@ const Image = ({
 
   return (
     <NextImage
-      className={cn('object-cover', getDimension(), className)}
+      className={cn(
+        'object-cover',
+        getDimension(),
+        className,
+        error && 'hidden',
+      )}
+      onError={() => setError(true)}
       {...props}
     />
   )
