@@ -10,7 +10,8 @@ import {
 import { backendClient } from '@/lib/edgestore'
 import { getImageOrientation } from '@/lib/getImageOrientation'
 import { getOgData } from '@/lib/getOgData'
-import { getImageDimensions } from '@/utils/getServerImageDimensions'
+import { getImageDimensions } from '@/utils/getImageDimensions/server'
+import { isImage } from '@/utils/isImage/server'
 
 export const generateCardData = async (
   values: z.infer<typeof createCardSchema>,
@@ -19,11 +20,18 @@ export const generateCardData = async (
     const { url } = values as z.infer<typeof createLinkCardSchema>
     const ogData = await getOgData(url)
 
-    const image = ogData?.image && {
-      url: ogData.image.url,
-      width: ogData.image.width || 500,
-      height: ogData.image.height || 375,
-    }
+    const image =
+      ogData?.image && (await isImage(ogData.image.url))
+        ? {
+            url: ogData.image.url,
+            width: ogData.image.width || 500,
+            height: ogData.image.height || 375,
+          }
+        : undefined
+
+    const faviconUrl =
+      ogData?.faviconUrl &&
+      ((await isImage(ogData.faviconUrl)) ? ogData.faviconUrl : undefined)
 
     return {
       link: {
@@ -31,7 +39,7 @@ export const generateCardData = async (
           url,
           title: ogData?.title,
           description: ogData?.description,
-          faviconUrl: ogData?.faviconUrl,
+          faviconUrl,
           image: image && {
             create: {
               ...image,
@@ -47,15 +55,16 @@ export const generateCardData = async (
     if (!image) return undefined
 
     if (typeof image === 'string') {
-      const { width, height } = await getImageDimensions(image)
-      const orientation = getImageOrientation({ width, height })
+      const dimensions = await getImageDimensions(image)
+      if (!dimensions) throw Error('malformed image')
+      const orientation = getImageOrientation(dimensions)
 
       return {
         image: {
           create: {
             url: image,
-            width,
-            height,
+            width: dimensions.width,
+            height: dimensions.height,
             orientation,
           },
         },
@@ -83,16 +92,18 @@ export const generateCardData = async (
         extension,
       },
     })
+    if (!uploadResponse) throw Error('image upload failed')
 
-    const { width, height } = await getImageDimensions(uploadResponse.url)
-    const orientation = getImageOrientation({ width, height })
+    const dimensions = await getImageDimensions(uploadResponse.url)
+    if (!dimensions) throw Error('malformed image')
+    const orientation = getImageOrientation(dimensions)
 
     return {
       image: {
         create: {
           url: uploadResponse.url,
-          width,
-          height,
+          width: dimensions.width,
+          height: dimensions.height,
           orientation,
         },
       },

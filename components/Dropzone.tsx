@@ -4,7 +4,7 @@ import { forwardRef, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { UploadCloud, XCircle } from 'lucide-react'
 
-import { getImageDimensions } from '@/utils/getClientImageDimensions'
+import { getImageDimensions } from '@/utils/getImageDimensions/client'
 import { cn } from '@/utils/classnames'
 import ImageCard from '@/components/card/ImageCard'
 
