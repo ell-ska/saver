@@ -39,6 +39,7 @@ const AddImageMenu = () => {
   const [closeMenu] = useMenu((state) => [state.close])
   const { parentBoardId, redirectToPickBoard } = useParentBoard()
 
+  // TODO: optimistic update
   const { execute, status } = useAction(createCard, {
     onError: ({ serverError }) => toast(serverError),
     onSuccess: closeMenu,

@@ -1,5 +1,7 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
+
 import { db } from '@/lib/db'
 import { memberAction } from '@/lib/safeAction'
 import { createCardSchema } from '@/lib/schemas'
@@ -21,5 +23,6 @@ export const createCard = memberAction(createCardSchema, async (validated) => {
     throw Error('something went wrong')
   }
 
+  revalidatePath(`/board/${parentBoardId}`)
   return card
 })
