@@ -13,7 +13,7 @@ const HomeEmpty = () => {
   })
 
   return (
-    <div className='mt-8 flex flex-col items-center gap-6 md:-mt-20 md:place-self-center'>
+    <div className='mt-8 flex grow flex-col items-center gap-6 md:-mt-20 md:justify-center'>
       <h3 className='text-center text-2xl font-bold'>
         you don&apos;t have any boards yet!
       </h3>
