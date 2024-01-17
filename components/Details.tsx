@@ -1,19 +1,15 @@
 'use client'
 
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Board } from '@prisma/client'
 
 import { detailsSchema } from '@/lib/schemas'
 import { cn } from '@/utils/classnames'
 import FormField from '@/components/ui/FormField'
 
-type DetailsProps = {
-  id: string
-  title?: string
-  description?: string
-}
+type DetailsProps = Pick<Board, 'id' | 'title' | 'description'>
 
 const Details = ({ title, description }: DetailsProps) => {
   const isEditing = false // TODO: change when adding board menu
@@ -25,8 +21,8 @@ const Details = ({ title, description }: DetailsProps) => {
   } = useForm<z.infer<typeof detailsSchema>>({
     resolver: zodResolver(detailsSchema),
     defaultValues: {
-      title,
-      description,
+      title: title ?? '',
+      description: description ?? '',
     },
   })
 
