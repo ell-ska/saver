@@ -9,7 +9,7 @@ import {
 } from '@/lib/schemas'
 import { backendClient } from '@/lib/edgestore'
 import { getImageOrientation } from '@/lib/getImageOrientation'
-import { getOgData } from '@/utils/getOgData'
+import { getOgData } from '@/lib/getOgData'
 import { getImageDimensions } from '@/utils/getServerImageDimensions'
 
 export const generateCardData = async (

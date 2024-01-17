@@ -1,33 +1,29 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { z } from 'zod'
 import bcrypt from 'bcryptjs'
 
-import { createAccountSchema } from '@/lib/schemas'
 import { db } from '@/lib/db'
-import { ActionReturn, createSafeAction } from '@/utils/createSafeAction'
+import { action } from '@/lib/safeAction'
+import { createAccountSchema } from '@/lib/schemas'
 
-const handler = async (
-  values: z.infer<typeof createAccountSchema>,
-): Promise<ActionReturn<undefined>> => {
-  const { email, name, password, confirmPassword } = values
+export const createAccount = action(
+  createAccountSchema,
+  async ({ email, name, password, confirmPassword }) => {
+    const existingUser = await db.user.findUnique({ where: { email } })
+    if (existingUser) throw Error('email already taken')
 
-  const existingUser = await db.user.findUnique({ where: { email } })
-  if (existingUser) return { error: 'email already taken' }
+    if (password !== confirmPassword) throw Error("passwords don't match")
 
-  if (password !== confirmPassword) return { error: "passwords don't match" }
+    const hashedPassword = await bcrypt.hash(password, 10)
 
-  const hashedPassword = await bcrypt.hash(password, 10)
+    try {
+      await db.user.create({ data: { name, email, password: hashedPassword } })
+    } catch (error) {
+      console.log('CREATE_ACCOUNT_ACTION_ERROR', error)
+      throw Error('something went wrong')
+    }
 
-  try {
-    await db.user.create({ data: { name, email, password: hashedPassword } })
-  } catch (error) {
-    console.log('CREATE_ACCOUNT_ACTION_ERROR', error)
-    return { error: 'something went wrong' }
-  }
-
-  redirect(`/auth/log-in?email=${email}`)
-}
-
-export const createAccount = createSafeAction(handler, createAccountSchema)
+    redirect(`/auth/log-in?email=${email}`)
+  },
+)

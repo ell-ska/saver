@@ -17,6 +17,8 @@ const AddBoardMenu = () => {
     onError: ({ serverError }) => toast(serverError),
   })
 
+  // TODO: fix loading stopping before redirecting
+
   const {
     register,
     handleSubmit,

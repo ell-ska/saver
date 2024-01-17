@@ -27,17 +27,25 @@ export const authAction = createSafeActionClient({
 export const memberAction = createSafeActionClient({
   handleReturnedServerError,
   middleware: async (input) => {
-    const schema = z.object({ boardId: z.string() })
+    const schema = z
+      .object({
+        boardId: z.string().cuid(),
+        parentBoardId: z.string().cuid(),
+      })
+      .partial()
+      .refine((data) => !!data.boardId || !!data.parentBoardId)
 
     const validatedInput = schema.safeParse(input)
     if (!validatedInput.success) throw Error('no board id')
+
+    const id = validatedInput.data.boardId || validatedInput.data.parentBoardId
 
     const session = await auth()
     if (!session?.user) return redirect('/auth/log-in')
 
     const board = await db.board.findUnique({
       where: {
-        id: validatedInput.data.boardId,
+        id,
         members: { some: { userId: session.user.id } },
       },
     })
