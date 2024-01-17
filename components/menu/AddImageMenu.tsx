@@ -1,10 +1,12 @@
+'use client'
+
 import { useState } from 'react'
+import { useAction } from 'next-safe-action/hooks'
 import * as Tabs from '@radix-ui/react-tabs'
 import { Link, UploadCloud } from 'lucide-react'
 
 import { useMenu } from '@/hooks/useMenu'
 import { useParentBoard } from '@/hooks/useParentBoard'
-import { useAction } from '@/hooks/useAction'
 import { createCard } from '@/actions/create-card'
 import { createImageCardSchema } from '@/lib/schemas'
 import { toast } from '@/utils/toast'
@@ -37,10 +39,11 @@ const AddImageMenu = () => {
   const [closeMenu] = useMenu((state) => [state.close])
   const { parentBoardId, redirectToPickBoard } = useParentBoard()
 
-  const { execute, isLoading } = useAction(createCard, {
-    onError: (error) => toast(error),
+  const { execute, status } = useAction(createCard, {
+    onError: ({ serverError }) => toast(serverError),
     onSuccess: closeMenu,
   })
+  const isLoading = status === 'executing'
 
   const onClick = async (type: 'url' | 'file') => {
     let data

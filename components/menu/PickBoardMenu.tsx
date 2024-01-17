@@ -1,9 +1,9 @@
 'use client'
 
+import { useAction } from 'next-safe-action/hooks'
 import { PlusCircle, Search, X } from 'lucide-react'
 
 import { useMenu } from '@/hooks/useMenu'
-import { useAction } from '@/hooks/useAction'
 import { createCard } from '@/actions/create-card'
 import { toast } from '@/utils/toast'
 import Button from '@/components/ui/Button'
@@ -14,7 +14,7 @@ const PickBoardMenu = () => {
   const [data, closeMenu] = useMenu((state) => [state.data, state.close])
 
   const { execute: create } = useAction(createCard, {
-    onError: (error) => toast(error),
+    onError: ({ serverError }) => toast(serverError),
     onSuccess: closeMenu,
   })
 

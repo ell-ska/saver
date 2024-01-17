@@ -48,7 +48,7 @@ const AddBoardMenu = () => {
           disabled={status === 'executing'}
           loader={status === 'executing'}
         >
-          create board
+          {status === 'executing' ? 'creating board' : 'create board'}
         </Button>
       </form>
     </MenuWrapper>

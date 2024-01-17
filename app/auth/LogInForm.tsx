@@ -1,5 +1,6 @@
 'use client'
 
+import { useAction } from 'next-safe-action/hooks'
 import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -14,11 +15,16 @@ import FormField from '@/components/ui/FormField'
 const LogInForm = () => {
   const searchParams = useSearchParams()
   // TODO: handle url error 'OAuthAccountNotLinked'
+  // TODO: add callback url
+
+  const { execute, status } = useAction(logIn, {
+    onError: ({ serverError }) => toast(serverError),
+  })
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<z.infer<typeof logInSchema>>({
     resolver: zodResolver(logInSchema),
     defaultValues: {
@@ -26,19 +32,9 @@ const LogInForm = () => {
     },
   })
 
-  const onSubmit = async (values: z.infer<typeof logInSchema>) => {
-    try {
-      // TODO: add callback url
-      const data = await logIn(values)
-      if (data?.error) toast(data.error)
-    } catch (error) {
-      toast('something went wrong')
-    }
-  }
-
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(execute)}
       className='flex w-full grow flex-col gap-6'
     >
       <FormField
@@ -54,8 +50,12 @@ const LogInForm = () => {
         type='password'
         labelText='password'
       />
-      <Button type='submit' disabled={isSubmitting} loader={isSubmitting}>
-        {isSubmitting ? 'logging in' : 'log in'}
+      <Button
+        type='submit'
+        disabled={status === 'executing'}
+        loader={status === 'executing'}
+      >
+        {status === 'executing' ? 'logging in' : 'log in'}
       </Button>
     </form>
   )

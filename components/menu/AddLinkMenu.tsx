@@ -1,12 +1,12 @@
 'use client'
 
+import { useAction } from 'next-safe-action/hooks'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useMenu } from '@/hooks/useMenu'
 import { useParentBoard } from '@/hooks/useParentBoard'
-import { useAction } from '@/hooks/useAction'
 import { createCard } from '@/actions/create-card'
 import { createLinkCardSchema } from '@/lib/schemas'
 import { toast } from '@/utils/toast'
@@ -22,8 +22,8 @@ const AddLinkMenu = () => {
   const [closeMenu] = useMenu((state) => [state.close])
   const { parentBoardId, redirectToPickBoard } = useParentBoard()
 
-  const { execute, isLoading } = useAction(createCard, {
-    onError: (error) => toast(error),
+  const { execute, status } = useAction(createCard, {
+    onError: ({ serverError }) => toast(serverError),
     onSuccess: closeMenu,
   })
 
@@ -57,8 +57,12 @@ const AddLinkMenu = () => {
           type='url'
           labelText='paste link'
         />
-        <Button type='submit' disabled={isLoading} loader={isLoading}>
-          {isLoading ? 'adding link' : 'add link'}
+        <Button
+          type='submit'
+          disabled={status === 'executing'}
+          loader={status === 'executing'}
+        >
+          {status === 'executing' ? 'adding link' : 'add link'}
         </Button>
       </form>
     </MenuWrapper>

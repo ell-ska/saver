@@ -1,5 +1,6 @@
 'use client'
 
+import { useAction } from 'next-safe-action/hooks'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -11,26 +12,21 @@ import Button from '@/components/ui/Button'
 import FormField from '@/components/ui/FormField'
 
 const CreateAccountForm = () => {
+  const { execute, status } = useAction(createAccount, {
+    onError: ({ serverError }) => toast(serverError),
+  })
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<z.infer<typeof createAccountSchema>>({
     resolver: zodResolver(createAccountSchema),
   })
 
-  const onSubmit = async (values: z.infer<typeof createAccountSchema>) => {
-    try {
-      const data = await createAccount(values)
-      if (data?.error) toast(data.error)
-    } catch (error) {
-      toast('something went wrong')
-    }
-  }
-
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(execute)}
       className='flex w-full grow flex-col gap-6'
     >
       <FormField
@@ -57,8 +53,12 @@ const CreateAccountForm = () => {
         type='password'
         labelText='confirm password'
       />
-      <Button type='submit' disabled={isSubmitting} loader={isSubmitting}>
-        {isSubmitting ? 'creating account' : 'create account'}
+      <Button
+        type='submit'
+        disabled={status === 'executing'}
+        loader={status === 'executing'}
+      >
+        {status === 'executing' ? 'creating account' : 'create account'}
       </Button>
     </form>
   )
