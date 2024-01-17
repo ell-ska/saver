@@ -6,7 +6,10 @@ import { cn } from './classnames'
 type toastColor = 'default' | 'secondary'
 type toastOptions = Omit<ExternalToast, 'unstyled'> & { color?: toastColor }
 
-export const toast = (message: string, options?: toastOptions) => {
+export const toast = (
+  message: string = 'something went wrong',
+  options?: toastOptions,
+) => {
   const color = options?.color || 'secondary'
   const icon = options?.icon || <AlertCircle size={18} />
 

@@ -21,8 +21,10 @@ export const logInSchema = z.object({
   }),
 })
 
-export const detailsSchema = z.object({
-  title: z.string().optional(),
+export const boardDetailsSchema = z.object({
+  title: z.string().min(1, {
+    message: 'title is required',
+  }),
   description: z.string().optional(),
 })
 

@@ -2,15 +2,11 @@
 
 import { Plus } from 'lucide-react'
 
-import { useAction } from '@/hooks/useAction'
-import { createBoard } from '@/actions/create-board'
-import { toast } from '@/utils/toast'
+import { useMenu } from '@/hooks/useMenu'
 import Button from '@/components/ui/Button'
 
 const HomeEmpty = () => {
-  const { execute, isLoading } = useAction(createBoard, {
-    onError: (error) => toast(error),
-  })
+  const [openMenu] = useMenu((state) => [state.open])
 
   return (
     <div className='mt-8 flex grow flex-col items-center gap-6 md:-mt-20 md:justify-center'>
@@ -18,14 +14,12 @@ const HomeEmpty = () => {
         you don&apos;t have any boards yet!
       </h3>
       <Button
-        onClick={() => execute({})}
-        disabled={isLoading}
-        loader={isLoading}
+        onClick={() => openMenu('add-board')}
         variant='secondary'
         className='w-full justify-between md:w-min'
         icon={<Plus size={20} />}
       >
-        {isLoading ? 'creating board' : 'create new board'}
+        create new board
       </Button>
     </div>
   )

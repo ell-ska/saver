@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Board } from '@prisma/client'
 
-import { detailsSchema } from '@/lib/schemas'
+import { boardDetailsSchema } from '@/lib/schemas'
 import { cn } from '@/utils/classnames'
 import FormField from '@/components/ui/FormField'
 
@@ -18,15 +18,15 @@ const Details = ({ title, description }: DetailsProps) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<z.infer<typeof detailsSchema>>({
-    resolver: zodResolver(detailsSchema),
+  } = useForm<z.infer<typeof boardDetailsSchema>>({
+    resolver: zodResolver(boardDetailsSchema),
     defaultValues: {
       title: title ?? '',
       description: description ?? '',
     },
   })
 
-  const onSubmit = (values: z.infer<typeof detailsSchema>) => {
+  const onSubmit = (values: z.infer<typeof boardDetailsSchema>) => {
     if (values.title === title && values.description === description) return
 
     console.log(values) // TODO: handle edit request, wait until i know how fetching is done

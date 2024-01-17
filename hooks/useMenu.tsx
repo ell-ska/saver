@@ -8,8 +8,9 @@ export type menuType =
   | 'board'
   | 'card'
   | 'confirm'
-  | 'pick-board'
   | 'collaborators'
+  | 'pick-board'
+  | 'add-board'
   | 'add-link'
   | 'add-image'
 

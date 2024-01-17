@@ -34,7 +34,7 @@ const SidebarAddMenu = () => {
     {
       tooltip: 'create new board',
       icon: <PlusCircle className='path-slate-50 fill-slate-800' />,
-      onClick: () => {},
+      onClick: () => openMenu('add-board'),
     },
   ]
 

@@ -34,7 +34,7 @@ const AddMenu = () => {
     {
       icon: <PlusCircle className='path-white fill-primary' />,
       text: 'create new board',
-      onClick: () => {},
+      onClick: () => openMenu('add-board'),
     },
   ]
 

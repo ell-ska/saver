@@ -32,7 +32,7 @@ const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
           htmlFor={name}
           hidden={unstyled || labelHidden}
           className={cn(
-            'absolute -top-2 left-2 text-xs text-slate-500 transition-all',
+            'absolute -top-2 left-2 cursor-text text-xs text-slate-500 transition-all ',
             'peer-focus-visible:-top-2 peer-focus-visible:left-2 peer-focus-visible:text-xs',
             'peer-placeholder-shown:left-4 peer-placeholder-shown:top-2 peer-placeholder-shown:text-base',
             error && '-top-4 peer-focus-visible:-top-4',
