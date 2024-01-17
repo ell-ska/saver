@@ -4,7 +4,7 @@ type BoardProps = {
   id: string
   title: string
   itemCount: string
-  previewCards: any[] // TODO: change to card type when implemented, array of three cards
+  previewCards: any[] // TODO-t60: change to card type when implemented, array of three cards
 }
 
 const Board = ({ id, title, itemCount, previewCards }: BoardProps) => {
@@ -21,7 +21,7 @@ const Board = ({ id, title, itemCount, previewCards }: BoardProps) => {
       </div>
       <div className='flex gap-2'>
         {previewCards.map((card) => (
-          // TODO: map over actual cards
+          // TODO-t60: map over actual cards
           <CardWrapper
             key={card}
             className='aspect-square w-full flex-1 bg-primary'

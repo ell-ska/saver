@@ -15,7 +15,7 @@ const Social = ({ type }: SocialProps) => {
 
   const onClick = async () => {
     startTransition(async () => {
-      // TODO: add callback url
+      // TODO-t98: add callback url
       await signIn('github')
     })
   }

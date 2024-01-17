@@ -20,7 +20,6 @@ const SidebarAddMenu = () => {
       icon: <ImageIcon />,
       onClick: () => openMenu('add-image'),
     },
-    // TODO: add when implemented
     // {
     //   tooltip: 'note',
     //   icon: <CaseSensitive />,

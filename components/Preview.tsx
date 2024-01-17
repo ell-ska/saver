@@ -7,7 +7,7 @@ type PreviewProps = {
   id: string
   title?: string
   parentTitle?: string
-  previewCard: any // TODO: change to card type when implemented
+  previewCard: any // TODO-t108: change to card type when implemented
 }
 
 const Preview = ({
@@ -23,7 +23,7 @@ const Preview = ({
       className='flex w-full items-center justify-between gap-8'
     >
       <div className='flex min-w-0 items-center gap-4'>
-        {/* TODO: add actual card */}
+        {/* TODO-t108: add actual card */}
         <CardWrapper
           rounded='sm'
           className='size-4 shrink-0 bg-primary'

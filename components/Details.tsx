@@ -12,7 +12,7 @@ import FormField from '@/components/ui/FormField'
 type DetailsProps = Pick<Board, 'id' | 'title' | 'description'>
 
 const Details = ({ title, description }: DetailsProps) => {
-  const isEditing = false // TODO: change when adding board menu
+  const isEditing = false // TODO-t111: change when adding board menu
 
   const {
     register,
@@ -29,7 +29,7 @@ const Details = ({ title, description }: DetailsProps) => {
   const onSubmit = (values: z.infer<typeof boardDetailsSchema>) => {
     if (values.title === title && values.description === description) return
 
-    console.log(values) // TODO: handle edit request, wait until i know how fetching is done
+    console.log(values) // TODO-t111: handle edit request, wait until i know how fetching is done
   }
 
   if (isEditing)

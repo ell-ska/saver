@@ -42,14 +42,14 @@ const PickBoardMenu = () => {
         </Button>
       </div>
       <div className='px-4 pb-2 pt-4'>
-        {/* TODO: add boards to choose from */}
+        {/* TODO-t114: add boards to choose from */}
         <button onClick={onClick}>add to clr8yb9eq0003rv58x60wjx71</button>
       </div>
       <MenuAction
         text='create new board'
         icon={<PlusCircle className='path-white fill-primary' />}
         onClick={() => {
-          // TODO: open create board menu with data
+          // TODO-t114: open create board menu with data
         }}
       />
     </MenuWrapper>
