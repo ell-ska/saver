@@ -1,5 +1,6 @@
-import Link from 'next/link'
-
+import { CardWithNested } from '@/lib/types'
+import Button from '@/components/ui/Button'
+import CardMap from '@/components/card/CardMap'
 import CardWrapper from '@/components/card/CardWrapper'
 
 type PreviewProps = {
@@ -7,7 +8,7 @@ type PreviewProps = {
   id: string
   title?: string
   parentTitle?: string
-  previewCard: any // TODO-t108: change to card type when implemented
+  previewCard?: CardWithNested
 }
 
 const Preview = ({
@@ -18,16 +19,23 @@ const Preview = ({
   previewCard,
 }: PreviewProps) => {
   return (
-    <Link
+    <Button
+      asLink
       href={`/${type}/${id}`}
-      className='flex w-full items-center justify-between gap-8'
+      variant='ghost'
+      className='flex items-center justify-between gap-8 rounded-none px-4 py-1'
     >
       <div className='flex min-w-0 items-center gap-4'>
-        {/* TODO-t108: add actual card */}
-        <CardWrapper
-          rounded='sm'
-          className='size-4 shrink-0 bg-primary'
-        ></CardWrapper>
+        {/* TODO: add preview image */}
+        {/* {previewCard ? (
+          <CardMap
+            {...previewCard}
+            size='preview'
+            className='size-6 shrink-0'
+          />
+        ) : (
+          <CardWrapper rounded='sm' className='size-6 shrink-0' />
+        )} */}
         <h4 className='truncate'>{title}</h4>
       </div>
       {parentTitle && (
@@ -36,7 +44,7 @@ const Preview = ({
         </span>
       )}
       {/* TODO: add shared profiles */}
-    </Link>
+    </Button>
   )
 }
 

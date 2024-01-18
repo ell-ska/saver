@@ -1,5 +1,5 @@
 import { Board, Card, Image, Link } from '@prisma/client'
-import { z } from 'zod'
+import { string, z } from 'zod'
 
 import { createImageCardSchema, createLinkCardSchema } from '@/lib/schemas'
 
@@ -18,11 +18,13 @@ export type CardWithNested = Card & {
 }
 
 export type BoardWithCards = Board & {
-  cards: CardWithNested[]
+  cards: CardWithNested[] | undefined
 }
 
-export type HomePageBoard = Pick<BoardWithCards, 'id' | 'title' | 'cards'> & {
+export type SimpleBoard = Pick<BoardWithCards, 'id' | 'title' | 'cards'> & {
   _count: { [key: string]: number }
 }
+
+export type SimpleBoardsWithKeys = { [key: string]: SimpleBoard[] }
 
 export type CardSize = 'default' | 'preview'

@@ -24,7 +24,7 @@ const Tooltip = ({
             side={side}
             align={align}
             sideOffset={8}
-            className='data-[state=delayed-open]:animate-fade-in data-[state=closed]:animate-fade-out rounded-full bg-slate-800 px-2 py-1 text-sm text-white'
+            className='rounded-full bg-slate-800 px-3 py-1 text-sm text-white data-[state=closed]:animate-fade-out data-[state=delayed-open]:animate-fade-in'
           >
             {label}
           </TooltipPrimitive.Content>

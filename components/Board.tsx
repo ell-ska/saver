@@ -19,7 +19,7 @@ const Board = ({ id, title, itemCount, previewCards }: BoardProps) => {
   return (
     <CardWrapper href={`/board/${id}`} className='space-y-2 p-4 pb-6'>
       <div>
-        <h3 className='text-2xl font-bold'>{title}</h3>
+        <h3 className='truncate text-2xl font-bold'>{title}</h3>
         <span className={cn('text-sm', !itemCount && 'text-slate-400')}>
           {itemCount} items
         </span>

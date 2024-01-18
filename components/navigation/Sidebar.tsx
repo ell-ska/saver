@@ -5,15 +5,19 @@ import { usePathname } from 'next/navigation'
 import { ChevronsLeft } from 'lucide-react'
 
 import { useSidebar } from '@/hooks/useSidebar'
+import { SimpleBoardsWithKeys } from '@/lib/types'
 import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
 import BoardNavigation from './BoardNavigation'
 import SidebarAddMenu from './SidebarAddMenu'
 import SidebarNavigation from './SidebarNavigation'
 
-type SidebarProps = { className: string }
+type SidebarProps = {
+  className: string
+  boards: SimpleBoardsWithKeys | undefined
+}
 
-const Sidebar = ({ className }: SidebarProps) => {
+const Sidebar = ({ className, boards }: SidebarProps) => {
   const {
     sidebarRef,
     isCollapsed,
@@ -44,9 +48,9 @@ const Sidebar = ({ className }: SidebarProps) => {
           className='absolute right-0 top-0 h-full w-1 cursor-ew-resize bg-slate-200 opacity-0 transition group-hover/sidebar:opacity-100'
         />
       )}
-      <div className='flex h-full flex-col justify-between px-4 py-6'>
+      <div className='flex h-full flex-col justify-between py-6'>
         <div className='space-y-12'>
-          <div className='flex items-center justify-between'>
+          <div className='flex items-center justify-between px-4'>
             <Link href='/home' className='font-branding text-xl text-primary'>
               saver
             </Link>
@@ -60,7 +64,11 @@ const Sidebar = ({ className }: SidebarProps) => {
               />
             )}
           </div>
-          {isCardBoardMenu ? <SidebarAddMenu /> : <BoardNavigation />}
+          {isCardBoardMenu ? (
+            <SidebarAddMenu />
+          ) : (
+            boards && <BoardNavigation boards={boards} />
+          )}
         </div>
         <SidebarNavigation isCardBoardMenu={isCardBoardMenu} />
       </div>

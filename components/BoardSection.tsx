@@ -1,9 +1,9 @@
-import { HomePageBoard } from '@/lib/types'
+import { SimpleBoard } from '@/lib/types'
 import Board from '@/components/Board'
 
 type BoardSectionProps = {
   title: string
-  boards: HomePageBoard[]
+  boards: SimpleBoard[]
 }
 
 const BoardSection = ({ title, boards }: BoardSectionProps) => {

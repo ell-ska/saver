@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 import { db } from '@/lib/db'
 import { authAction } from '@/lib/safeAction'
-import { HomePageBoard } from '@/lib/types'
+import { SimpleBoardsWithKeys } from '@/lib/types'
 
 const schema = z.array(
   z.object({
@@ -14,9 +14,7 @@ const schema = z.array(
 )
 
 export const getBoards = authAction(schema, async (params, { userId }) => {
-  let boards: {
-    [key: string]: HomePageBoard[]
-  } = {}
+  let boards: SimpleBoardsWithKeys = {}
 
   for (const { title, limit } of params) {
     let where, orderBy
