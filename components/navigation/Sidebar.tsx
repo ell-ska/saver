@@ -31,11 +31,11 @@ const Sidebar = ({ className }: SidebarProps) => {
       ref={sidebarRef}
       className={cn(
         className,
-        'group/sidebar relative w-60 shrink-0 bg-slate-50 text-slate-400',
-        isCardBoardMenu && 'w-auto',
+        'group/sidebar relative shrink-0 bg-slate-50 text-slate-400',
         isTransitioning && 'transition-all',
         isCollapsed && 'invisible',
       )}
+      style={{ width: isCardBoardMenu ? 'auto' : '240px' }}
     >
       {!isCardBoardMenu && (
         <div
