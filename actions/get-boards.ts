@@ -10,13 +10,14 @@ const schema = z.array(
   z.object({
     title: z.enum(['all', 'favorites', 'where you left off']),
     limit: z.number().optional(),
+    previewImage: z.boolean().optional(),
   }),
 )
 
 export const getBoards = authAction(schema, async (params, { userId }) => {
   let boards: SimpleBoardsWithKeys = {}
 
-  for (const { title, limit } of params) {
+  for (const { title, limit, previewImage } of params) {
     let where, orderBy
 
     if (title === 'favorites') {
@@ -37,11 +38,23 @@ export const getBoards = authAction(schema, async (params, { userId }) => {
       select: {
         id: true,
         title: true,
-        cards: {
-          take: 3,
-          include: { image: true, link: { include: { image: true } } },
-          orderBy: { createdAt: 'desc' },
-        },
+        cards: previewImage
+          ? {
+              where: {
+                OR: [
+                  { image: { isNot: null } },
+                  { link: { image: { isNot: null } } },
+                ],
+              },
+              orderBy: { createdAt: 'desc' },
+              include: { image: true, link: { include: { image: true } } },
+              take: 1,
+            }
+          : {
+              orderBy: { createdAt: 'desc' },
+              include: { image: true, link: { include: { image: true } } },
+              take: 3,
+            },
         _count: true,
       },
       orderBy,

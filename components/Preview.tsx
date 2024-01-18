@@ -1,7 +1,7 @@
 import { CardWithNested } from '@/lib/types'
 import Button from '@/components/ui/Button'
-import CardMap from '@/components/card/CardMap'
 import CardWrapper from '@/components/card/CardWrapper'
+import ImageCard from './card/ImageCard'
 
 type PreviewProps = {
   type: 'card' | 'board'
@@ -18,6 +18,13 @@ const Preview = ({
   parentTitle,
   previewCard,
 }: PreviewProps) => {
+  const previewImage =
+    previewCard?.type === 'LINK'
+      ? previewCard.link?.image
+      : previewCard?.type === 'IMAGE'
+        ? previewCard?.image
+        : undefined
+
   return (
     <Button
       asLink
@@ -26,16 +33,18 @@ const Preview = ({
       className='flex items-center justify-between gap-8 rounded-none px-4 py-1'
     >
       <div className='flex min-w-0 items-center gap-4'>
-        {/* TODO: add preview image */}
-        {/* {previewCard ? (
-          <CardMap
-            {...previewCard}
+        {previewImage ? (
+          <ImageCard
+            src={previewImage.url}
+            alt=''
+            width={previewImage.width}
+            height={previewImage.height}
             size='preview'
             className='size-6 shrink-0'
           />
         ) : (
           <CardWrapper rounded='sm' className='size-6 shrink-0' />
-        )} */}
+        )}
         <h4 className='truncate'>{title}</h4>
       </div>
       {parentTitle && (

@@ -5,9 +5,9 @@ import Header from '@/components/Header'
 
 const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
   const { data: boards } = await getBoards([
-    { title: 'all' },
-    { title: 'favorites' },
-    { title: 'where you left off', limit: 2 },
+    { title: 'all', previewImage: true },
+    { title: 'favorites', previewImage: true },
+    { title: 'where you left off', limit: 2, previewImage: true },
   ])
 
   return (
