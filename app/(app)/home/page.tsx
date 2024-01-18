@@ -1,10 +1,28 @@
+import { getBoards } from '@/actions/get-boards'
+import BoardSection from '@/components/BoardSection'
 import HomeEmpty from './HomeEmpty'
 
-const HomePage = () => {
+const HomePage = async () => {
+  const { data } = await getBoards([
+    {
+      title: 'favorites',
+      limit: 3,
+    },
+    {
+      title: 'where you left off',
+      limit: 3,
+    },
+  ])
+
+  if (!data) return <HomeEmpty />
+
   return (
-    <>
-      <HomeEmpty />
-    </>
+    <div className='space-y-8'>
+      {Object.keys(data).map((title) => {
+        if (data[title].length === 0) return
+        return <BoardSection key={title} title={title} boards={data[title]} />
+      })}
+    </div>
   )
 }
 

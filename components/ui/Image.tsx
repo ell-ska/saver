@@ -34,7 +34,7 @@ const Image = ({
   return (
     <NextImage
       className={cn(
-        'object-cover',
+        'min-h-0 min-w-0 object-cover',
         getDimension(),
         className,
         error && 'hidden',

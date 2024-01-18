@@ -1,11 +1,16 @@
 import { Link, Image as TImage } from '@prisma/client'
 
+import { CardSize } from '@/lib/types'
 import { cn } from '@/utils/classnames'
 import { prettifyUrl } from '@/utils/prettyUrl'
 import Image from '@/components/ui/Image'
 import CardWrapper from './CardWrapper'
 
-type LinkCardProps = Link & { image: TImage | null }
+type LinkCardProps = Link & {
+  image: TImage | null
+  size?: CardSize
+  className?: string
+}
 
 const LinkCard = ({
   title,
@@ -13,19 +18,34 @@ const LinkCard = ({
   faviconUrl,
   url,
   image,
+  size,
+  className,
 }: LinkCardProps) => {
   return (
-    <CardWrapper className='flex flex-col'>
+    <CardWrapper
+      rounded={size === 'preview' ? 'sm' : 'lg'}
+      className={cn(
+        'flex flex-col',
+        size === 'preview' && 'aspect-square',
+        className,
+      )}
+    >
       {image && (
         <Image
           src={image.url}
           alt=''
           width={image.width}
           height={image.height}
+          className='grow'
         />
       )}
-      <div className='flex flex-col gap-2 px-4 py-2'>
-        {(title || description) && (
+      <div
+        className={cn(
+          'flex flex-col gap-2 px-4 py-2',
+          size === 'preview' && 'gap-1 px-2 py-1',
+        )}
+      >
+        {size !== 'preview' && (title || description) && (
           <div className='space-y-1'>
             {title && <h5 className='font-semibold'>{title}</h5>}
             {description && <p className='text-sm'>{description}</p>}
@@ -42,7 +62,10 @@ const LinkCard = ({
             />
           )}
           <span
-            className={cn('text-sm', !title && 'text-balance font-semibold')}
+            className={cn(
+              'truncate text-sm',
+              !title && size !== 'preview' && 'text-balance font-semibold',
+            )}
           >
             {prettifyUrl(url)}
           </span>

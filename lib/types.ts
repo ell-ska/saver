@@ -24,3 +24,5 @@ export type BoardWithCards = Board & {
 export type HomePageBoard = Pick<BoardWithCards, 'id' | 'title' | 'cards'> & {
   _count: { [key: string]: number }
 }
+
+export type CardSize = 'default' | 'preview'

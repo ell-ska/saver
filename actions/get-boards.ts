@@ -24,7 +24,7 @@ export const getBoards = authAction(schema, async (params, { userId }) => {
     if (title === 'favorites') {
       where = { isFavorite: true }
     } else if (title === 'where you left off') {
-      orderBy = { createdAt: 'desc' } as const
+      orderBy = { updatedAt: 'desc' } as const // when does it actually update?
     }
 
     const response = await db.board.findMany({
@@ -42,6 +42,7 @@ export const getBoards = authAction(schema, async (params, { userId }) => {
         cards: {
           take: 3,
           include: { image: true, link: { include: { image: true } } },
+          orderBy: { createdAt: 'desc' },
         },
         _count: true,
       },

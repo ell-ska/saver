@@ -1,31 +1,40 @@
+import { CardWithNested } from '@/lib/types'
+import { cn } from '@/utils/classnames'
 import CardWrapper from '@/components/card/CardWrapper'
+import CardMap from '@/components/card/CardMap'
 
 type BoardProps = {
   id: string
   title: string
-  itemCount: string
-  previewCards: any[] // TODO-t60: change to card type when implemented, array of three cards
+  itemCount: number
+  previewCards: CardWithNested[]
 }
 
 const Board = ({ id, title, itemCount, previewCards }: BoardProps) => {
+  const placeholders = Array.from(
+    { length: Math.max(0, 3 - previewCards.length) },
+    (_, i) => i + 1,
+  )
+
   return (
-    <CardWrapper
-      width='full'
-      href={`/board/${id}`}
-      className='space-y-2 p-4 pb-6'
-    >
+    <CardWrapper href={`/board/${id}`} className='space-y-2 p-4 pb-6'>
       <div>
         <h3 className='text-2xl font-bold'>{title}</h3>
-        <span className='text-sm'>{itemCount} items</span>
+        <span className={cn('text-sm', !itemCount && 'text-slate-400')}>
+          {itemCount} items
+        </span>
         {/* TODO: add shared profiles */}
       </div>
       <div className='flex gap-2'>
-        {previewCards.map((card) => (
-          // TODO-t60: map over actual cards
+        {previewCards.slice(0, 3).map((card) => (
+          <CardMap key={card.id} {...card} size='preview' className='flex-1' />
+        ))}
+        {placeholders.map((placeholder) => (
           <CardWrapper
-            key={card}
-            className='aspect-square w-full flex-1 bg-primary'
-          ></CardWrapper>
+            key={placeholder}
+            rounded='sm'
+            className='aspect-square flex-1'
+          />
         ))}
       </div>
     </CardWrapper>
