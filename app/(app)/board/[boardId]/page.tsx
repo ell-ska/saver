@@ -7,11 +7,10 @@ import Masonry from '@/components/Masonry'
 type BoardPageProps = { params: { boardId: string } }
 
 const BoardPage = async ({ params: { boardId } }: BoardPageProps) => {
-  const { data: board, serverError } = await getBoard({
+  const { data: board } = await getBoard({
     boardId,
   })
 
-  if (serverError === 'NOT_FOUND') return notFound()
   if (!board) return notFound()
 
   return (

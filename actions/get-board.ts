@@ -10,13 +10,10 @@ const schema = z.object({
 })
 
 export const getBoard = memberAction(schema, async ({ boardId }) => {
-  const board = db.board.findUnique({
+  return await db.board.findUnique({
     where: { id: boardId },
     include: {
       cards: { include: { image: true, link: { include: { image: true } } } },
     },
   })
-  if (!board) throw Error('NOT_FOUND')
-
-  return board
 })

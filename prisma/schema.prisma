@@ -62,7 +62,7 @@ model Member {
 
 model Board {
   id          String  @id @default(cuid())
-  title       String?
+  title       String
   description String?
   isFavorite  Boolean @default(false)
   isArchived  Boolean @default(false)
