@@ -31,7 +31,7 @@ const Sidebar = ({ className }: SidebarProps) => {
       ref={sidebarRef}
       className={cn(
         className,
-        'group/sidebar relative w-60 bg-slate-50 text-slate-400',
+        'group/sidebar relative w-60 shrink-0 bg-slate-50 text-slate-400',
         isCardBoardMenu && 'w-auto',
         isTransitioning && 'transition-all',
         isCollapsed && 'invisible',
