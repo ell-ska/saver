@@ -46,6 +46,7 @@ const config: Config = {
       },
       screens: {
         smh: { raw: '(min-height: 580px)' },
+        'touch-device': { raw: '(pointer: coarse) and (hover: none)' },
       },
     },
   },
