@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { createBoard } from '@/actions/create-board'
+import { useMenu } from '@/hooks/useMenu'
 import { boardDetailsSchema } from '@/lib/schemas'
 import { toast } from '@/utils/toast'
 import Button from '@/components/ui/Button'
@@ -13,7 +14,9 @@ import FormField from '@/components/ui/FormField'
 import MenuWrapper from './MenuWrapper'
 
 const AddBoardMenu = () => {
-  const { execute, status } = useAction(createBoard, {
+  const [data] = useMenu((state) => [state.data])
+
+  const { execute: create, status } = useAction(createBoard, {
     onError: ({ serverError }) => toast(serverError),
   })
 
@@ -27,10 +30,14 @@ const AddBoardMenu = () => {
     resolver: zodResolver(boardDetailsSchema),
   })
 
+  const onSubmit = (values: z.infer<typeof boardDetailsSchema>) => {
+    create({ ...values, card: data.addBoard?.values })
+  }
+
   return (
     <MenuWrapper type='add-board' position='center' closeButton className='p-4'>
       <h3 className='mb-4 text-lg font-bold'>create board</h3>
-      <form onSubmit={handleSubmit(execute)} className='flex flex-col gap-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
         <FormField
           {...register('title')}
           error={errors.title}

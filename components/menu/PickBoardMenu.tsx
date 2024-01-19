@@ -17,7 +17,11 @@ type PickBoardMenuProps = {
 }
 
 const PickBoardMenu = ({ boards }: PickBoardMenuProps) => {
-  const [data, closeMenu] = useMenu((state) => [state.data, state.close])
+  const [data, closeMenu, openMenu] = useMenu((state) => [
+    state.data,
+    state.close,
+    state.open,
+  ])
 
   const { execute: create } = useAction(createCard, {
     onError: ({ serverError }) => toast(serverError),
@@ -71,7 +75,11 @@ const PickBoardMenu = ({ boards }: PickBoardMenuProps) => {
           text='create new board'
           icon={<PlusCircle className='path-white fill-primary' />}
           onClick={() => {
-            // TODO-t114: open create board menu with data
+            if (!data.pickBoard) return toast('missing data')
+
+            openMenu('add-board', {
+              addBoard: { values: data.pickBoard.values },
+            })
           }}
         />
       </div>

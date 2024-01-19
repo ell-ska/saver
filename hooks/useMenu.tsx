@@ -19,6 +19,9 @@ type menuData = {
     type: PickBoardType
     values: PickBoardValues
   }
+  addBoard?: {
+    values: PickBoardValues
+  }
 }
 
 type menu = {

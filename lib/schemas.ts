@@ -40,6 +40,10 @@ export const createImageCardSchema = baseCardSchema.merge(
   }),
 )
 
+const imageWithoutParentIdSchema = createImageCardSchema.omit({
+  parentBoardId: true,
+})
+
 export const createLinkCardSchema = baseCardSchema.merge(
   z.object({
     type: z.literal(CardType.LINK),
@@ -47,7 +51,16 @@ export const createLinkCardSchema = baseCardSchema.merge(
   }),
 )
 
+const linkWithoutParentIdSchema = createLinkCardSchema.omit({
+  parentBoardId: true,
+})
+
 export const createCardSchema = z.discriminatedUnion('type', [
   createImageCardSchema,
   createLinkCardSchema,
+])
+
+export const cardWithoutParentIdSchema = z.discriminatedUnion('type', [
+  imageWithoutParentIdSchema,
+  linkWithoutParentIdSchema,
 ])
