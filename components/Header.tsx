@@ -1,12 +1,14 @@
 'use client'
 
-import { ChevronsRight, MoreVertical, Search } from 'lucide-react'
+import { ChevronsRight, MoreVertical, PlusCircle, Search } from 'lucide-react'
 
 import { useSidebar } from '@/hooks/useSidebar'
+import { useMenu } from '@/hooks/useMenu'
 import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
 
 const Header = () => {
+  const [openMenu] = useMenu((state) => [state.open])
   const [isCollapsed, openSidebar] = useSidebar((state) => [
     state.isCollapsed,
     state.resetWidth,
@@ -24,6 +26,13 @@ const Header = () => {
         />
       </div>
       <div className='space-x-4'>
+        <Button
+          onClick={() => openMenu('add')}
+          variant='ghost'
+          size='icon'
+          className='hidden md:inline-flex'
+          icon={<PlusCircle />}
+        />
         <Button
           variant='ghost'
           size='icon'
