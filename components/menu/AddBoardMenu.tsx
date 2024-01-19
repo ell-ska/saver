@@ -20,7 +20,9 @@ const AddBoardMenu = () => {
     onError: ({ serverError }) => toast(serverError),
   })
 
+  // after optimistic data has been implemented
   // TODO: fix loading stopping before redirecting
+  // TODO: reset form on submit
 
   const {
     register,

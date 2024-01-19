@@ -23,7 +23,7 @@ export const useSidebar = create<SidebarStore>((set, get) => ({
   isCollapsed: false,
   isTransitioning: false,
   collapse: () => {
-    const sidebar = get().sidebarRef.current
+    const sidebar = get().sidebarRef?.current
     if (!sidebar) return
 
     set({ isTransitioning: true })
@@ -32,7 +32,7 @@ export const useSidebar = create<SidebarStore>((set, get) => ({
     setTimeout(() => set({ isTransitioning: false, isCollapsed: true }), 150)
   },
   resetWidth: () => {
-    const sidebar = get().sidebarRef.current
+    const sidebar = get().sidebarRef?.current
     if (!sidebar) return
 
     set({ isTransitioning: true, isCollapsed: false })
@@ -52,7 +52,7 @@ export const useSidebar = create<SidebarStore>((set, get) => ({
       document.addEventListener('mouseup', get().resize.handleMouseUp)
     },
     handleMouseMove: (event) => {
-      const sidebar = get().sidebarRef.current
+      const sidebar = get().sidebarRef?.current
       if (!get().isResizing.current || !sidebar) return
 
       let newWidth = event.clientX

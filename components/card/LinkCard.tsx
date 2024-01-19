@@ -51,14 +51,22 @@ const LinkCard = ({
             {description && <p className='text-sm'>{description}</p>}
           </div>
         )}
-        <div className='flex items-center gap-2'>
+        <div
+          className={cn(
+            'flex items-center gap-2',
+            size === 'preview' && 'gap-1',
+          )}
+        >
           {faviconUrl && (
             <Image
               src={faviconUrl}
               alt='favicon'
               width={16}
               height={16}
-              className='size-4 shrink-0 object-contain'
+              className={cn(
+                'size-4 shrink-0 object-contain',
+                size === 'preview' && 'size-3',
+              )}
             />
           )}
           <span

@@ -2,6 +2,7 @@ import { Plus } from 'lucide-react'
 
 import { useMenu } from '@/hooks/useMenu'
 import { SimpleBoardsWithKeys } from '@/lib/types'
+import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
 import Tooltip from '@/components/ui/Tooltip'
 import Preview from '@/components/Preview'
@@ -27,11 +28,17 @@ const BoardNavigation = ({ boards }: BoardNavigationProps) => {
   ]
 
   return (
-    <div className='space-y-12'>
+    <div className='flex grow flex-col gap-8 overflow-hidden'>
       {options.map(
         ({ name, tooltip, boards }) =>
           boards.length > 0 && (
-            <div key={name} className='group/board space-y-3'>
+            <div
+              key={name}
+              className={cn(
+                'group/board flex flex-col space-y-3',
+                name !== 'favorites' && 'overflow-hidden',
+              )}
+            >
               <div className='flex items-center justify-between px-4'>
                 <span>{name}</span>
                 <Tooltip label={tooltip}>
@@ -44,7 +51,7 @@ const BoardNavigation = ({ boards }: BoardNavigationProps) => {
                   />
                 </Tooltip>
               </div>
-              <div className='text-slate-800'>
+              <div className='grow overflow-y-scroll text-slate-800'>
                 {boards.map(({ id, title, cards }) => (
                   <Preview
                     key={id}

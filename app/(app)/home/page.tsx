@@ -14,7 +14,8 @@ const HomePage = async () => {
     },
   ])
 
-  if (!data) return <HomeEmpty />
+  if (!data?.['favorites'].length && !data?.['where you left off'].length)
+    return <HomeEmpty />
 
   return (
     <div className='space-y-8'>
