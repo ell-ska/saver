@@ -46,7 +46,7 @@ const SidebarAddMenu = () => {
             variant='ghost'
             size='icon'
             icon={icon}
-            className='py-1'
+            className='rounded-none py-1'
           />
         </Tooltip>
       ))}

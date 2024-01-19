@@ -64,10 +64,10 @@ const LinkCard = ({
           <span
             className={cn(
               'truncate text-sm',
-              !title && size !== 'preview' && 'text-balance font-semibold',
+              !title && size !== 'preview' && 'text-base font-semibold',
             )}
           >
-            {prettifyUrl(url)}
+            {size === 'preview' && title ? title : prettifyUrl(url)}
           </span>
         </div>
       </div>

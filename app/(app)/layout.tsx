@@ -21,7 +21,7 @@ const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
           </main>
         </div>
       </div>
-      <MenuProvider />
+      <MenuProvider boards={boards?.['where you left off']} />
     </>
   )
 }

@@ -48,8 +48,8 @@ const BoardNavigation = ({ boards }: BoardNavigationProps) => {
                 {boards.map(({ id, title, cards }) => (
                   <Preview
                     key={id}
-                    id={id}
-                    type='board'
+                    asLink
+                    href={`board/${id}`}
                     title={title}
                     previewCard={cards?.[0]}
                   />

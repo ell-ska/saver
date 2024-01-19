@@ -1,22 +1,27 @@
 import { CardWithNested } from '@/lib/types'
+import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
 import CardWrapper from '@/components/card/CardWrapper'
 import ImageCard from './card/ImageCard'
 
 type PreviewProps = {
-  type: 'card' | 'board'
-  id: string
-  title?: string
+  title: string
   parentTitle?: string
   previewCard?: CardWithNested
+  className?: string
+  onClick?: () => void
+  asLink?: boolean
+  href?: string
 }
 
 const Preview = ({
-  type,
-  id,
   title,
   parentTitle,
   previewCard,
+  onClick,
+  asLink,
+  href,
+  className,
 }: PreviewProps) => {
   const previewImage =
     previewCard?.type === 'LINK'
@@ -27,10 +32,14 @@ const Preview = ({
 
   return (
     <Button
-      asLink
-      href={`/${type}/${id}`}
+      onClick={onClick}
+      asLink={asLink}
+      href={href}
       variant='ghost'
-      className='flex items-center justify-between gap-8 rounded-none px-4 py-1'
+      className={cn(
+        'flex w-full items-center justify-between gap-8 rounded-none px-4 py-1',
+        className,
+      )}
     >
       <div className='flex min-w-0 items-center gap-4'>
         {previewImage ? (

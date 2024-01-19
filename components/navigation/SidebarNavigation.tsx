@@ -36,7 +36,10 @@ const SidebarNavigation = ({ isCardBoardMenu }: SidebarNavigationProps) => {
             key={path}
             href={path}
             variant='ghost'
-            className='justify-start gap-2 rounded-none px-4 py-1'
+            className={cn(
+              'w-full justify-start gap-2 rounded-none px-4 py-1',
+              isCardBoardMenu && 'justify-center',
+            )}
           >
             <Icon size={isCardBoardMenu ? 24 : 20} className='shrink-0' />
             {!isCardBoardMenu && <span className='truncate'>{text}</span>}
