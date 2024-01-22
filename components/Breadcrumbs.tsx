@@ -25,37 +25,29 @@ const Breadcrumbs = ({}: BreadcrumbsProps) => {
   const crumbs = [{ title: 'home', id: 'home', type: 'home' }, ...data]
 
   return (
-    <div className='touch-device:gap-0 flex items-center gap-1'>
+    <div className='flex items-center gap-1 overflow-hidden'>
       <Button
         onClick={router.back}
         variant='ghost'
         size='icon'
         icon={<ChevronLeft />}
-        className='touch-device:inline-flex hidden'
+        className='md:hidden'
       />
       {crumbs.map(({ id, title, type }, index) => (
-        <div key={id} className='space-x-1'>
+        <div
+          key={id}
+          className='hidden items-center gap-1 overflow-hidden last:flex md:flex'
+        >
           <Button
             asLink
             href={type === 'home' ? '/home' : `/${type}/${id}`}
             variant='ghost'
-            className={cn(
-              'text-base md:text-sm',
-              title === 'home' &&
-                'touch-device:pointer-events-none touch-device:hidden',
-            )}
+            className='overflow-hidden text-base md:text-sm'
           >
-            <span className='max-w-xs truncate'>{title}</span>
+            <span className='truncate md:max-w-xs'>{title}</span>
           </Button>
           {index !== crumbs.length - 1 && (
-            <span
-              className={cn(
-                'text-slate-300',
-                title === 'home' && 'touch-device:hidden',
-              )}
-            >
-              /
-            </span>
+            <span className='text-slate-300'>/</span>
           )}
         </div>
       ))}

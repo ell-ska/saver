@@ -21,7 +21,7 @@ const Header = () => {
 
   return (
     <header className='sticky top-0 z-30 flex h-20 w-full items-center justify-between bg-white px-4 md:px-8'>
-      <div>
+      <div className='flex overflow-hidden'>
         <Button
           onClick={openSidebar}
           variant='ghost'
