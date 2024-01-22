@@ -18,6 +18,8 @@ const Header = () => {
 
   const path = usePathname()
   const isHomeRoute = path.includes('/home')
+  const isBoardRoute = path.includes('/board')
+  const isCardRoute = path.includes('/card')
 
   return (
     <header className='sticky top-0 z-30 flex h-20 w-full items-center justify-between bg-white px-4 md:px-8'>
@@ -45,7 +47,18 @@ const Header = () => {
           className='hidden md:inline-flex'
           icon={<Search />}
         />
-        <Button variant='ghost' size='icon' icon={<MoreVertical />} />
+        <Button
+          onClick={() => {
+            if (isBoardRoute) {
+              openMenu('board')
+            } else if (isCardRoute) {
+              openMenu('card')
+            }
+          }}
+          variant='ghost'
+          size='icon'
+          icon={<MoreVertical />}
+        />
       </div>
     </header>
   )

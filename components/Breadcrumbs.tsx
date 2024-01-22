@@ -10,15 +10,10 @@ type BreadcrumbsProps = {}
 
 const Breadcrumbs = ({}: BreadcrumbsProps) => {
   const router = useRouter()
-  const params = useParams()
-  const { boardId, cardId } = params
+  const { boardId, cardId } = useParams<{ boardId: string; cardId: string }>()
 
   const { data } = useSWR(`/title/${boardId || cardId}`, async () => {
-    const validBoardId = typeof boardId === 'string' ? boardId : undefined
-    const validCardId = typeof cardId === 'string' ? cardId : undefined
-    if (!validBoardId && !validCardId) return
-
-    return (await getTitle({ boardId: validBoardId, cardId: validCardId })).data
+    return (await getTitle({ boardId, cardId })).data
   })
 
   if (!data) return null
