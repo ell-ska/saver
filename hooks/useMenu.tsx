@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { PickBoardType, PickBoardValues } from '@/lib/types'
+import { ConfirmType, PickBoardType, PickBoardValues } from '@/lib/types'
 
 export type menuType =
   | 'add'
@@ -21,6 +21,10 @@ type menuData = {
   }
   addBoard?: {
     values: PickBoardValues
+  }
+  confirm?: {
+    type: ConfirmType
+    boardId: string
   }
 }
 

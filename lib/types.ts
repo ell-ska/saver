@@ -7,6 +7,8 @@ export type PickBoardValues = z.infer<typeof cardWithoutParentIdSchema>
 
 export type PickBoardType = 'move' | 'add' | 'copy'
 
+export type ConfirmType = 'delete-board'
+
 export type CardWithNested = Card & {
   image: Image | null
   link: (Link & { image: Image | null }) | null

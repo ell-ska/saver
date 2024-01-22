@@ -1,3 +1,4 @@
+import { useParams } from 'next/navigation'
 import {
   ArrowLeftRight,
   Copy,
@@ -8,10 +9,15 @@ import {
   Users,
 } from 'lucide-react'
 
+import { useMenu } from '@/hooks/useMenu'
 import MenuWrapper from './MenuWrapper'
 import MenuAction from './MenuAction'
 
 const BoardMenu = () => {
+  const [openMenu] = useMenu((state) => [state.open])
+
+  const { boardId } = useParams<{ boardId: string }>()
+
   const options = [
     {
       icon: <Settings2 />,
@@ -36,7 +42,9 @@ const BoardMenu = () => {
     {
       icon: <Eraser />,
       text: 'delete',
-      onClick: () => {},
+      onClick: () => {
+        openMenu('confirm', { confirm: { type: 'delete-board', boardId } })
+      },
     },
     // {
     //   icon: <Users />,

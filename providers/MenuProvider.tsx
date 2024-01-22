@@ -10,6 +10,7 @@ import AddImageMenu from '@/components/menu/AddImageMenu'
 import PickBoardMenu from '@/components/menu/PickBoardMenu'
 import BoardMenu from '@/components/menu/BoardMenu'
 import CardMenu from '@/components/menu/CardMenu'
+import ConfirmMenu from '@/components/menu/ConfirmMenu'
 
 type MenuProviderProps = {
   boards: SimpleBoard[] | undefined
@@ -33,6 +34,7 @@ const MenuProvider = ({ boards }: MenuProviderProps) => {
       <PickBoardMenu boards={boards} />
       <BoardMenu />
       <CardMenu />
+      <ConfirmMenu />
     </>
   )
 }
