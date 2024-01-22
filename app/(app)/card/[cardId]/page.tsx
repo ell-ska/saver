@@ -3,6 +3,7 @@ import { CardType } from '@prisma/client'
 
 import { getCard } from '@/actions/get-card'
 import ImagePage from './ImagePage'
+import LinkPage from './LinkPage'
 
 type CardPageProps = {
   params: { cardId: string }
@@ -14,16 +15,15 @@ const CardPage = async ({ params: { cardId } }: CardPageProps) => {
   if (!card) return notFound()
 
   const pageMap: { [key in CardType]: React.ReactNode } = {
-    [CardType.IMAGE]: card.image ? <ImagePage {...card.image} /> : undefined,
-    [CardType.LINK]: card.link && <div>link</div>,
+    [CardType.IMAGE]: card.image && (
+      <ImagePage {...card.image} caption={card.caption} />
+    ),
+    [CardType.LINK]: card.link && (
+      <LinkPage {...card.link} caption={card.caption} />
+    ),
   }
 
-  return (
-    <div className='flex max-h-[calc(100vh-7rem)] grow flex-col self-center md:justify-center'>
-      {pageMap[card.type]}
-      {card.caption && <p className='mt-4 text-sm'>{card.caption}</p>}
-    </div>
-  )
+  return <>{pageMap[card.type]}</>
 }
 
 export default CardPage
