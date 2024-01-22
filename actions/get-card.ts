@@ -12,6 +12,6 @@ const schema = z.object({
 export const getCard = memberAction(schema, async ({ cardId }) => {
   return await db.card.findUnique({
     where: { id: cardId },
-    include: { image: true, link: true },
+    include: { image: true, link: { include: { image: true } } },
   })
 })

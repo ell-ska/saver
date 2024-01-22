@@ -30,10 +30,11 @@ export const memberAction = createSafeActionClient({
     const schema = z
       .object({
         boardId: z.string().cuid(),
+        parentBoardId: z.string().cuid(),
         cardId: z.string().cuid(),
       })
       .partial()
-      .refine((data) => !!data.boardId || !!data.cardId)
+      .refine((data) => !!data.boardId || !!data.parentBoardId || !!data.cardId)
 
     const validatedInput = schema.safeParse(input)
     if (!validatedInput.success) throw Error('no board or card id')
@@ -41,13 +42,13 @@ export const memberAction = createSafeActionClient({
     const session = await auth()
     if (!session?.user) return redirect('/auth/log-in')
 
-    const { boardId, cardId } = validatedInput.data
+    const { boardId, parentBoardId, cardId } = validatedInput.data
     let board, card
 
-    if (boardId) {
+    if (boardId || parentBoardId) {
       board = await db.board.findUnique({
         where: {
-          id: boardId,
+          id: boardId || parentBoardId,
           members: { some: { userId: session.user.id } },
         },
       })
