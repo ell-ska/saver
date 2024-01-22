@@ -11,15 +11,18 @@ type BreadcrumbsProps = {}
 const Breadcrumbs = ({}: BreadcrumbsProps) => {
   const router = useRouter()
   const params = useParams()
-  const { boardId } = params
+  const { boardId, cardId } = params
 
-  const { data } = useSWR(`/title/${boardId}`, async () => {
-    if (!boardId || typeof boardId !== 'string') return
-    return (await getTitle({ boardId })).data
+  const { data } = useSWR(`/title/${boardId || cardId}`, async () => {
+    const validBoardId = typeof boardId === 'string' ? boardId : undefined
+    const validCardId = typeof cardId === 'string' ? cardId : undefined
+    if (!validBoardId && !validCardId) return
+
+    return (await getTitle({ boardId: validBoardId, cardId: validCardId })).data
   })
 
   if (!data) return null
-  const crumbs = [{ title: 'home', id: 'home' }, data]
+  const crumbs = [{ title: 'home', id: 'home', type: 'home' }, ...data]
 
   return (
     <div className='touch-device:gap-0 flex items-center gap-1'>
@@ -30,11 +33,11 @@ const Breadcrumbs = ({}: BreadcrumbsProps) => {
         icon={<ChevronLeft />}
         className='touch-device:inline-flex hidden'
       />
-      {crumbs.map(({ id, title }, index) => (
+      {crumbs.map(({ id, title, type }, index) => (
         <div key={id} className='space-x-1'>
           <Button
             asLink
-            href={title === 'home' ? '/home' : `/board/${id}`}
+            href={type === 'home' ? '/home' : `/${type}/${id}`}
             variant='ghost'
             className={cn(
               'text-base md:text-sm',
@@ -42,7 +45,7 @@ const Breadcrumbs = ({}: BreadcrumbsProps) => {
                 'touch-device:pointer-events-none touch-device:hidden',
             )}
           >
-            {title}
+            <span className='max-w-xs truncate'>{title}</span>
           </Button>
           {index !== crumbs.length - 1 && (
             <span
