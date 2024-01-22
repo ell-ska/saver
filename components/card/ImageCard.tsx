@@ -5,18 +5,20 @@ import { cn } from '@/utils/classnames'
 import Image from '@/components/ui/Image'
 import CardWrapper from './CardWrapper'
 
-type ImageCardProps = ImageProps & { size?: CardSize }
+type ImageCardProps = ImageProps & { href?: string; size?: CardSize }
 
 const ImageCard = ({
   src,
   alt,
   width,
   height,
+  href,
   size,
   className,
 }: ImageCardProps) => {
   return (
     <CardWrapper
+      href={href}
       rounded={size === 'preview' ? 'sm' : 'lg'}
       className={cn(size === 'preview' && 'aspect-square', className)}
     >

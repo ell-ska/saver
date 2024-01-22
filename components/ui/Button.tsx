@@ -1,4 +1,4 @@
-import { AnchorHTMLAttributes, forwardRef } from 'react'
+import { forwardRef } from 'react'
 import Link from 'next/link'
 import { cva, VariantProps } from 'class-variance-authority'
 import { Loader2 } from 'lucide-react'

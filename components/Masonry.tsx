@@ -11,7 +11,7 @@ const Masonry = ({ content, className }: MasonryProps) => {
   return (
     <div className={cn('columns-xs gap-4 space-y-4', className)}>
       {content.map((card) => (
-        <CardMap key={card.id} {...card} />
+        <CardMap key={card.id} href={`/card/${card.id}`} {...card} />
       ))}
     </div>
   )

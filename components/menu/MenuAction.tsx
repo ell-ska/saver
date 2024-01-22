@@ -33,14 +33,16 @@ const MenuAction = ({
           {text}
         </span>
       </div>
-      <kbd
-        className={cn(
-          'hidden text-xs text-slate-400 md:inline',
-          isLoading && 'text-slate-300',
-        )}
-      >
-        {shortcut}
-      </kbd>
+      {shortcut && (
+        <kbd
+          className={cn(
+            'hidden text-xs text-slate-400 md:inline',
+            isLoading && 'text-slate-300',
+          )}
+        >
+          {shortcut}
+        </kbd>
+      )}
     </button>
   )
 }

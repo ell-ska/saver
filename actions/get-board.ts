@@ -6,7 +6,7 @@ import { db } from '@/lib/db'
 import { memberAction } from '@/lib/safeAction'
 
 const schema = z.object({
-  boardId: z.string(),
+  boardId: z.string().cuid(),
 })
 
 export const getBoard = memberAction(schema, async ({ boardId }) => {

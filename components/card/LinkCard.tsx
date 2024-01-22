@@ -8,6 +8,7 @@ import CardWrapper from './CardWrapper'
 
 type LinkCardProps = Link & {
   image: TImage | null
+  href?: string
   size?: CardSize
   className?: string
 }
@@ -18,11 +19,13 @@ const LinkCard = ({
   faviconUrl,
   url,
   image,
+  href,
   size,
   className,
 }: LinkCardProps) => {
   return (
     <CardWrapper
+      href={href}
       rounded={size === 'preview' ? 'sm' : 'lg'}
       className={cn(
         'flex flex-col',
@@ -36,7 +39,7 @@ const LinkCard = ({
           alt=''
           width={image.width}
           height={image.height}
-          className='grow'
+          className='w-full grow'
         />
       )}
       <div
