@@ -5,13 +5,13 @@ import { usePathname } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 
-import { menuType, useMenu } from '@/hooks/useMenu'
+import { MenuType, useMenu } from '@/hooks/useMenu'
 import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
 
 type MenuWrapperProps = {
   children: React.ReactNode
-  type: menuType
+  type: MenuType
   closeButton?: boolean
   position?: 'top-right' | 'center'
   className?: string
