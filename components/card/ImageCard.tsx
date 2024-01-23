@@ -5,19 +5,28 @@ import { cn } from '@/utils/classnames'
 import Image from '@/components/ui/Image'
 import CardWrapper from './CardWrapper'
 
-type ImageCardProps = ImageProps & { href?: string; size?: CardSize }
+type ImageCardProps = ImageProps & {
+  onClick?: () => void
+  asLink?: boolean
+  href?: string
+  size?: CardSize
+}
 
 const ImageCard = ({
   src,
   alt,
   width,
   height,
+  onClick,
+  asLink,
   href,
   size,
   className,
 }: ImageCardProps) => {
   return (
     <CardWrapper
+      onClick={onClick}
+      asLink={asLink}
       href={href}
       rounded={size === 'preview' ? 'sm' : 'lg'}
       className={cn(size === 'preview' && 'aspect-square', className)}

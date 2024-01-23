@@ -8,6 +8,8 @@ import CardWrapper from './CardWrapper'
 
 type LinkCardProps = Link & {
   image: TImage | null
+  onClick?: () => void
+  asLink?: boolean
   href?: string
   size?: CardSize
   className?: string
@@ -19,12 +21,16 @@ const LinkCard = ({
   faviconUrl,
   url,
   image,
+  onClick,
+  asLink,
   href,
   size,
   className,
 }: LinkCardProps) => {
   return (
     <CardWrapper
+      onClick={onClick}
+      asLink={asLink}
       href={href}
       rounded={size === 'preview' ? 'sm' : 'lg'}
       className={cn(

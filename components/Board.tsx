@@ -18,6 +18,7 @@ const Board = ({ id, title, itemCount, previewCards }: BoardProps) => {
 
   return (
     <CardWrapper
+      asLink
       href={`/board/${id}`}
       className='cursor-pointer space-y-2 p-4 pb-6'
     >

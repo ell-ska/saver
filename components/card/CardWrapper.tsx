@@ -12,19 +12,21 @@ const cardVariants = cva('border border-slate-200 overflow-hidden', {
 })
 
 type CardWrapperProps = React.HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof cardVariants> & { href?: string }
+  VariantProps<typeof cardVariants> & { asLink?: boolean; href?: string }
 
 const CardWrapper = ({
   children,
   rounded,
   width,
+  asLink,
   href,
+  onClick,
   className,
   ...props
 }: CardWrapperProps) => {
   className = cn(cardVariants({ rounded, width, className }))
 
-  if (href) {
+  if (asLink && href) {
     return (
       <Link href={href} className={cn(className, 'block')}>
         {children}
@@ -33,7 +35,12 @@ const CardWrapper = ({
   }
 
   return (
-    <div className={className} {...props}>
+    <div
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      className={className}
+      {...props}
+    >
       {children}
     </div>
   )

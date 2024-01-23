@@ -5,6 +5,8 @@ import ImageCard from './ImageCard'
 import LinkCard from './LinkCard'
 
 type CardMapProps = CardWithNested & {
+  onClick?: () => void
+  asLink?: boolean
   href?: string
   size?: CardSize
   className?: string
@@ -13,6 +15,8 @@ type CardMapProps = CardWithNested & {
 const CardMap = ({
   type,
   image,
+  onClick,
+  asLink,
   link,
   href,
   size = 'default',
@@ -21,6 +25,8 @@ const CardMap = ({
   const cardMap: { [key in CardType]: React.ReactNode } = {
     [CardType.IMAGE]: image && (
       <ImageCard
+        onClick={onClick}
+        asLink={asLink}
         href={href}
         size={size}
         src={image.url}
@@ -31,7 +37,14 @@ const CardMap = ({
       />
     ),
     [CardType.LINK]: link && (
-      <LinkCard href={href} size={size} {...link} className={className} />
+      <LinkCard
+        onClick={onClick}
+        asLink={asLink}
+        href={href}
+        size={size}
+        {...link}
+        className={className}
+      />
     ),
   }
 
