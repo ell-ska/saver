@@ -3,7 +3,7 @@ import { VariantProps, cva } from 'class-variance-authority'
 
 import { cn } from '@/utils/classnames'
 
-const cardVariants = cva('border border-slate-200 overflow-hidden', {
+const cardVariants = cva('border border-slate-200 overflow-hidden relative', {
   variants: {
     rounded: { sm: 'rounded-sm', lg: 'rounded-lg' },
     width: { half: 'col-span-1', full: 'col-span-2' },

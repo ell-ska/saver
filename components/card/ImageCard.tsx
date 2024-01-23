@@ -4,12 +4,14 @@ import { CardSize } from '@/lib/types'
 import { cn } from '@/utils/classnames'
 import Image from '@/components/ui/Image'
 import CardWrapper from './CardWrapper'
+import SelectedOverlay from './SelectedOverlay'
 
 type ImageCardProps = ImageProps & {
   onClick?: () => void
   asLink?: boolean
   href?: string
   size?: CardSize
+  selected?: boolean
 }
 
 const ImageCard = ({
@@ -21,6 +23,7 @@ const ImageCard = ({
   asLink,
   href,
   size,
+  selected,
   className,
 }: ImageCardProps) => {
   return (
@@ -31,6 +34,7 @@ const ImageCard = ({
       rounded={size === 'preview' ? 'sm' : 'lg'}
       className={cn(size === 'preview' && 'aspect-square', className)}
     >
+      {selected && <SelectedOverlay />}
       <Image
         src={src}
         alt={alt}

@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
-import { DetailValues } from '@/lib/types'
 import { editBoard } from '@/actions/edit-board'
+import { DetailValues } from '@/lib/types'
 
 type EditType = 'board' | 'card'
 
@@ -12,20 +12,19 @@ type Edit = {
 type EditKey = keyof Edit
 
 type EditStore = {
-  edit: Edit
   type: EditType | null
-  isEditing: boolean
-  registerEdit: (edit: Edit) => void
   start: (type: EditType) => void
   cancel: () => void
   save: (key: EditKey) => void
+  edit: Edit
+  isEditing: boolean
+  registerEdit: (edit: Edit) => void
+  selected: string[]
+  toggleSelected: (cardId: string) => void
 }
 
 export const useEdit = create<EditStore>((set, get) => ({
-  edit: {},
   type: null,
-  isEditing: false,
-  registerEdit: (edit) => set({ edit }),
   start: (type) => set({ isEditing: true, type }),
   cancel: () => set({ isEditing: false, type: null }),
   save: (key) => {
@@ -35,6 +34,19 @@ export const useEdit = create<EditStore>((set, get) => ({
 
       editBoard(details)
       set({ isEditing: false, type: null, edit: {} })
+    }
+  },
+  edit: {},
+  isEditing: false,
+  registerEdit: (edit) => set({ edit }),
+  selected: [],
+  toggleSelected: (cardId) => {
+    const isSelected = get().selected.includes(cardId)
+
+    if (isSelected) {
+      set({ selected: get().selected.filter((id) => id !== cardId) })
+    } else {
+      set({ selected: [...get().selected, cardId] })
     }
   },
 }))

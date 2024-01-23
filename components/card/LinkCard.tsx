@@ -5,6 +5,7 @@ import { cn } from '@/utils/classnames'
 import { prettifyUrl } from '@/utils/prettyUrl'
 import Image from '@/components/ui/Image'
 import CardWrapper from './CardWrapper'
+import SelectedOverlay from './SelectedOverlay'
 
 type LinkCardProps = Link & {
   image: TImage | null
@@ -12,6 +13,7 @@ type LinkCardProps = Link & {
   asLink?: boolean
   href?: string
   size?: CardSize
+  selected?: boolean
   className?: string
 }
 
@@ -25,6 +27,7 @@ const LinkCard = ({
   asLink,
   href,
   size,
+  selected,
   className,
 }: LinkCardProps) => {
   return (
@@ -39,6 +42,7 @@ const LinkCard = ({
         className,
       )}
     >
+      {selected && <SelectedOverlay />}
       {image && (
         <Image
           src={image.url}

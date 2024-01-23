@@ -9,6 +9,7 @@ type CardMapProps = CardWithNested & {
   asLink?: boolean
   href?: string
   size?: CardSize
+  selected?: boolean
   className?: string
 }
 
@@ -20,6 +21,7 @@ const CardMap = ({
   link,
   href,
   size = 'default',
+  selected,
   className,
 }: CardMapProps) => {
   const cardMap: { [key in CardType]: React.ReactNode } = {
@@ -29,11 +31,12 @@ const CardMap = ({
         asLink={asLink}
         href={href}
         size={size}
+        selected={selected}
+        className={className}
         src={image.url}
         alt='' // TODO: add proper alt text
         width={image.width}
         height={image.height}
-        className={className}
       />
     ),
     [CardType.LINK]: link && (
@@ -42,8 +45,9 @@ const CardMap = ({
         asLink={asLink}
         href={href}
         size={size}
-        {...link}
+        selected={selected}
         className={className}
+        {...link}
       />
     ),
   }
