@@ -70,11 +70,11 @@ const Header = () => {
         {!isHomeRoute && !isEditing && <Breadcrumbs />}
       </div>
       {isEditing && !isHomeRoute ? (
-        <div className='flex w-full items-center justify-between'>
+        <div className='flex w-full items-center'>
           <Button onClick={selectAll} variant='ghost'>
             {selected.length < allCardsLength ? 'select all' : 'deselect all'}
           </Button>
-          <span className='text-sm text-slate-400'>
+          <span className='w-full text-center text-sm text-slate-400'>
             {selected.length} item{selected.length === 1 ? '' : 's'} selected
           </span>
           {Object.keys(edit).length > 0 ? (

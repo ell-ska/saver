@@ -1,5 +1,6 @@
 'use client'
 
+import { useParams } from 'next/navigation'
 import {
   ArrowLeftRight,
   CircleUserRound,
@@ -12,8 +13,10 @@ import {
   Share,
 } from 'lucide-react'
 
+import { deleteCards } from '@/actions/delete-cards'
 import { useMenu } from '@/hooks/useMenu'
 import { useEdit } from '@/hooks/useEdit'
+import { toast } from '@/utils/toast'
 import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
 
@@ -21,8 +24,15 @@ type BottomNavigationProps = { className: string }
 
 const BottomNavigation = ({ className }: BottomNavigationProps) => {
   const [openMenu] = useMenu((state) => [state.open])
-  const [editing, type] = useEdit((state) => [state.isEditing, state.type])
+  const [editing, type, selected, cancelEditing] = useEdit((state) => [
+    state.isEditing,
+    state.type,
+    state.selected,
+    state.cancel,
+  ])
   const isEditing = editing && type === 'board'
+
+  const { boardId } = useParams<{ boardId: string }>()
 
   const base = [
     { key: 'home', asLink: true, href: '/home', icon: <Home /> },
@@ -44,10 +54,31 @@ const BottomNavigation = ({ className }: BottomNavigationProps) => {
   ]
 
   const edit = [
-    { key: 'move', icon: <ArrowLeftRight />, onClick: () => {} },
-    { key: 'duplicate', icon: <Copy />, onClick: () => {} },
-    { key: 'delete', icon: <Eraser />, onClick: () => {} },
-    { key: 'share', icon: <Share />, onClick: () => {} },
+    {
+      key: 'move',
+      icon: <ArrowLeftRight />,
+      onClick: () => toast('moving cards has not been implemented yet'),
+    },
+    {
+      key: 'duplicate',
+      icon: <Copy />,
+      onClick: () => toast('duplicating cards has not been implemented yet'),
+    },
+    {
+      key: 'delete',
+      icon: <Eraser />,
+      onClick: async () => {
+        if (!selected.length) return toast('no cards selected')
+
+        deleteCards({ boardId, cards: selected })
+        cancelEditing()
+      },
+    },
+    {
+      key: 'share',
+      icon: <Share />,
+      onClick: () => toast('sharing cards has not been implemented yet'),
+    },
   ]
 
   const options = isEditing ? edit : base
