@@ -25,12 +25,16 @@ const AddLinkMenu = () => {
   // TODO: optimistic update
   const { execute, status } = useAction(createCard, {
     onError: ({ serverError }) => toast(serverError),
-    onSuccess: closeMenu,
+    onSuccess: () => {
+      closeMenu()
+      reset()
+    },
   })
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),

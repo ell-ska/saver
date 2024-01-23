@@ -42,7 +42,11 @@ const AddImageMenu = () => {
   // TODO-t112: optimistic update
   const { execute, status } = useAction(createCard, {
     onError: ({ serverError }) => toast(serverError),
-    onSuccess: closeMenu,
+    onSuccess: () => {
+      closeMenu()
+      setImageFile(undefined)
+      setImageUrl('')
+    },
   })
   const isLoading = status === 'executing'
 

@@ -18,15 +18,16 @@ const AddBoardMenu = () => {
 
   const { execute: create, status } = useAction(createBoard, {
     onError: ({ serverError }) => toast(serverError),
+    onExecute: () => reset(),
   })
 
   // after optimistic data has been implemented
   // TODO: fix loading stopping before redirecting
-  // TODO: reset form on submit
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<z.infer<typeof boardDetailsSchema>>({
     resolver: zodResolver(boardDetailsSchema),
