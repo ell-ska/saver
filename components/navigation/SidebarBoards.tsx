@@ -7,11 +7,11 @@ import Button from '@/components/ui/Button'
 import Tooltip from '@/components/ui/Tooltip'
 import Preview from '@/components/Preview'
 
-type BoardNavigationProps = {
+type SidebarBoardsProps = {
   boards: SimpleBoardsWithKeys
 }
 
-const BoardNavigation = ({ boards }: BoardNavigationProps) => {
+const SidebarBoards = ({ boards }: SidebarBoardsProps) => {
   const [openMenu] = useMenu((state) => [state.open])
 
   const options = [
@@ -69,4 +69,4 @@ const BoardNavigation = ({ boards }: BoardNavigationProps) => {
   )
 }
 
-export default BoardNavigation
+export default SidebarBoards

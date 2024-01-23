@@ -8,8 +8,8 @@ import { useSidebar } from '@/hooks/useSidebar'
 import { SimpleBoardsWithKeys } from '@/lib/types'
 import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
-import BoardNavigation from './BoardNavigation'
-import SidebarAddMenu from './SidebarAddMenu'
+import SidebarBoards from './SidebarBoards'
+import SidebarOptions from './SidebarOptions'
 import SidebarNavigation from './SidebarNavigation'
 
 type SidebarProps = {
@@ -65,9 +65,9 @@ const Sidebar = ({ className, boards }: SidebarProps) => {
             )}
           </div>
           {isCardBoardMenu ? (
-            <SidebarAddMenu />
+            <SidebarOptions />
           ) : (
-            boards && <BoardNavigation boards={boards} />
+            boards && <SidebarBoards boards={boards} />
           )}
         </div>
         <SidebarNavigation isCardBoardMenu={isCardBoardMenu} />
