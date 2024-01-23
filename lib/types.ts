@@ -1,13 +1,20 @@
 import { Board, Card, Image, Link } from '@prisma/client'
 import { z } from 'zod'
 
-import { cardWithoutParentIdSchema } from '@/lib/schemas'
+import { boardDetailsSchema, cardWithoutParentIdSchema } from '@/lib/schemas'
 
 export type PickBoardValues = z.infer<typeof cardWithoutParentIdSchema>
 
 export type PickBoardType = 'move' | 'add' | 'copy'
 
 export type ConfirmType = 'delete-board'
+
+const boardDetailsSchemaWithId = boardDetailsSchema.merge(
+  z.object({
+    boardId: z.string().cuid(),
+  }),
+)
+export type DetailValues = z.infer<typeof boardDetailsSchemaWithId>
 
 export type CardWithNested = Card & {
   image: Image | null

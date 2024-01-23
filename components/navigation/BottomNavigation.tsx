@@ -25,23 +25,29 @@ const BottomNavigation = ({ className }: BottomNavigationProps) => {
   const isEditing = editing && type === 'board'
 
   const base = [
-    { asLink: true, href: '/home', icon: <Home /> },
-    { asLink: true, href: '/search', icon: <Search /> },
+    { key: 'home', asLink: true, href: '/home', icon: <Home /> },
+    { key: 'search', asLink: true, href: '/search', icon: <Search /> },
     {
+      key: 'add',
       onClick: () => {
         openMenu('add')
       },
       icon: <Plus />,
     },
-    { asLink: true, href: '/sort-later', icon: <Inbox /> },
-    { asLink: true, href: '/profile', icon: <CircleUserRound /> },
+    { key: 'sort-later', asLink: true, href: '/sort-later', icon: <Inbox /> },
+    {
+      key: 'profile',
+      asLink: true,
+      href: '/profile',
+      icon: <CircleUserRound />,
+    },
   ]
 
   const edit = [
-    { icon: <ArrowLeftRight />, onClick: () => {} },
-    { icon: <Copy />, onClick: () => {} },
-    { icon: <Eraser />, onClick: () => {} },
-    { icon: <Share />, onClick: () => {} },
+    { key: 'move', icon: <ArrowLeftRight />, onClick: () => {} },
+    { key: 'duplicate', icon: <Copy />, onClick: () => {} },
+    { key: 'delete', icon: <Eraser />, onClick: () => {} },
+    { key: 'share', icon: <Share />, onClick: () => {} },
   ]
 
   const options = isEditing ? edit : base
@@ -53,8 +59,8 @@ const BottomNavigation = ({ className }: BottomNavigationProps) => {
         className,
       )}
     >
-      {options.map((option) => (
-        <Button {...option} variant='ghost' size='icon' />
+      {options.map(({ key, ...option }) => (
+        <Button key={key} {...option} variant='ghost' size='icon' />
       ))}
     </nav>
   )

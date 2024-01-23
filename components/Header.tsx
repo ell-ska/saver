@@ -17,7 +17,13 @@ const Header = () => {
     state.resetWidth,
   ])
   const [openMenu] = useMenu((state) => [state.open])
-  const [editing, type] = useEdit((state) => [state.isEditing, state.type])
+  const [editing, type, cancelEditing, saveEdits, edit] = useEdit((state) => [
+    state.isEditing,
+    state.type,
+    state.cancel,
+    state.save,
+    state.edit,
+  ])
   const isEditing = editing && type === 'board'
 
   const path = usePathname()
@@ -40,24 +46,30 @@ const Header = () => {
             saver
           </Link>
         )}
-        {!isHomeRoute && !isEditing && (
-          <>
-            <Button
-              onClick={openSidebar}
-              variant='ghost'
-              size='icon'
-              className={cn('hidden', isCollapsed && 'inline-flex')}
-              icon={<ChevronsRight />}
-            />
-            <Breadcrumbs />
-          </>
+        {isHomeRoute && (
+          <Button
+            onClick={openSidebar}
+            variant='ghost'
+            size='icon'
+            className={cn('hidden', isCollapsed && 'inline-flex')}
+            icon={<ChevronsRight />}
+          />
         )}
+        {!isHomeRoute && !isEditing && <Breadcrumbs />}
       </div>
       {isEditing && !isHomeRoute ? (
         <div className='flex w-full items-center justify-between'>
           <Button variant='ghost'>select all</Button>
           <span className='text-sm text-slate-400'>items selected</span>
-          <Button variant='ghost'>cancel</Button>
+          {Object.keys(edit).length > 0 ? (
+            <Button onClick={() => saveEdits('details')} variant='ghost'>
+              save
+            </Button>
+          ) : (
+            <Button onClick={cancelEditing} variant='ghost'>
+              cancel
+            </Button>
+          )}
         </div>
       ) : (
         <div className='space-x-4'>
