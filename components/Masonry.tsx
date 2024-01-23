@@ -13,19 +13,20 @@ type MasonryProps = {
 }
 
 const Masonry = ({ cards, className }: MasonryProps) => {
-  const [editing, type, selected, toggleSelect, setAllCards] = useEdit(
-    (state) => [
+  const [editing, type, selected, toggleSelect, setAllCards, cancelEditing] =
+    useEdit((state) => [
       state.isEditing,
       state.type,
       state.selected,
       state.toggleSelected,
       state.setAllCards,
-    ],
-  )
+      state.cancel,
+    ])
   const isEditing = editing && type === 'board'
 
   useEffect(() => {
     setAllCards(cards.map((card) => card.id))
+    cancelEditing()
   }, [cards])
 
   return (
