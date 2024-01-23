@@ -20,7 +20,7 @@ const BoardPage = async ({ params: { boardId } }: BoardPageProps) => {
         title={board.title}
         description={board.description}
       />
-      <Masonry content={board.cards.reverse()} className='mt-6 grow' />
+      <Masonry cards={board.cards.reverse()} className='mt-6 grow' />
     </>
   )
 }

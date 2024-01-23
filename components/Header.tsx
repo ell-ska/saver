@@ -17,12 +17,24 @@ const Header = () => {
     state.resetWidth,
   ])
   const [openMenu] = useMenu((state) => [state.open])
-  const [editing, type, cancelEditing, saveEdits, edit] = useEdit((state) => [
+  const [
+    editing,
+    type,
+    cancelEditing,
+    saveEdits,
+    edit,
+    selected,
+    selectAll,
+    allCardsLength,
+  ] = useEdit((state) => [
     state.isEditing,
     state.type,
     state.cancel,
     state.save,
     state.edit,
+    state.selected,
+    state.toggleSelectAll,
+    state.allCards.length,
   ])
   const isEditing = editing && type === 'board'
 
@@ -59,8 +71,12 @@ const Header = () => {
       </div>
       {isEditing && !isHomeRoute ? (
         <div className='flex w-full items-center justify-between'>
-          <Button variant='ghost'>select all</Button>
-          <span className='text-sm text-slate-400'>items selected</span>
+          <Button onClick={selectAll} variant='ghost'>
+            {selected.length < allCardsLength ? 'select all' : 'deselect all'}
+          </Button>
+          <span className='text-sm text-slate-400'>
+            {selected.length} item{selected.length === 1 ? '' : 's'} selected
+          </span>
           {Object.keys(edit).length > 0 ? (
             <Button onClick={() => saveEdits('details')} variant='ghost'>
               save
