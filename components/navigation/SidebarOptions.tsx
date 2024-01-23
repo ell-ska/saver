@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 
 import { useMenu } from '@/hooks/useMenu'
+import { useEdit } from '@/hooks/useEdit'
 import Button from '@/components/ui/Button'
 import Tooltip from '@/components/ui/Tooltip'
 
@@ -18,6 +19,8 @@ type Option = { tooltip: string; icon: React.ReactNode; onClick: () => void }
 
 const SidebarOptions = () => {
   const [openMenu] = useMenu((state) => [state.open])
+  const [editing, type] = useEdit((state) => [state.isEditing, state.type])
+  const isEditing = editing && type === 'board'
 
   const add: Option[] = [
     {
@@ -47,7 +50,6 @@ const SidebarOptions = () => {
     },
   ]
 
-  // switch to these on isEditing
   const edit: Option[] = [
     { tooltip: 'move', icon: <ArrowLeftRight />, onClick: () => {} },
     { tooltip: 'duplicate', icon: <Copy />, onClick: () => {} },
@@ -55,9 +57,11 @@ const SidebarOptions = () => {
     { tooltip: 'share', icon: <Share />, onClick: () => {} },
   ]
 
+  const options = isEditing ? edit : add
+
   return (
     <div className='flex flex-col gap-6 text-slate-800'>
-      {add.map(({ tooltip, icon, onClick }) => (
+      {options.map(({ tooltip, icon, onClick }) => (
         <Tooltip key={tooltip} label={tooltip}>
           <Button
             onClick={onClick}

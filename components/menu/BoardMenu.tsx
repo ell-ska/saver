@@ -10,11 +10,13 @@ import {
 } from 'lucide-react'
 
 import { useMenu } from '@/hooks/useMenu'
+import { useEdit } from '@/hooks/useEdit'
 import MenuWrapper from './MenuWrapper'
 import MenuAction from './MenuAction'
 
 const BoardMenu = () => {
-  const [openMenu] = useMenu((state) => [state.open])
+  const [openMenu, closeMenu] = useMenu((state) => [state.open, state.close])
+  const [startEditing] = useEdit((state) => [state.start])
 
   const { boardId } = useParams<{ boardId: string }>()
 
@@ -22,7 +24,10 @@ const BoardMenu = () => {
     {
       icon: <Settings2 />,
       text: 'edit',
-      onClick: () => {},
+      onClick: () => {
+        startEditing('board')
+        closeMenu()
+      },
     },
     // {
     //   icon: <Star />,

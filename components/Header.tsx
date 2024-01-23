@@ -6,19 +6,19 @@ import { ChevronsRight, MoreVertical, PlusCircle, Search } from 'lucide-react'
 
 import { useSidebar } from '@/hooks/useSidebar'
 import { useMenu } from '@/hooks/useMenu'
+import { useEdit } from '@/hooks/useEdit'
 import { cn } from '@/utils/classnames'
 import Button from '@/components/ui/Button'
 import Breadcrumbs from '@/components/Breadcrumbs'
 
 const Header = () => {
-  const [openMenu] = useMenu((state) => [state.open])
   const [isCollapsed, openSidebar] = useSidebar((state) => [
     state.isCollapsed,
     state.resetWidth,
   ])
-
-  // change to dynamic when implemented
-  const isEditing = false
+  const [openMenu] = useMenu((state) => [state.open])
+  const [editing, type] = useEdit((state) => [state.isEditing, state.type])
+  const isEditing = editing && type === 'board'
 
   const path = usePathname()
   const isHomeRoute = path.includes('/home')

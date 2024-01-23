@@ -8,11 +8,13 @@ import { Board } from '@prisma/client'
 import { boardDetailsSchema } from '@/lib/schemas'
 import { cn } from '@/utils/classnames'
 import FormField from '@/components/ui/FormField'
+import { useEdit } from '@/hooks/useEdit'
 
 type DetailsProps = Pick<Board, 'id' | 'title' | 'description'>
 
 const Details = ({ title, description }: DetailsProps) => {
-  const isEditing = false // TODO-t111: change when adding board menu
+  const [editing, type] = useEdit((state) => [state.isEditing, state.type])
+  const isEditing = editing && type === 'board'
 
   const {
     register,
