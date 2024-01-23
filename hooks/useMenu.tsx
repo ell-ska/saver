@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 import { ConfirmType, PickBoardType, PickBoardValues } from '@/lib/types'
 
-export type menuType =
+export type MenuType =
   | 'add'
   | 'home'
   | 'board'
@@ -14,7 +14,7 @@ export type menuType =
   | 'add-link'
   | 'add-image'
 
-type menuData = {
+type MenuData = {
   pickBoard?: {
     type: PickBoardType
     values: PickBoardValues
@@ -28,15 +28,15 @@ type menuData = {
   }
 }
 
-type menu = {
-  type: menuType | null
-  data: menuData
+type MenuStore = {
+  type: MenuType | null
+  data: MenuData
   isOpen: boolean
-  open: (type: menuType, data?: menuData) => void
+  open: (type: MenuType, data?: MenuData) => void
   close: () => void
 }
 
-export const useMenu = create<menu>((set) => ({
+export const useMenu = create<MenuStore>((set) => ({
   type: null,
   data: {},
   isOpen: false,
