@@ -43,7 +43,15 @@ const SidebarBoards = ({ boards }: SidebarBoardsProps) => {
                 <span>{name}</span>
                 <Tooltip label={tooltip}>
                   <Button
-                    onClick={() => openMenu('add-board')}
+                    onClick={() => {
+                      if (name === 'favorites') {
+                        openMenu('add-board', {
+                          addBoard: { isFavorite: true },
+                        })
+                      } else {
+                        openMenu('add-board')
+                      }
+                    }}
                     variant='ghost'
                     size='icon'
                     className='opacity-0 group-hover/board:opacity-100'

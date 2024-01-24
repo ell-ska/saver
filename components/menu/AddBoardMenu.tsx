@@ -34,7 +34,11 @@ const AddBoardMenu = () => {
   })
 
   const onSubmit = (values: z.infer<typeof boardDetailsSchema>) => {
-    create({ ...values, card: data.addBoard?.values })
+    create({
+      ...values,
+      card: data.addBoard?.values,
+      isFavorite: data.addBoard?.isFavorite,
+    })
   }
 
   return (

@@ -20,7 +20,8 @@ type MenuData = {
     values: PickBoardValues
   }
   addBoard?: {
-    values: PickBoardValues
+    values?: PickBoardValues
+    isFavorite?: boolean
   }
   confirm?: {
     type: ConfirmType
