@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ChevronsLeft } from 'lucide-react'
@@ -30,16 +31,20 @@ const Sidebar = ({ className, boards }: SidebarProps) => {
   const path = usePathname()
   const isCardBoardMenu = path.includes('/board') || path.includes('/card')
 
+  useEffect(() => {
+    resetWidth()
+  }, [path])
+
   return (
     <aside
       ref={sidebarRef}
       className={cn(
         className,
-        'group/sidebar relative shrink-0 bg-slate-50 text-slate-400',
+        'group/sidebar relative w-60 shrink-0 bg-slate-50 text-slate-400',
+        isCardBoardMenu && 'w-auto',
         isTransitioning && 'transition-all',
         isCollapsed && 'invisible',
       )}
-      style={{ width: isCardBoardMenu ? 'auto' : '240px' }}
     >
       {!isCardBoardMenu && (
         <div
