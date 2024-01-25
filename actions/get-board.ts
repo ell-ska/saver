@@ -13,7 +13,10 @@ export const getBoard = memberAction(schema, async ({ boardId }) => {
   return await db.board.findUnique({
     where: { id: boardId },
     include: {
-      cards: { include: { image: true, link: { include: { image: true } } } },
+      cards: {
+        include: { image: true, link: { include: { image: true } } },
+        orderBy: { updatedAt: 'asc' },
+      },
     },
   })
 })
