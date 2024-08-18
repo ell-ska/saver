@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { SimpleBoard } from '@/lib/types'
+import type { SimpleBoard } from '@/lib/types'
 import { AddMenu } from '@/components/menu/AddMenu'
 import { AddBoardMenu } from '@/components/menu/AddBoardMenu'
 import { AddLinkMenu } from '@/components/menu/AddLinkMenu'
@@ -12,11 +12,11 @@ import { BoardMenu } from '@/components/menu/BoardMenu'
 import { CardMenu } from '@/components/menu/CardMenu'
 import { ConfirmMenu } from '@/components/menu/ConfirmMenu'
 
-type MenuProviderProps = {
+export const MenuProvider = ({
+  boards,
+}: {
   boards: SimpleBoard[] | undefined
-}
-
-const MenuProvider = ({ boards }: MenuProviderProps) => {
+}) => {
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
@@ -38,5 +38,3 @@ const MenuProvider = ({ boards }: MenuProviderProps) => {
     </>
   )
 }
-
-export default MenuProvider

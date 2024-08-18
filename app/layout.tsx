@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import { Outfit, Kalam } from 'next/font/google'
 import { Toaster } from 'sonner'
+import type { ReactNode } from 'react'
 
 import { cn } from '@/utils/classnames'
-import SessionProvider from '@/providers/SessionProvider'
+import { SessionProvider } from '@/providers/SessionProvider'
 import './globals.css'
 
 const outfit = Outfit({
@@ -35,11 +36,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='en'>
       <body
