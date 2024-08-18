@@ -15,12 +15,12 @@ import { deleteCards } from '@/actions/delete-cards'
 import { useMenu } from '@/hooks/useMenu'
 import { useEdit } from '@/hooks/useEdit'
 import { toast } from '@/utils/toast'
-import Button from '@/components/ui/Button'
-import Tooltip from '@/components/ui/Tooltip'
+import { Button } from '@/components/ui/Button'
+import { Tooltip } from '@/components/ui/Tooltip'
 
 type Option = { tooltip: string; icon: React.ReactNode; onClick: () => void }
 
-const SidebarOptions = () => {
+export const SidebarOptions = () => {
   const [openMenu] = useMenu((state) => [state.open])
   const [editing, type, selected, cancelEditing] = useEdit((state) => [
     state.isEditing,
@@ -106,5 +106,3 @@ const SidebarOptions = () => {
     </div>
   )
 }
-
-export default SidebarOptions

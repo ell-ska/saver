@@ -1,12 +1,13 @@
 import { SimpleBoard } from '@/lib/types'
-import Board from '@/components/Board'
+import { Board } from '@/components/Board'
 
-type BoardSectionProps = {
+export const BoardSection = ({
+  title,
+  boards,
+}: {
   title: string
   boards: SimpleBoard[]
-}
-
-const BoardSection = ({ title, boards }: BoardSectionProps) => {
+}) => {
   return (
     <section>
       <h3 className='mb-4 text-xl font-bold md:mb-6'>{title}</h3>
@@ -24,5 +25,3 @@ const BoardSection = ({ title, boards }: BoardSectionProps) => {
     </section>
   )
 }
-
-export default BoardSection

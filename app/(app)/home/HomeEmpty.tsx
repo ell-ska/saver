@@ -3,7 +3,7 @@
 import { Plus } from 'lucide-react'
 
 import { useMenu } from '@/hooks/useMenu'
-import Button from '@/components/ui/Button'
+import { Button } from '@/components/ui/Button'
 
 export const HomeEmpty = () => {
   const [openMenu] = useMenu((state) => [state.open])

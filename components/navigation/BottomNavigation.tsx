@@ -18,11 +18,8 @@ import { useMenu } from '@/hooks/useMenu'
 import { useEdit } from '@/hooks/useEdit'
 import { toast } from '@/utils/toast'
 import { cn } from '@/utils/classnames'
-import Button from '@/components/ui/Button'
-
-type BottomNavigationProps = { className: string }
-
-const BottomNavigation = ({ className }: BottomNavigationProps) => {
+import { Button } from '@/components/ui/Button'
+export const BottomNavigation = ({ className }: { className: string }) => {
   const [openMenu] = useMenu((state) => [state.open])
   const [editing, type, selected, cancelEditing] = useEdit((state) => [
     state.isEditing,
@@ -96,5 +93,3 @@ const BottomNavigation = ({ className }: BottomNavigationProps) => {
     </nav>
   )
 }
-
-export default BottomNavigation

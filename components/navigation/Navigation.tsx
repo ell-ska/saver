@@ -1,12 +1,12 @@
-import { SimpleBoardsWithKeys } from '@/lib/types'
-import Sidebar from '@/components/navigation/Sidebar'
-import BottomNavigation from '@/components/navigation/BottomNavigation'
+import { Sidebar } from '@/components/navigation/Sidebar'
+import { BottomNavigation } from '@/components/navigation/BottomNavigation'
+import type { SimpleBoardsWithKeys } from '@/lib/types'
 
-type NavigationProps = {
+export const Navigation = ({
+  boards,
+}: {
   boards: SimpleBoardsWithKeys | undefined
-}
-
-const Navigation = ({ boards }: NavigationProps) => {
+}) => {
   return (
     <>
       <Sidebar className='hidden md:block' boards={boards} />
@@ -14,5 +14,3 @@ const Navigation = ({ boards }: NavigationProps) => {
     </>
   )
 }
-
-export default Navigation

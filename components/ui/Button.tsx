@@ -1,11 +1,12 @@
 import { forwardRef } from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
 import Link from 'next/link'
-import { cva, VariantProps } from 'class-variance-authority'
 import { Loader2 } from 'lucide-react'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 import { cn } from '@/utils/classnames'
 
-export const buttonVariants = cva(
+const buttonVariants = cva(
   'inline-flex whitespace-nowrap transition outline-none border border-transparent items-center justify-center',
   {
     variants: {
@@ -52,15 +53,15 @@ export const buttonVariants = cva(
   },
 )
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+type Props = ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
     asLink?: boolean
     href?: string
-    icon?: React.ReactNode
+    icon?: ReactNode
     loader?: boolean
   }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement, Props>(
   (
     {
       children,
@@ -82,6 +83,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     className = cn(buttonVariants({ variant, size, className }))
 
+    // TODO: redo this with an `as` prop and isometric types
     if (asLink && href) {
       return (
         <Link href={href} className={className}>
@@ -115,5 +117,3 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   },
 )
 Button.displayName = 'Button'
-
-export default Button

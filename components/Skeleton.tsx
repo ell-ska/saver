@@ -1,11 +1,12 @@
 import { cn } from '@/utils/classnames'
 
-type SkeletonProps = {
+export const Skeleton = ({
+  rounded = 'default',
+  className,
+}: {
   rounded?: 'sm' | 'default'
   className?: string
-}
-
-const Skeleton = ({ rounded = 'default', className }: SkeletonProps) => {
+}) => {
   return (
     <div
       className={cn(
@@ -16,5 +17,3 @@ const Skeleton = ({ rounded = 'default', className }: SkeletonProps) => {
     />
   )
 }
-
-export default Skeleton

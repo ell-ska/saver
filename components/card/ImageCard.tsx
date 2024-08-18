@@ -2,9 +2,9 @@ import { ImageProps } from 'next/image'
 
 import { CardSize } from '@/lib/types'
 import { cn } from '@/utils/classnames'
-import Image from '@/components/ui/Image'
-import CardWrapper from './CardWrapper'
-import SelectedOverlay from './SelectedOverlay'
+import { Image } from '@/components/ui/Image'
+import { CardWrapper } from './CardWrapper'
+import { SelectedOverlay } from './SelectedOverlay'
 
 type ImageCardProps = ImageProps & {
   onClick?: () => void

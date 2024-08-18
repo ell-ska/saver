@@ -1,21 +1,19 @@
 'use client'
 
 import { useState } from 'react'
-import NextImage, { ImageProps as NextImageProps } from 'next/image'
+import NextImage, { type ImageProps } from 'next/image'
 
 import { cn } from '@/utils/classnames'
 
-type ImageProps = NextImageProps & {
-  aspectRatio?: 'original' | '1:1' | '3:4' | '9:16'
-  orientation?: 'landscape' | 'portrait'
-}
-
-const Image = ({
+export const Image = ({
   aspectRatio = 'original',
   orientation = 'landscape',
   className,
   ...props
-}: ImageProps) => {
+}: ImageProps & {
+  aspectRatio?: 'original' | '1:1' | '3:4' | '9:16'
+  orientation?: 'landscape' | 'portrait'
+}) => {
   const [error, setError] = useState(false)
 
   const getDimension = () => {
@@ -44,5 +42,3 @@ const Image = ({
     />
   )
 }
-
-export default Image

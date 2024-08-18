@@ -1,7 +1,6 @@
 import { GithubButton } from '../GithubButton'
 import { LogInForm } from '../LogInForm'
-import Button from '@/components/ui/Button'
-
+import { Button } from '@/components/ui/Button'
 export default function AuthLogInPage() {
   return (
     <>

@@ -2,16 +2,16 @@ import { forwardRef } from 'react'
 import { FieldError } from 'react-hook-form'
 
 import { cn } from '@/utils/classnames'
-import Input, { InputProps } from './Input'
+import { Input, type Props as InputProps } from './Input'
 
-type FormFieldProps = Omit<InputProps, 'id' | 'htmlFor'> & {
+type Props = Omit<InputProps, 'id' | 'htmlFor'> & {
   labelText: string
   labelHidden?: boolean
   error?: FieldError
   unstyled?: boolean
 }
 
-const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
+export const FormField = forwardRef<HTMLInputElement, Props>(
   (
     { labelText, labelHidden, error, unstyled, name, placeholder, ...props },
     ref,
@@ -50,5 +50,3 @@ const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
   },
 )
 FormField.displayName = 'FormField'
-
-export default FormField

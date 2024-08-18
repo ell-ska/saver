@@ -1,7 +1,6 @@
 import Link from 'next/link'
 
-import Button from '@/components/ui/Button'
-
+import { Button } from '@/components/ui/Button'
 export const Header = () => {
   return (
     <header className='fixed flex w-full items-center justify-between bg-white px-6 py-4'>

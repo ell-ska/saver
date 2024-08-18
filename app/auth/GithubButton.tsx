@@ -4,8 +4,7 @@ import { ReactNode, useTransition } from 'react'
 import { signIn } from 'next-auth/react'
 import { Github } from 'lucide-react'
 
-import Button from '@/components/ui/Button'
-
+import { Button } from '@/components/ui/Button'
 export const GithubButton = ({ children }: { children: ReactNode }) => {
   const [isLoading, startTransition] = useTransition()
 

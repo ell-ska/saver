@@ -8,10 +8,10 @@ import { useSidebar } from '@/hooks/useSidebar'
 import { useMenu } from '@/hooks/useMenu'
 import { useEdit } from '@/hooks/useEdit'
 import { cn } from '@/utils/classnames'
-import Button from '@/components/ui/Button'
-import Breadcrumbs from '@/components/Breadcrumbs'
+import { Button } from '@/components/ui/Button'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 
-const Header = () => {
+export const Header = () => {
   const [isCollapsed, openSidebar] = useSidebar((state) => [
     state.isCollapsed,
     state.resetWidth,
@@ -119,5 +119,3 @@ const Header = () => {
     </header>
   )
 }
-
-export default Header

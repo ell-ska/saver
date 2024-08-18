@@ -1,14 +1,14 @@
-import { forwardRef } from 'react'
+import { type InputHTMLAttributes, forwardRef } from 'react'
 
 import { cn } from '@/utils/classnames'
 
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+export type Props = InputHTMLAttributes<HTMLInputElement> & {
   unstyled?: boolean
   placeholderVisible?: boolean
   isError?: boolean
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = forwardRef<HTMLInputElement, Props>(
   ({ unstyled, placeholderVisible, isError, className, ...props }, ref) => {
     return (
       <input
@@ -28,5 +28,3 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   },
 )
 Input.displayName = 'Input'
-
-export default Input

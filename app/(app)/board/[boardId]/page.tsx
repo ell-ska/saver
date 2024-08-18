@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
 
 import { getBoard } from '@/actions/get-board'
-import Details from '@/components/Details'
-import Masonry from '@/components/Masonry'
+import { Details } from '@/components/Details'
+import { Masonry } from '@/components/Masonry'
 
 export default async function BoardPage({
   params: { boardId },

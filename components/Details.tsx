@@ -8,11 +8,12 @@ import { Board } from '@prisma/client'
 
 import { useEdit } from '@/hooks/useEdit'
 import { boardDetailsSchema } from '@/lib/schemas'
-import FormField from '@/components/ui/FormField'
+import { FormField } from '@/components/ui/FormField'
 
-type DetailsProps = Pick<Board, 'id' | 'title' | 'description'>
-
-const Details = ({ title, description }: DetailsProps) => {
+export const Details = ({
+  title,
+  description,
+}: Pick<Board, 'id' | 'title' | 'description'>) => {
   const [editing, type, registerEdit] = useEdit((state) => [
     state.isEditing,
     state.type,
@@ -74,5 +75,3 @@ const Details = ({ title, description }: DetailsProps) => {
     </div>
   )
 }
-
-export default Details

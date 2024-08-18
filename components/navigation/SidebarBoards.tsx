@@ -3,15 +3,11 @@ import { Plus } from 'lucide-react'
 import { useMenu } from '@/hooks/useMenu'
 import { SimpleBoardsWithKeys } from '@/lib/types'
 import { cn } from '@/utils/classnames'
-import Button from '@/components/ui/Button'
-import Tooltip from '@/components/ui/Tooltip'
-import Preview from '@/components/Preview'
+import { Preview } from '@/components/Preview'
+import { Button } from '@/components/ui/Button'
+import { Tooltip } from '@/components/ui/Tooltip'
 
-type SidebarBoardsProps = {
-  boards: SimpleBoardsWithKeys
-}
-
-const SidebarBoards = ({ boards }: SidebarBoardsProps) => {
+export const SidebarBoards = ({ boards }: { boards: SimpleBoardsWithKeys }) => {
   const [openMenu] = useMenu((state) => [state.open])
 
   const options = [
@@ -76,5 +72,3 @@ const SidebarBoards = ({ boards }: SidebarBoardsProps) => {
     </div>
   )
 }
-
-export default SidebarBoards

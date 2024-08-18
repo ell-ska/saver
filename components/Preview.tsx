@@ -1,20 +1,10 @@
 import { CardWithNested } from '@/lib/types'
 import { cn } from '@/utils/classnames'
-import Button from '@/components/ui/Button'
-import CardWrapper from '@/components/card/CardWrapper'
 import ImageCard from './card/ImageCard'
+import { Button } from '@/components/ui/Button'
+import { CardWrapper } from '@/components/card/CardWrapper'
 
-type PreviewProps = {
-  title: string
-  parentTitle?: string
-  previewCard?: CardWithNested
-  className?: string
-  onClick?: () => void
-  asLink?: boolean
-  href?: string
-}
-
-const Preview = ({
+export const Preview = ({
   title,
   parentTitle,
   previewCard,
@@ -22,7 +12,15 @@ const Preview = ({
   asLink,
   href,
   className,
-}: PreviewProps) => {
+}: {
+  title: string
+  parentTitle?: string
+  previewCard?: CardWithNested
+  className?: string
+  onClick?: () => void
+  asLink?: boolean
+  href?: string
+}) => {
   const previewImage =
     previewCard?.type === 'LINK'
       ? previewCard.link?.image
@@ -65,5 +63,3 @@ const Preview = ({
     </Button>
   )
 }
-
-export default Preview
