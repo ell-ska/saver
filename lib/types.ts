@@ -1,5 +1,5 @@
-import { Board, Card, Image, Link } from '@prisma/client'
 import { z } from 'zod'
+import type { Board, Card, Image, Link } from '@prisma/client'
 
 import { boardDetailsSchema, cardWithoutParentIdSchema } from '@/lib/schemas'
 

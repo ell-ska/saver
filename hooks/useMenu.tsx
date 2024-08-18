@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { ConfirmType, PickBoardType, PickBoardValues } from '@/lib/types'
+import type { ConfirmType, PickBoardType, PickBoardValues } from '@/lib/types'
 
 export type MenuType =
   | 'add'

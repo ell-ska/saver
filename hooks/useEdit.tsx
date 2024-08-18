@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 import { editBoard } from '@/actions/edit-board'
-import { DetailValues } from '@/lib/types'
+import type { DetailValues } from '@/lib/types'
 
 type EditType = 'board' | 'card'
 

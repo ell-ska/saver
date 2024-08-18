@@ -1,16 +1,21 @@
-import { ElementRef, createRef } from 'react'
+import { createRef } from 'react'
+import type {
+  ElementRef,
+  MouseEvent as ReactMouseEvent,
+  MutableRefObject,
+} from 'react'
 import { create } from 'zustand'
 
 type SidebarStore = {
-  sidebarRef: React.MutableRefObject<ElementRef<'aside'> | null>
-  isResizing: React.MutableRefObject<boolean | null>
+  sidebarRef: MutableRefObject<ElementRef<'aside'> | null>
+  isResizing: MutableRefObject<boolean | null>
   isCollapsed: boolean
   isTransitioning: boolean
   collapse: () => void
   resetWidth: () => void
   resize: {
     handleMouseDown: (
-      event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+      event: ReactMouseEvent<HTMLDivElement, MouseEvent>,
     ) => void
     handleMouseMove: (event: MouseEvent) => void
     handleMouseUp: () => void
