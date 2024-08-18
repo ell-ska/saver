@@ -1,7 +1,7 @@
 import { getBoards } from '@/actions/get-boards'
-import MenuProvider from '@/providers/MenuProvider'
 import { Navigation } from '@/components/navigation/Navigation'
 import { Header } from '@/components/Header'
+import { MenuProvider } from '@/providers/MenuProvider'
 
 export default async function HomeLayout({
   children,
