@@ -3,7 +3,11 @@ import MenuProvider from '@/providers/MenuProvider'
 import Navigation from '@/components/navigation/Navigation'
 import Header from '@/components/Header'
 
-const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
+export default async function HomeLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const { data: boards } = await getBoards([
     { title: 'all', previewImage: true },
     { title: 'favorites', previewImage: true },
@@ -25,5 +29,3 @@ const HomeLayout = async ({ children }: { children: React.ReactNode }) => {
     </>
   )
 }
-
-export default HomeLayout

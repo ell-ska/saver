@@ -1,9 +1,8 @@
 import { ChevronRight } from 'lucide-react'
 
 import Button from '@/components/ui/Button'
-import { cn } from '@/utils/classnames'
 
-const Hero = () => {
+export const Hero = () => {
   return (
     <section className='flex h-screen flex-col items-center justify-center gap-6 bg-white'>
       <h1 className='flex flex-col items-center text-center text-4xl'>
@@ -20,5 +19,3 @@ const Hero = () => {
     </section>
   )
 }
-
-export default Hero

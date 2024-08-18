@@ -12,7 +12,7 @@ import { toast } from '@/utils/toast'
 import Button from '@/components/ui/Button'
 import FormField from '@/components/ui/FormField'
 
-const LogInForm = () => {
+export const LogInForm = () => {
   const searchParams = useSearchParams()
   // TODO: handle url error 'OAuthAccountNotLinked'
   // TODO-t98: add callback url
@@ -60,5 +60,3 @@ const LogInForm = () => {
     </form>
   )
 }
-
-export default LogInForm

@@ -1,6 +1,6 @@
 import Skeleton from '@/components/Skeleton'
 
-const Loading = () => {
+export default function Loading() {
   return (
     <div className='space-y-8'>
       <div>
@@ -22,5 +22,3 @@ const Loading = () => {
     </div>
   )
 }
-
-export default Loading

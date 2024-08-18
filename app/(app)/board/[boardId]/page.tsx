@@ -4,9 +4,11 @@ import { getBoard } from '@/actions/get-board'
 import Details from '@/components/Details'
 import Masonry from '@/components/Masonry'
 
-type BoardPageProps = { params: { boardId: string } }
-
-const BoardPage = async ({ params: { boardId } }: BoardPageProps) => {
+export default async function BoardPage({
+  params: { boardId },
+}: {
+  params: { boardId: string }
+}) {
   const { data: board } = await getBoard({
     boardId,
   })
@@ -24,5 +26,3 @@ const BoardPage = async ({ params: { boardId } }: BoardPageProps) => {
     </>
   )
 }
-
-export default BoardPage

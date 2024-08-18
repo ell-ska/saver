@@ -2,14 +2,14 @@ import { notFound } from 'next/navigation'
 import { CardType } from '@prisma/client'
 
 import { getCard } from '@/actions/get-card'
-import ImagePage from './ImagePage'
-import LinkPage from './LinkPage'
+import { ImagePage } from './ImagePage'
+import { LinkPage } from './LinkPage'
 
-type CardPageProps = {
+export default async function CardPage({
+  params: { cardId },
+}: {
   params: { cardId: string }
-}
-
-const CardPage = async ({ params: { cardId } }: CardPageProps) => {
+}) {
   const { data: card } = await getCard({ cardId })
 
   if (!card) return notFound()
@@ -25,5 +25,3 @@ const CardPage = async ({ params: { cardId } }: CardPageProps) => {
 
   return <>{pageMap[card.type]}</>
 }
-
-export default CardPage

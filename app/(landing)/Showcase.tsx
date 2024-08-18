@@ -11,7 +11,7 @@ const images = [
   { data: image3, alt: 'saver search view' },
 ]
 
-const Showcase = () => {
+export const Showcase = () => {
   return (
     <section className='mt-[-25vh] flex max-w-5xl flex-col gap-12 sm:flex-row sm:gap-8 lg:gap-16'>
       {images.map((image, index) => (
@@ -28,5 +28,3 @@ const Showcase = () => {
     </section>
   )
 }
-
-export default Showcase

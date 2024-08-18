@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-const ErrorPage = () => {
+export default function AuthErrorPage() {
   // TODO-t109: style this page
   return (
     <div>
@@ -9,5 +9,3 @@ const ErrorPage = () => {
     </div>
   )
 }
-
-export default ErrorPage

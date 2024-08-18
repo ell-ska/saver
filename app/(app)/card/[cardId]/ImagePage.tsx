@@ -2,9 +2,12 @@ import { Image } from '@prisma/client'
 
 import ImageCard from '@/components/card/ImageCard'
 
-type ImagePageProps = Image & { caption: string | null }
-
-const ImagePage = ({ url, width, height, caption }: ImagePageProps) => {
+export const ImagePage = ({
+  url,
+  width,
+  height,
+  caption,
+}: Image & { caption: string | null }) => {
   return (
     <div className='flex max-h-[calc(100vh-7rem)] grow flex-col self-center md:justify-center'>
       <ImageCard
@@ -18,5 +21,3 @@ const ImagePage = ({ url, width, height, caption }: ImagePageProps) => {
     </div>
   )
 }
-
-export default ImagePage
