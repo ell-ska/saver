@@ -15,14 +15,14 @@ type Image = {
   alt: string
 }
 
-type DropzoneProps = {
+type Props = {
   value?: File
   disabled?: boolean
   onChange?: (file?: File) => void
   className?: string
 }
 
-const Dropzone = forwardRef<HTMLInputElement, DropzoneProps>(
+export const Dropzone = forwardRef<HTMLInputElement, Props>(
   ({ value, disabled, onChange, className }, ref) => {
     const [image, setImage] = useState<Image | undefined>(undefined)
 
@@ -90,5 +90,3 @@ const Dropzone = forwardRef<HTMLInputElement, DropzoneProps>(
   },
 )
 Dropzone.displayName = 'Dropzone'
-
-export default Dropzone

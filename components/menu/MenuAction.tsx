@@ -1,21 +1,20 @@
 import { Loader2 } from 'lucide-react'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
 
 import { cn } from '@/utils/classnames'
 
-type MenuActionProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  icon: React.ReactNode
-  text: string
-  shortcut?: string
-  isLoading?: boolean
-}
-
-const MenuAction = ({
+export const MenuAction = ({
   icon,
   text,
   shortcut,
   isLoading,
   ...props
-}: MenuActionProps) => {
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  icon: ReactNode
+  text: string
+  shortcut?: string
+  isLoading?: boolean
+}) => {
   return (
     <button
       className='inline-flex w-full items-center justify-between gap-16 border border-transparent px-4 py-2 outline-none hover:bg-slate-100 focus-visible:border-primary-dark'
@@ -46,5 +45,3 @@ const MenuAction = ({
     </button>
   )
 }
-
-export default MenuAction

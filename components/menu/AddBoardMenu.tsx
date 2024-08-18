@@ -9,11 +9,11 @@ import { createBoard } from '@/actions/create-board'
 import { useMenu } from '@/hooks/useMenu'
 import { boardDetailsSchema } from '@/lib/schemas'
 import { toast } from '@/utils/toast'
-import Button from '@/components/ui/Button'
-import FormField from '@/components/ui/FormField'
-import MenuWrapper from './MenuWrapper'
+import { MenuWrapper } from './MenuWrapper'
+import { Button } from '@/components/ui/Button'
+import { FormField } from '@/components/ui/FormField'
 
-const AddBoardMenu = () => {
+export const AddBoardMenu = () => {
   const [data] = useMenu((state) => [state.data])
 
   const { execute: create, status } = useAction(createBoard, {
@@ -68,5 +68,3 @@ const AddBoardMenu = () => {
     </MenuWrapper>
   )
 }
-
-export default AddBoardMenu

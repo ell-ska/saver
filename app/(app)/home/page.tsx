@@ -1,6 +1,6 @@
 import { getBoards } from '@/actions/get-boards'
 import { HomeEmpty } from './HomeEmpty'
-import BoardSection from '@/components/BoardSection'
+import { BoardSection } from '@/components/BoardSection'
 
 export default async function HomePage() {
   const { data } = await getBoards([

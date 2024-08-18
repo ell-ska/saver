@@ -1,20 +1,19 @@
 'use client'
 
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
+import type { ReactNode } from 'react'
 
-type TooltipProps = {
-  children: React.ReactNode
-  label: string
-  side?: 'top' | 'right' | 'bottom' | 'left'
-  align?: 'start' | 'center' | 'end'
-}
-
-const Tooltip = ({
+export const Tooltip = ({
   children,
   label,
   side = 'right',
   align = 'center',
-}: TooltipProps) => {
+}: {
+  children: ReactNode
+  label: string
+  side?: 'top' | 'right' | 'bottom' | 'left'
+  align?: 'start' | 'center' | 'end'
+}) => {
   return (
     <TooltipPrimitive.Provider>
       <TooltipPrimitive.Root>
@@ -33,5 +32,3 @@ const Tooltip = ({
     </TooltipPrimitive.Provider>
   )
 }
-
-export default Tooltip

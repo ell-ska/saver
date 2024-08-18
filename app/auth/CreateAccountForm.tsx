@@ -8,8 +8,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { createAccount } from '@/actions/create-account'
 import { createAccountSchema } from '@/lib/schemas'
 import { toast } from '@/utils/toast'
-import Button from '@/components/ui/Button'
-import FormField from '@/components/ui/FormField'
+import { Button } from '@/components/ui/Button'
+import { FormField } from '@/components/ui/FormField'
 
 export const CreateAccountForm = () => {
   const { execute, status } = useAction(createAccount, {

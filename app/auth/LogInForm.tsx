@@ -9,8 +9,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { logIn } from '@/actions/log-in'
 import { logInSchema } from '@/lib/schemas'
 import { toast } from '@/utils/toast'
-import Button from '@/components/ui/Button'
-import FormField from '@/components/ui/FormField'
+import { Button } from '@/components/ui/Button'
+import { FormField } from '@/components/ui/FormField'
 
 export const LogInForm = () => {
   const searchParams = useSearchParams()

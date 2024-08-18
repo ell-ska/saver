@@ -1,16 +1,19 @@
 import { CardWithNested } from '@/lib/types'
 import { cn } from '@/utils/classnames'
-import CardWrapper from '@/components/card/CardWrapper'
-import CardMap from '@/components/card/CardMap'
+import { CardWrapper } from '@/components/card/CardWrapper'
+import { CardMap } from '@/components/card/CardMap'
 
-type BoardProps = {
+export const Board = ({
+  id,
+  title,
+  itemCount,
+  previewCards,
+}: {
   id: string
   title: string
   itemCount: number
   previewCards: CardWithNested[]
-}
-
-const Board = ({ id, title, itemCount, previewCards }: BoardProps) => {
+}) => {
   const placeholders = Array.from(
     { length: Math.max(0, 3 - previewCards.length) },
     (_, i) => i + 1,
@@ -44,5 +47,3 @@ const Board = ({ id, title, itemCount, previewCards }: BoardProps) => {
     </CardWrapper>
   )
 }
-
-export default Board

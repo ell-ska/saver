@@ -1,7 +1,6 @@
 import { ChevronRight } from 'lucide-react'
 
-import Button from '@/components/ui/Button'
-
+import { Button } from '@/components/ui/Button'
 export const Hero = () => {
   return (
     <section className='flex h-screen flex-col items-center justify-center gap-6 bg-white'>

@@ -1,7 +1,6 @@
 import { GithubButton } from '../GithubButton'
 import { CreateAccountForm } from '../CreateAccountForm'
-import Button from '@/components/ui/Button'
-
+import { Button } from '@/components/ui/Button'
 export default function AuthCreateAccountPage() {
   return (
     <>

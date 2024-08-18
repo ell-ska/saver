@@ -5,14 +5,15 @@ import { useEffect } from 'react'
 import { useEdit } from '@/hooks/useEdit'
 import { CardWithNested } from '@/lib/types'
 import { cn } from '@/utils/classnames'
-import CardMap from '@/components/card/CardMap'
+import { CardMap } from '@/components/card/CardMap'
 
-type MasonryProps = {
+export const Masonry = ({
+  cards,
+  className,
+}: {
   cards: CardWithNested[]
   className?: string
-}
-
-const Masonry = ({ cards, className }: MasonryProps) => {
+}) => {
   const [editing, type, selected, toggleSelect, setAllCards, cancelEditing] =
     useEdit((state) => [
       state.isEditing,
@@ -44,5 +45,3 @@ const Masonry = ({ cards, className }: MasonryProps) => {
     </div>
   )
 }
-
-export default Masonry

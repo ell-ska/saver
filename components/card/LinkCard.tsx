@@ -3,9 +3,9 @@ import { Link, Image as TImage } from '@prisma/client'
 import { CardSize } from '@/lib/types'
 import { cn } from '@/utils/classnames'
 import { prettifyUrl } from '@/utils/prettyUrl'
-import Image from '@/components/ui/Image'
-import CardWrapper from './CardWrapper'
-import SelectedOverlay from './SelectedOverlay'
+import { Image } from '@/components/ui/Image'
+import { CardWrapper } from './CardWrapper'
+import { SelectedOverlay } from './SelectedOverlay'
 
 type LinkCardProps = Link & {
   image: TImage | null

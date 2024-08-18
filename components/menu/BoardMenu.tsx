@@ -1,15 +1,7 @@
 import { useParams } from 'next/navigation'
 import { useAction } from 'next-safe-action/hooks'
 import useSWR from 'swr'
-import {
-  ArrowLeftRight,
-  Copy,
-  Eraser,
-  Settings2,
-  Share,
-  Star,
-  Users,
-} from 'lucide-react'
+import { Eraser, Settings2, Star } from 'lucide-react'
 
 import { getIsFavoriteBoard } from '@/actions/get-is-favorite-board'
 import { editFavoriteBoard } from '@/actions/edit-favorite-board'
@@ -17,10 +9,10 @@ import { useMenu } from '@/hooks/useMenu'
 import { useEdit } from '@/hooks/useEdit'
 import { cn } from '@/utils/classnames'
 import { toast } from '@/utils/toast'
-import MenuWrapper from './MenuWrapper'
-import MenuAction from './MenuAction'
+import { MenuWrapper } from './MenuWrapper'
+import { MenuAction } from './MenuAction'
 
-const BoardMenu = () => {
+export const BoardMenu = () => {
   const [openMenu, closeMenu] = useMenu((state) => [state.open, state.close])
   const [startEditing] = useEdit((state) => [state.start])
 
@@ -89,5 +81,3 @@ const BoardMenu = () => {
     </MenuWrapper>
   )
 }
-
-export default BoardMenu

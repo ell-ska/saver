@@ -5,10 +5,9 @@ import { useAction } from 'next-safe-action/hooks'
 import { deleteBoard } from '@/actions/delete-board'
 import { useMenu } from '@/hooks/useMenu'
 import { toast } from '@/utils/toast'
-import Button from '@/components/ui/Button'
-import MenuWrapper from './MenuWrapper'
-
-const ConfirmMenu = () => {
+import { MenuWrapper } from './MenuWrapper'
+import { Button } from '@/components/ui/Button'
+export const ConfirmMenu = () => {
   const [data, closeMenu] = useMenu((state) => [
     state.data.confirm,
     state.close,
@@ -50,5 +49,3 @@ const ConfirmMenu = () => {
     </MenuWrapper>
   )
 }
-
-export default ConfirmMenu

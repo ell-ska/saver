@@ -1,10 +1,10 @@
 import { Image as ImageIcon, Link, PlusCircle } from 'lucide-react'
 
 import { useMenu } from '@/hooks/useMenu'
-import MenuWrapper from './MenuWrapper'
-import MenuAction from './MenuAction'
+import { MenuWrapper } from './MenuWrapper'
+import { MenuAction } from './MenuAction'
 
-const AddMenu = () => {
+export const AddMenu = () => {
   const [openMenu] = useMenu((state) => [state.open])
 
   const options = [
@@ -46,5 +46,3 @@ const AddMenu = () => {
     </MenuWrapper>
   )
 }
-
-export default AddMenu

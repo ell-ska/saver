@@ -1,29 +1,26 @@
 'use client'
 
-import { useEffect } from 'react'
+import { type ReactNode, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 
 import { MenuType, useMenu } from '@/hooks/useMenu'
 import { cn } from '@/utils/classnames'
-import Button from '@/components/ui/Button'
-
-type MenuWrapperProps = {
-  children: React.ReactNode
-  type: MenuType
-  closeButton?: boolean
-  position?: 'top-right' | 'center'
-  className?: string
-}
-
-const MenuWrapper = ({
+import { Button } from '@/components/ui/Button'
+export const MenuWrapper = ({
   children,
   type,
   closeButton,
   position = 'top-right',
   className,
-}: MenuWrapperProps) => {
+}: {
+  children: ReactNode
+  type: MenuType
+  closeButton?: boolean
+  position?: 'top-right' | 'center'
+  className?: string
+}) => {
   const { type: openType, isOpen, close } = useMenu()
   const modalIsOpen = isOpen && openType === type
 
@@ -67,5 +64,3 @@ const MenuWrapper = ({
     </Dialog.Root>
   )
 }
-
-export default MenuWrapper

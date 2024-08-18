@@ -4,16 +4,7 @@ import { CardSize, CardWithNested } from '@/lib/types'
 import ImageCard from './ImageCard'
 import LinkCard from './LinkCard'
 
-type CardMapProps = CardWithNested & {
-  onClick?: () => void
-  asLink?: boolean
-  href?: string
-  size?: CardSize
-  selected?: boolean
-  className?: string
-}
-
-const CardMap = ({
+export const CardMap = ({
   type,
   image,
   onClick,
@@ -23,7 +14,14 @@ const CardMap = ({
   size = 'default',
   selected,
   className,
-}: CardMapProps) => {
+}: CardWithNested & {
+  onClick?: () => void
+  asLink?: boolean
+  href?: string
+  size?: CardSize
+  selected?: boolean
+  className?: string
+}) => {
   const cardMap: { [key in CardType]: React.ReactNode } = {
     [CardType.IMAGE]: image && (
       <ImageCard
@@ -54,5 +52,3 @@ const CardMap = ({
 
   return cardMap[type]
 }
-
-export default CardMap

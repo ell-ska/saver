@@ -2,13 +2,12 @@ import { useSession } from 'next-auth/react'
 import { CircleUserRound, Inbox } from 'lucide-react'
 
 import { cn } from '@/utils/classnames'
-import Button from '@/components/ui/Button'
-
-type SidebarNavigationProps = {
+import { Button } from '@/components/ui/Button'
+export const SidebarNavigation = ({
+  isCardBoardMenu,
+}: {
   isCardBoardMenu: boolean
-}
-
-const SidebarNavigation = ({ isCardBoardMenu }: SidebarNavigationProps) => {
+}) => {
   const user = useSession().data?.user
 
   const items = [
@@ -49,5 +48,3 @@ const SidebarNavigation = ({ isCardBoardMenu }: SidebarNavigationProps) => {
     </nav>
   )
 }
-
-export default SidebarNavigation

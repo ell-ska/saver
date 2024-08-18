@@ -2,22 +2,14 @@
 
 import { useParams } from 'next/navigation'
 import { useAction } from 'next-safe-action/hooks'
-import {
-  ArrowLeftRight,
-  Copy,
-  Eraser,
-  Maximize,
-  MessageCircle,
-  Settings2,
-  Share,
-} from 'lucide-react'
+import { Eraser, Settings2 } from 'lucide-react'
 
 import { deleteCard } from '@/actions/delete-card'
 import { toast } from '@/utils/toast'
-import MenuWrapper from './MenuWrapper'
-import MenuAction from './MenuAction'
+import { MenuWrapper } from './MenuWrapper'
+import { MenuAction } from './MenuAction'
 
-const CardMenu = () => {
+export const CardMenu = () => {
   const { execute: executeDelete, status: deleteStatus } = useAction(
     deleteCard,
     {
@@ -77,5 +69,3 @@ const CardMenu = () => {
     </MenuWrapper>
   )
 }
-
-export default CardMenu

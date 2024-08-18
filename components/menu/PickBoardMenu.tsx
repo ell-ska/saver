@@ -7,16 +7,16 @@ import { useMenu } from '@/hooks/useMenu'
 import { createCard } from '@/actions/create-card'
 import { SimpleBoard } from '@/lib/types'
 import { toast } from '@/utils/toast'
-import Button from '@/components/ui/Button'
-import Preview from '@/components/Preview'
-import MenuWrapper from './MenuWrapper'
-import MenuAction from './MenuAction'
+import { Button } from '@/components/ui/Button'
+import { Preview } from '@/components/Preview'
+import { MenuWrapper } from './MenuWrapper'
+import { MenuAction } from './MenuAction'
 
-type PickBoardMenuProps = {
+export const PickBoardMenu = ({
+  boards,
+}: {
   boards: SimpleBoard[] | undefined
-}
-
-const PickBoardMenu = ({ boards }: PickBoardMenuProps) => {
+}) => {
   const [data, closeMenu, openMenu] = useMenu((state) => [
     state.data,
     state.close,
@@ -86,5 +86,3 @@ const PickBoardMenu = ({ boards }: PickBoardMenuProps) => {
     </MenuWrapper>
   )
 }
-
-export default PickBoardMenu

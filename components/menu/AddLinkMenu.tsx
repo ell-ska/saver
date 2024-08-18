@@ -5,20 +5,20 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { createCard } from '@/actions/create-card'
 import { useMenu } from '@/hooks/useMenu'
 import { useParentBoard } from '@/hooks/useParentBoard'
-import { createCard } from '@/actions/create-card'
 import { createLinkCardSchema } from '@/lib/schemas'
 import { toast } from '@/utils/toast'
-import Button from '@/components/ui/Button'
-import FormField from '@/components/ui/FormField'
-import MenuWrapper from './MenuWrapper'
+import { MenuWrapper } from './MenuWrapper'
+import { Button } from '@/components/ui/Button'
+import { FormField } from '@/components/ui/FormField'
 
 const schema = createLinkCardSchema.omit({
   parentBoardId: true,
 })
 
-const AddLinkMenu = () => {
+export const AddLinkMenu = () => {
   const [closeMenu] = useMenu((state) => [state.close])
   const { parentBoardId, redirectToPickBoard } = useParentBoard()
 
@@ -73,5 +73,3 @@ const AddLinkMenu = () => {
     </MenuWrapper>
   )
 }
-
-export default AddLinkMenu

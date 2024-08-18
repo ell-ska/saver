@@ -4,10 +4,10 @@ import { ChevronLeft } from 'lucide-react'
 
 import { getTitle } from '@/actions/get-title'
 import { cn } from '@/utils/classnames'
-import Button from '@/components/ui/Button'
-import Skeleton from '@/components/Skeleton'
+import { Button } from '@/components/ui/Button'
+import { Skeleton } from '@/components/Skeleton'
 
-const Breadcrumbs = () => {
+export const Breadcrumbs = () => {
   const router = useRouter()
   const { boardId, cardId } = useParams<{ boardId: string; cardId: string }>()
 
@@ -69,5 +69,3 @@ const Breadcrumbs = () => {
     </div>
   )
 }
-
-export default Breadcrumbs

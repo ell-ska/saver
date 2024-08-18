@@ -5,17 +5,17 @@ import { useAction } from 'next-safe-action/hooks'
 import * as Tabs from '@radix-ui/react-tabs'
 import { Link, UploadCloud } from 'lucide-react'
 
+import { createCard } from '@/actions/create-card'
 import { useMenu } from '@/hooks/useMenu'
 import { useParentBoard } from '@/hooks/useParentBoard'
-import { createCard } from '@/actions/create-card'
 import { createImageCardSchema } from '@/lib/schemas'
 import { toast } from '@/utils/toast'
 import { isImage } from '@/utils/isImage/client'
 import { cn } from '@/utils/classnames'
-import Button from '@/components/ui/Button'
-import FormField from '@/components/ui/FormField'
-import Dropzone from '@/components/Dropzone'
-import MenuWrapper from './MenuWrapper'
+import { MenuWrapper } from './MenuWrapper'
+import { Button } from '@/components/ui/Button'
+import { FormField } from '@/components/ui/FormField'
+import { Dropzone } from '@/components/Dropzone'
 
 const triggers = [
   {
@@ -32,7 +32,7 @@ const triggers = [
 
 const schema = createImageCardSchema.omit({ parentBoardId: true })
 
-const AddImageMenu = () => {
+export const AddImageMenu = () => {
   const [imageFile, setImageFile] = useState<File | undefined>(undefined)
   const [imageUrl, setImageUrl] = useState<string>('')
 
@@ -144,5 +144,3 @@ const AddImageMenu = () => {
     </MenuWrapper>
   )
 }
-
-export default AddImageMenu

@@ -1,24 +1,25 @@
 'use client'
 
 import { useEffect } from 'react'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 import { ChevronsLeft } from 'lucide-react'
 
 import { useSidebar } from '@/hooks/useSidebar'
-import { SimpleBoardsWithKeys } from '@/lib/types'
 import { cn } from '@/utils/classnames'
-import Button from '@/components/ui/Button'
-import SidebarBoards from './SidebarBoards'
-import SidebarOptions from './SidebarOptions'
-import SidebarNavigation from './SidebarNavigation'
+import { SidebarBoards } from './SidebarBoards'
+import { SidebarOptions } from './SidebarOptions'
+import { SidebarNavigation } from './SidebarNavigation'
+import { Button } from '@/components/ui/Button'
+import type { SimpleBoardsWithKeys } from '@/lib/types'
 
-type SidebarProps = {
+export const Sidebar = ({
+  className,
+  boards,
+}: {
   className: string
   boards: SimpleBoardsWithKeys | undefined
-}
-
-const Sidebar = ({ className, boards }: SidebarProps) => {
+}) => {
   const {
     sidebarRef,
     isCollapsed,
@@ -80,5 +81,3 @@ const Sidebar = ({ className, boards }: SidebarProps) => {
     </aside>
   )
 }
-
-export default Sidebar
