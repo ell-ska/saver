@@ -1,7 +1,7 @@
 import { useParams } from 'next/navigation'
 
 import { useMenu } from '@/hooks/useMenu'
-import { PickBoardType, PickBoardValues } from '@/lib/types'
+import type { PickBoardType, PickBoardValues } from '@/lib/types'
 
 export const useParentBoard = (id?: string) => {
   const [openMenu] = useMenu((state) => [state.open])
