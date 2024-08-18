@@ -6,16 +6,14 @@ import { prettifyUrl } from '@/utils/prettyUrl'
 import Image from '@/components/ui/Image'
 import ImageCard from '@/components/card/ImageCard'
 
-type LinkPageProps = TLink & { image: TImage | null; caption: string | null }
-
-const LinkPage = ({
+export const LinkPage = ({
   url,
   title,
   description,
   faviconUrl,
   image,
   caption,
-}: LinkPageProps) => {
+}: TLink & { image: TImage | null; caption: string | null }) => {
   return (
     <div className='flex grow flex-col gap-6 self-center md:max-h-[calc(100vh-7rem)] md:flex-row md:items-center md:gap-8'>
       <div className='md:flex-1'>
@@ -54,5 +52,3 @@ const LinkPage = ({
     </div>
   )
 }
-
-export default LinkPage

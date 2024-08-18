@@ -1,6 +1,6 @@
 import Skeleton from '@/components/Skeleton'
 
-const Loading = () => {
+export default function BoardLoading() {
   return (
     <>
       <Skeleton rounded='sm' className='mb-1 h-8 w-32' />
@@ -13,5 +13,3 @@ const Loading = () => {
     </>
   )
 }
-
-export default Loading

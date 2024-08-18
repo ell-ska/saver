@@ -1,9 +1,9 @@
-import Header from './Header'
-import Hero from './Hero'
-import Showcase from './Showcase'
-import Footer from './Footer'
+import { Header } from './Header'
+import { Hero } from './Hero'
+import { Showcase } from './Showcase'
+import { Footer } from './Footer'
 
-const LandingPage = () => {
+export default function LandingPage() {
   return (
     <>
       <Header />
@@ -15,5 +15,3 @@ const LandingPage = () => {
     </>
   )
 }
-
-export default LandingPage

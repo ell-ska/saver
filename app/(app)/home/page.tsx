@@ -1,8 +1,8 @@
 import { getBoards } from '@/actions/get-boards'
+import { HomeEmpty } from './HomeEmpty'
 import BoardSection from '@/components/BoardSection'
-import HomeEmpty from './HomeEmpty'
 
-const HomePage = async () => {
+export default async function HomePage() {
   const { data } = await getBoards([
     {
       title: 'favorites',
@@ -26,5 +26,3 @@ const HomePage = async () => {
     </div>
   )
 }
-
-export default HomePage

@@ -5,7 +5,7 @@ import { Plus } from 'lucide-react'
 import { useMenu } from '@/hooks/useMenu'
 import Button from '@/components/ui/Button'
 
-const HomeEmpty = () => {
+export const HomeEmpty = () => {
   const [openMenu] = useMenu((state) => [state.open])
 
   return (
@@ -24,5 +24,3 @@ const HomeEmpty = () => {
     </div>
   )
 }
-
-export default HomeEmpty

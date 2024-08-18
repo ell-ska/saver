@@ -11,7 +11,7 @@ import { toast } from '@/utils/toast'
 import Button from '@/components/ui/Button'
 import FormField from '@/components/ui/FormField'
 
-const CreateAccountForm = () => {
+export const CreateAccountForm = () => {
   const { execute, status } = useAction(createAccount, {
     onError: ({ serverError }) => toast(serverError),
   })
@@ -63,5 +63,3 @@ const CreateAccountForm = () => {
     </form>
   )
 }
-
-export default CreateAccountForm
