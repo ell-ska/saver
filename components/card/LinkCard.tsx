@@ -1,23 +1,13 @@
 import { Link, Image as TImage } from '@prisma/client'
 
-import { CardSize } from '@/lib/types'
+import type { CardSize } from '@/lib/types'
 import { cn } from '@/utils/classnames'
 import { prettifyUrl } from '@/utils/prettyUrl'
-import { Image } from '@/components/ui/Image'
 import { CardWrapper } from './CardWrapper'
 import { SelectedOverlay } from './SelectedOverlay'
+import { Image } from '@/components/ui/Image'
 
-type LinkCardProps = Link & {
-  image: TImage | null
-  onClick?: () => void
-  asLink?: boolean
-  href?: string
-  size?: CardSize
-  selected?: boolean
-  className?: string
-}
-
-const LinkCard = ({
+export const LinkCard = ({
   title,
   description,
   faviconUrl,
@@ -29,7 +19,15 @@ const LinkCard = ({
   size,
   selected,
   className,
-}: LinkCardProps) => {
+}: Link & {
+  image: TImage | null
+  onClick?: () => void
+  asLink?: boolean
+  href?: string
+  size?: CardSize
+  selected?: boolean
+  className?: string
+}) => {
   return (
     <CardWrapper
       onClick={onClick}
@@ -95,5 +93,3 @@ const LinkCard = ({
     </CardWrapper>
   )
 }
-
-export default LinkCard

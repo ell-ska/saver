@@ -1,20 +1,12 @@
 import { ImageProps } from 'next/image'
 
-import { CardSize } from '@/lib/types'
+import type { CardSize } from '@/lib/types'
 import { cn } from '@/utils/classnames'
-import { Image } from '@/components/ui/Image'
 import { CardWrapper } from './CardWrapper'
 import { SelectedOverlay } from './SelectedOverlay'
+import { Image } from '@/components/ui/Image'
 
-type ImageCardProps = ImageProps & {
-  onClick?: () => void
-  asLink?: boolean
-  href?: string
-  size?: CardSize
-  selected?: boolean
-}
-
-const ImageCard = ({
+export const ImageCard = ({
   src,
   alt,
   width,
@@ -25,7 +17,13 @@ const ImageCard = ({
   size,
   selected,
   className,
-}: ImageCardProps) => {
+}: ImageProps & {
+  onClick?: () => void
+  asLink?: boolean
+  href?: string
+  size?: CardSize
+  selected?: boolean
+}) => {
   return (
     <CardWrapper
       onClick={onClick}
@@ -45,5 +43,3 @@ const ImageCard = ({
     </CardWrapper>
   )
 }
-
-export default ImageCard

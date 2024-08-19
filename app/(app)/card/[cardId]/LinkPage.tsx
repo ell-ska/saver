@@ -4,7 +4,7 @@ import { Image as TImage, Link as TLink } from '@prisma/client'
 import { cn } from '@/utils/classnames'
 import { prettifyUrl } from '@/utils/prettyUrl'
 import { Image } from '@/components/ui/Image'
-import ImageCard from '@/components/card/ImageCard'
+import { ImageCard } from '@/components/card/ImageCard'
 
 export const LinkPage = ({
   url,

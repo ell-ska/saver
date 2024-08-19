@@ -1,8 +1,8 @@
 import { CardType } from '@prisma/client'
 
 import { CardSize, CardWithNested } from '@/lib/types'
-import ImageCard from './ImageCard'
-import LinkCard from './LinkCard'
+import { ImageCard } from './ImageCard'
+import { LinkCard } from './LinkCard'
 
 export const CardMap = ({
   type,
