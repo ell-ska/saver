@@ -1,6 +1,6 @@
 import { Image } from '@prisma/client'
 
-import ImageCard from '@/components/card/ImageCard'
+import { ImageCard } from '@/components/card/ImageCard'
 
 export const ImagePage = ({
   url,

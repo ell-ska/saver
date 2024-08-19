@@ -6,7 +6,7 @@ import { UploadCloud, XCircle } from 'lucide-react'
 
 import { getImageDimensions } from '@/utils/getImageDimensions/client'
 import { cn } from '@/utils/classnames'
-import ImageCard from '@/components/card/ImageCard'
+import { ImageCard } from '@/components/card/ImageCard'
 
 type Image = {
   url: string

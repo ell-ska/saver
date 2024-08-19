@@ -1,6 +1,6 @@
 import { CardWithNested } from '@/lib/types'
 import { cn } from '@/utils/classnames'
-import ImageCard from './card/ImageCard'
+import { ImageCard } from './card/ImageCard'
 import { Button } from '@/components/ui/Button'
 import { CardWrapper } from '@/components/card/CardWrapper'
 
