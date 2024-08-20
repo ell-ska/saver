@@ -126,6 +126,7 @@ model Image {
   aspectRatio AspectRatio @default(ORIGINAL)
   width       Int
   height      Int
+  blurhash    String?
 
   cardId String? @unique
   card   Card?   @relation(fields: [cardId], references: [id], onDelete: Cascade)

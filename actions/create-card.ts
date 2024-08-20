@@ -8,21 +8,18 @@ import { createCardSchema } from '@/lib/schemas'
 import { generateCardData } from '@/lib/generateCardData'
 
 export const createCard = memberAction(createCardSchema, async (validated) => {
-  const data = await generateCardData(validated)
-  if (!data) throw Error('data missing')
-
-  const { parentBoardId, type, caption } = validated
-  let card
-
   try {
-    card = await db.card.create({
-      data: { parentBoardId, type, caption, ...data },
+    const cardData = await generateCardData(validated)
+    const { parentBoardId, type, caption } = validated
+
+    const card = await db.card.create({
+      data: { parentBoardId, type, caption, ...cardData },
     })
+
+    revalidatePath(`/board/${parentBoardId}`)
+    return card
   } catch (error) {
     console.log('CREATE_CARD_ACTION_ERROR', error)
     throw Error('something went wrong')
   }
-
-  revalidatePath(`/board/${parentBoardId}`)
-  return card
 })
