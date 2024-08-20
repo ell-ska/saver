@@ -59,6 +59,7 @@ export const Dropzone = forwardRef<HTMLInputElement, Props>(
         {image ? (
           <ImageCard
             src={image.url}
+            blurhash={null}
             alt={image.alt}
             width={image.width}
             height={image.height}

@@ -44,6 +44,7 @@ export const LinkCard = ({
       {image && (
         <Image
           src={image.url}
+          blurhash={image.blurhash}
           alt=''
           width={image.width}
           height={image.height}

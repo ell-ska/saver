@@ -1,16 +1,19 @@
 'use client'
 
 import { useState } from 'react'
+import { thumbHashToDataURL } from 'thumbhash'
 import NextImage, { type ImageProps } from 'next/image'
 
 import { cn } from '@/utils/classnames'
 
 export const Image = ({
+  blurhash,
   aspectRatio = 'original',
   orientation = 'landscape',
   className,
   ...props
 }: ImageProps & {
+  blurhash?: string | null
   aspectRatio?: 'original' | '1:1' | '3:4' | '9:16'
   orientation?: 'landscape' | 'portrait'
 }) => {
@@ -38,6 +41,12 @@ export const Image = ({
         error && 'hidden',
       )}
       onError={() => setError(true)}
+      blurDataURL={
+        blurhash
+          ? thumbHashToDataURL(Buffer.from(blurhash, 'base64'))
+          : undefined
+      }
+      placeholder={blurhash ? 'blur' : 'empty'}
       {...props}
     />
   )
