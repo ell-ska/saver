@@ -43,6 +43,7 @@ export const Preview = ({
         {previewImage ? (
           <ImageCard
             src={previewImage.url}
+            blurhash={previewImage.blurhash}
             alt=''
             width={previewImage.width}
             height={previewImage.height}

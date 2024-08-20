@@ -32,6 +32,7 @@ export const CardMap = ({
         selected={selected}
         className={className}
         src={image.url}
+        blurhash={image.blurhash}
         alt='' // TODO: add proper alt text
         width={image.width}
         height={image.height}

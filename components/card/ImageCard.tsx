@@ -8,6 +8,7 @@ import { Image } from '@/components/ui/Image'
 
 export const ImageCard = ({
   src,
+  blurhash,
   alt,
   width,
   height,
@@ -18,6 +19,7 @@ export const ImageCard = ({
   selected,
   className,
 }: ImageProps & {
+  blurhash: string | null
   onClick?: () => void
   asLink?: boolean
   href?: string
@@ -39,6 +41,7 @@ export const ImageCard = ({
         width={width}
         height={height}
         className='h-full'
+        blurhash={blurhash}
       />
     </CardWrapper>
   )

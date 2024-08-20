@@ -42,6 +42,7 @@ export const LinkPage = ({
       {image && (
         <ImageCard
           src={image.url}
+          blurhash={image.blurhash}
           alt=''
           width={image.width}
           height={image.height}
