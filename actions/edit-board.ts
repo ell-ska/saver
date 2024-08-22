@@ -3,17 +3,13 @@
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
-import { memberAction } from './utils/safe-action'
+import { memberActionClient } from './utils/safe-action'
 import { boardDetailsSchema } from '@/lib/schemas'
 import { db } from '@/lib/db'
 
-const schema = boardDetailsSchema.merge(
-  z.object({ boardId: z.string().cuid() }),
-)
-
-export const editBoard = memberAction(
-  schema,
-  async ({ boardId, title, description }) => {
+export const editBoard = memberActionClient
+  .schema(boardDetailsSchema.merge(z.object({ boardId: z.string().cuid() })))
+  .action(async ({ parsedInput: { boardId, title, description } }) => {
     let board
 
     try {
@@ -27,5 +23,4 @@ export const editBoard = memberAction(
     }
 
     revalidatePath(`board/${board.id}`)
-  },
-)
+  })

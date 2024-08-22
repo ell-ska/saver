@@ -24,7 +24,7 @@ export const PickBoardMenu = ({
   ])
 
   const { execute: create } = useAction(createCard, {
-    onError: ({ serverError }) => toast(serverError),
+    onError: ({ error: { serverError } }) => toast(serverError),
     onSuccess: closeMenu,
   })
 

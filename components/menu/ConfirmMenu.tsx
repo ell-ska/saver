@@ -14,7 +14,7 @@ export const ConfirmMenu = () => {
   ])
 
   const { execute, status } = useAction(deleteBoard, {
-    onError: ({ serverError }) => toast(serverError),
+    onError: ({ error: { serverError } }) => toast(serverError),
     onSuccess: closeMenu,
   })
 

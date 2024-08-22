@@ -24,7 +24,7 @@ export const AddLinkMenu = () => {
 
   // TODO: optimistic update
   const { execute, status } = useAction(createCard, {
-    onError: ({ serverError }) => toast(serverError),
+    onError: ({ error: { serverError } }) => toast(serverError),
     onSuccess: () => {
       closeMenu()
       reset()

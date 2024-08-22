@@ -19,11 +19,11 @@ export const BoardMenu = () => {
   const { boardId } = useParams<{ boardId: string }>()
 
   const { data, mutate } = useSWR(`/is-favorite/${boardId}`, async () => {
-    return (await getIsFavoriteBoard({ boardId })).data
+    return (await getIsFavoriteBoard({ boardId }))?.data
   })
 
   const { execute: toggleFavorite } = useAction(editFavoriteBoard, {
-    onError: ({ serverError }) => toast(serverError),
+    onError: ({ error: { serverError } }) => toast(serverError),
   })
 
   const options = [

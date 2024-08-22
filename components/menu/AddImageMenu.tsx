@@ -41,7 +41,7 @@ export const AddImageMenu = () => {
 
   // TODO-t112: optimistic update
   const { execute, status } = useAction(createCard, {
-    onError: ({ serverError }) => toast(serverError),
+    onError: ({ error: { serverError } }) => toast(serverError),
     onSuccess: () => {
       closeMenu()
       setImageFile(undefined)

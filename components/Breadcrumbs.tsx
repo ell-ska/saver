@@ -14,7 +14,7 @@ export const Breadcrumbs = () => {
   const { data: crumbs, isLoading } = useSWR(
     `/title/${boardId || cardId}`,
     async () => {
-      return (await getTitle({ boardId, cardId })).data
+      return (await getTitle({ boardId, cardId }))?.data
     },
   )
 

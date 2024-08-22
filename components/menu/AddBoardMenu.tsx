@@ -17,7 +17,7 @@ export const AddBoardMenu = () => {
   const [data] = useMenu((state) => [state.data])
 
   const { execute: create, status } = useAction(createBoard, {
-    onError: ({ serverError }) => toast(serverError),
+    onError: ({ error: { serverError } }) => toast(serverError),
     onExecute: () => reset(),
   })
 

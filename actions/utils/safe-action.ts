@@ -1,61 +1,60 @@
 import { redirect } from 'next/navigation'
-import { createSafeActionClient, DEFAULT_SERVER_ERROR } from 'next-safe-action'
+import {
+  createSafeActionClient,
+  DEFAULT_SERVER_ERROR_MESSAGE,
+} from 'next-safe-action'
 import { z } from 'zod'
 
 import { auth } from '@/auth'
 import { db } from '@/lib/db'
 
-const schema = z
+export const actionClient = createSafeActionClient({
+  handleReturnedServerError: (error) => {
+    if (error.message) return error.message
+    return DEFAULT_SERVER_ERROR_MESSAGE
+  },
+})
+
+export const authActionClient = actionClient.use(async ({ next }) => {
+  const session = await auth()
+  if (!session?.user) return redirect('/auth/log-in')
+
+  return next({ ctx: { userId: session.user.id } })
+})
+
+const boardOrCardSchema = z
   .object({
     boardId: z.string().cuid(),
     parentBoardId: z.string().cuid(),
     cardId: z.string().cuid(),
   })
   .partial()
-  .refine((data) => !!data.boardId || !!data.parentBoardId || !!data.cardId)
+  .refine((data) => data.boardId || data.parentBoardId || data.cardId)
 
-const validateInput = (input: unknown) => {
-  const validatedInput = schema.safeParse(input)
-  if (!validatedInput.success) throw Error('no board or card id')
+const boardOrCardActionClient = authActionClient.use(
+  async ({ clientInput, ctx, next }) => {
+    const validatedInput = boardOrCardSchema.safeParse(clientInput)
+    if (!validatedInput.success) throw Error('no board or card id')
 
-  const { boardId, parentBoardId, cardId } = validatedInput.data
-  return { boardId, parentBoardId, cardId }
-}
-
-const authenticate = async () => {
-  const session = await auth()
-  if (!session?.user) return redirect('/auth/log-in')
-
-  return { userId: session.user.id }
-}
-
-const handleReturnedServerError = (error: Error) => {
-  if (error.message) return error.message
-  return DEFAULT_SERVER_ERROR
-}
-
-export const action = createSafeActionClient({
-  handleReturnedServerError,
-})
-
-export const authAction = createSafeActionClient({
-  handleReturnedServerError,
-  middleware: async () => {
-    return await authenticate()
+    return next({
+      ctx: {
+        ...ctx,
+        cardId: validatedInput.data.cardId,
+        boardId:
+          validatedInput.data.boardId || validatedInput.data.parentBoardId,
+      },
+    })
   },
-})
+)
 
-export const memberAction = createSafeActionClient({
-  handleReturnedServerError,
-  middleware: async (input) => {
-    const { userId } = await authenticate()
-    const { boardId, cardId, parentBoardId } = validateInput(input)
+export const memberActionClient = boardOrCardActionClient.use(
+  async ({ ctx: { userId, cardId, boardId }, next }) => {
     let board, card
 
-    if (boardId || parentBoardId) {
+    if (boardId) {
       board = await db.board.findUnique({
         where: {
-          id: boardId || parentBoardId,
+          id: boardId,
           members: { some: { userId } },
         },
       })
@@ -71,20 +70,19 @@ export const memberAction = createSafeActionClient({
     }
 
     if (!board && !card) throw Error('NOT_FOUND')
-  },
-})
 
-export const ownerAction = createSafeActionClient({
-  handleReturnedServerError,
-  middleware: async (input) => {
-    const { userId } = await authenticate()
-    const { boardId, cardId, parentBoardId } = validateInput(input)
+    return next({ ctx: { userId, cardId, boardId } })
+  },
+)
+
+export const ownerActionClient = boardOrCardActionClient.use(
+  async ({ ctx: { userId, cardId, boardId }, next }) => {
     let board, card
 
-    if (boardId || parentBoardId) {
+    if (boardId) {
       board = await db.board.findUnique({
         where: {
-          id: boardId || parentBoardId,
+          id: boardId,
           members: { some: { userId, role: 'OWNER' } },
         },
       })
@@ -100,5 +98,7 @@ export const ownerAction = createSafeActionClient({
     }
 
     if (!board && !card) throw Error('NOT_FOUND')
+
+    return next({ ctx: { userId, cardId, boardId } })
   },
-})
+)
