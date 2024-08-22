@@ -5,6 +5,7 @@ import type { ReactNode } from 'react'
 
 import { cn } from '@/utils/classnames'
 import { SessionProvider } from '@/providers/SessionProvider'
+import { QueryClientProvider } from '@/providers/QueryClientProvider'
 import './globals.css'
 
 const outfit = Outfit({
@@ -46,7 +47,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           'flex min-h-svh flex-col font-primary text-slate-800',
         )}
       >
-        <SessionProvider>{children}</SessionProvider>
+        <SessionProvider>
+          <QueryClientProvider>{children}</QueryClientProvider>
+        </SessionProvider>
         <Toaster />
       </body>
     </html>
