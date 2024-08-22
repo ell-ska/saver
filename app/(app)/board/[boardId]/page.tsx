@@ -9,11 +9,12 @@ export default async function BoardPage({
 }: {
   params: { boardId: string }
 }) {
-  const { data: board } = await getBoard({
+  const result = await getBoard({
     boardId,
   })
 
-  if (!board) return notFound()
+  if (!result?.data) return notFound()
+  const board = result.data
 
   return (
     <>

@@ -3,17 +3,17 @@
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
-import { memberAction } from './utils/safe-action'
+import { memberActionClient } from './utils/safe-action'
 import { db } from '@/lib/db'
 
-const schema = z.object({
-  boardId: z.string().cuid(),
-  isFavorite: z.boolean(),
-})
-
-export const editFavoriteBoard = memberAction(
-  schema,
-  async ({ boardId, isFavorite }) => {
+export const editFavoriteBoard = memberActionClient
+  .schema(
+    z.object({
+      boardId: z.string().cuid(),
+      isFavorite: z.boolean(),
+    }),
+  )
+  .action(async ({ parsedInput: { boardId, isFavorite } }) => {
     try {
       await db.board.update({
         where: { id: boardId },
@@ -26,5 +26,4 @@ export const editFavoriteBoard = memberAction(
 
     revalidatePath('/home')
     revalidatePath(`/board/${boardId}`)
-  },
-)
+  })

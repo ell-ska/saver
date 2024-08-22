@@ -13,7 +13,7 @@ export const CardMenu = () => {
   const { execute: executeDelete, status: deleteStatus } = useAction(
     deleteCard,
     {
-      onError: ({ serverError }) => toast(serverError),
+      onError: ({ error: { serverError } }) => toast(serverError),
     },
   )
 

@@ -10,9 +10,10 @@ export default async function CardPage({
 }: {
   params: { cardId: string }
 }) {
-  const { data: card } = await getCard({ cardId })
+  const result = await getCard({ cardId })
 
-  if (!card) return notFound()
+  if (!result?.data) return notFound()
+  const card = result.data
 
   const pageMap: { [key in CardType]: React.ReactNode } = {
     [CardType.IMAGE]: card.image && (

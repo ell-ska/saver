@@ -18,7 +18,7 @@ export const LogInForm = () => {
   // TODO-t98: add callback url
 
   const { execute, status } = useAction(logIn, {
-    onError: ({ serverError }) => toast(serverError),
+    onError: ({ error: { serverError } }) => toast(serverError),
   })
 
   const {

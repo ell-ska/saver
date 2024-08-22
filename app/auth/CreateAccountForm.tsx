@@ -13,7 +13,7 @@ import { FormField } from '@/components/ui/FormField'
 
 export const CreateAccountForm = () => {
   const { execute, status } = useAction(createAccount, {
-    onError: ({ serverError }) => toast(serverError),
+    onError: ({ error: { serverError } }) => toast(serverError),
   })
 
   const {
