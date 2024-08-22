@@ -4,8 +4,8 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
+import { ownerAction } from './utils/safe-action'
 import { db } from '@/lib/db'
-import { ownerAction } from '@/lib/safeAction'
 
 const schema = z.object({
   boardId: z.string().cuid(),

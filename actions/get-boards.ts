@@ -2,9 +2,9 @@
 
 import { z } from 'zod'
 
+import { authAction } from './utils/safe-action'
 import { db } from '@/lib/db'
-import { authAction } from '@/lib/safeAction'
-import { SimpleBoardsWithKeys } from '@/lib/types'
+import type { SimpleBoardsWithKeys } from '@/lib/types'
 
 const schema = z.array(
   z.object({
