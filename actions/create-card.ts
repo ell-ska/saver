@@ -2,10 +2,10 @@
 
 import { revalidatePath } from 'next/cache'
 
-import { db } from '@/lib/db'
-import { memberAction } from '@/lib/safeAction'
-import { createCardSchema } from '@/lib/schemas'
+import { memberAction } from './utils/safe-action'
 import { generateCardData } from '@/lib/generateCardData'
+import { createCardSchema } from '@/lib/schemas'
+import { db } from '@/lib/db'
 
 export const createCard = memberAction(createCardSchema, async (validated) => {
   try {

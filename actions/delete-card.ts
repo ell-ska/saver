@@ -4,8 +4,8 @@ import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
+import { memberAction } from './utils/safe-action'
 import { db } from '@/lib/db'
-import { memberAction } from '@/lib/safeAction'
 
 const schema = z.object({
   cardId: z.string().cuid(),

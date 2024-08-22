@@ -3,10 +3,10 @@
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
 
-import { db } from '@/lib/db'
-import { authAction } from '@/lib/safeAction'
-import { boardDetailsSchema, cardWithoutParentIdSchema } from '@/lib/schemas'
+import { authAction } from './utils/safe-action'
 import { createCard } from './create-card'
+import { boardDetailsSchema, cardWithoutParentIdSchema } from '@/lib/schemas'
+import { db } from '@/lib/db'
 
 const schema = boardDetailsSchema.merge(
   z.object({

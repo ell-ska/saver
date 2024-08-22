@@ -3,9 +3,9 @@
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
-import { db } from '@/lib/db'
-import { memberAction } from '@/lib/safeAction'
+import { memberAction } from './utils/safe-action'
 import { boardDetailsSchema } from '@/lib/schemas'
+import { db } from '@/lib/db'
 
 const schema = boardDetailsSchema.merge(
   z.object({ boardId: z.string().cuid() }),

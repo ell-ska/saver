@@ -3,18 +3,22 @@
 import { isRedirectError } from 'next/dist/client/components/redirect'
 import { AuthError } from 'next-auth'
 
+import { action } from './utils/safe-action'
 import { signIn } from '@/auth'
 import { defaultLoginRedirect } from '@/routes'
-import { db } from '@/lib/db'
-import { action } from '@/lib/safeAction'
 import { logInSchema } from '@/lib/schemas'
+import { db } from '@/lib/db'
 
 export const logIn = action(logInSchema, async ({ email, password }) => {
-  const existingUser = await db.user.findUnique({ where: { email } })
-  if (!existingUser || !existingUser.email) throw Error('email does not exist')
-  if (!existingUser.password) throw Error('email in use with another provider')
-
   try {
+    const existingUser = await db.user.findUnique({ where: { email } })
+    if (!existingUser || !existingUser.email) {
+      throw Error('email does not exist')
+    }
+    if (!existingUser.password) {
+      throw Error('email in use with another provider')
+    }
+
     await signIn('credentials', {
       email,
       password,
