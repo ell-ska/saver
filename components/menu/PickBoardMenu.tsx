@@ -1,43 +1,35 @@
 'use client'
 
-import { useAction } from 'next-safe-action/hooks'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { PlusCircle, Search, X } from 'lucide-react'
 
 import { useMenu } from '@/hooks/useMenu'
 import { createCard } from '@/actions/create-card'
-import { SimpleBoard } from '@/lib/types'
+import { get } from '@/utils/get'
 import { toast } from '@/utils/toast'
 import { Button } from '@/components/ui/Button'
 import { Preview } from '@/components/Preview'
 import { MenuWrapper } from './MenuWrapper'
 import { MenuAction } from './MenuAction'
+import type { BoardsLatestUpdatedResponse } from '@/app/api/boards/latest-updated/route'
 
-export const PickBoardMenu = ({
-  boards,
-}: {
-  boards: SimpleBoard[] | undefined
-}) => {
+export const PickBoardMenu = () => {
   const [data, closeMenu, openMenu] = useMenu((state) => [
     state.data,
     state.close,
     state.open,
   ])
 
-  const { execute: create } = useAction(createCard, {
-    onError: ({ error: { serverError } }) => toast(serverError),
-    onSuccess: closeMenu,
+  const { data: boards } = useQuery<BoardsLatestUpdatedResponse>({
+    queryKey: ['boards', 'latest-updated'],
+    queryFn: () => get('/api/boards/latest-updated'),
   })
 
-  const onClick = async (id: string) => {
-    if (!data.pickBoard) return toast('missing data')
-
-    if (data.pickBoard.type === 'add') {
-      create({
-        parentBoardId: id,
-        ...data.pickBoard.values,
-      })
-    }
-  }
+  const { mutate } = useMutation({
+    mutationFn: createCard,
+    onError: (error) => toast(error.message),
+    onSuccess: closeMenu,
+  })
 
   return (
     <MenuWrapper type='pick-board' position='center' className='py-2'>
@@ -60,17 +52,25 @@ export const PickBoardMenu = ({
           }}
         /> */}
         {boards &&
-          boards
-            .slice(0, 2)
-            .map(({ id, title, cards }) => (
-              <Preview
-                key={id}
-                title={title}
-                previewCard={cards[0]}
-                className='py-2 text-base'
-                onClick={() => onClick(id)}
-              />
-            ))}
+          boards.length > 0 &&
+          boards.slice(0, 2).map(({ id, title, cards }) => (
+            <Preview
+              key={id}
+              title={title}
+              previewCard={cards[0]}
+              className='py-2 text-base'
+              onClick={() => {
+                if (!data.pickBoard) return toast('missing data')
+
+                if (data.pickBoard.type === 'add') {
+                  mutate({
+                    parentBoardId: id,
+                    ...data.pickBoard.values,
+                  })
+                }
+              }}
+            />
+          ))}
         <MenuAction
           text='create new board'
           icon={<PlusCircle className='path-white fill-primary' />}

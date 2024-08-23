@@ -1,28 +1,29 @@
 'use client'
 
-import { useAction } from 'next-safe-action/hooks'
+import { useMutation } from '@tanstack/react-query'
 
 import { deleteBoard } from '@/actions/delete-board'
 import { useMenu } from '@/hooks/useMenu'
 import { toast } from '@/utils/toast'
 import { MenuWrapper } from './MenuWrapper'
 import { Button } from '@/components/ui/Button'
+
 export const ConfirmMenu = () => {
   const [data, closeMenu] = useMenu((state) => [
     state.data.confirm,
     state.close,
   ])
 
-  const { execute, status } = useAction(deleteBoard, {
-    onError: ({ error: { serverError } }) => toast(serverError),
-    onSuccess: closeMenu,
+  const { mutate, isPending } = useMutation({
+    mutationFn: deleteBoard,
+    onError: (error) => toast(error.message),
   })
 
   const onClick = () => {
     if (!data) return toast('missing data')
 
     if (data.type === 'delete-board') {
-      execute({ boardId: data.boardId })
+      mutate({ boardId: data.boardId })
     }
   }
 
@@ -37,10 +38,10 @@ export const ConfirmMenu = () => {
         <Button
           onClick={onClick}
           className='md:order-2 md:flex-1'
-          disabled={status === 'executing'}
-          loader={status === 'executing'}
+          disabled={isPending}
+          loader={isPending}
         >
-          {status === 'executing' ? loadingTitle : `yes, ${title}`}
+          {isPending ? loadingTitle : `yes, ${title}`}
         </Button>
         <Button onClick={closeMenu} variant='secondary' className='md:flex-1'>
           cancel

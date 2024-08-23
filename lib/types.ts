@@ -25,10 +25,11 @@ export type BoardWithCards = Board & {
   cards: CardWithNested[]
 }
 
-export type SimpleBoard = Pick<BoardWithCards, 'id' | 'title' | 'cards'> & {
+export type PreviewBoard = Pick<
+  BoardWithCards,
+  'id' | 'title' | 'cards' | 'isFavorite'
+> & {
   _count: { [key: string]: number }
 }
-
-export type SimpleBoardsWithKeys = { [key: string]: SimpleBoard[] }
 
 export type CardSize = 'default' | 'preview'

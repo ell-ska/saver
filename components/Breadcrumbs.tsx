@@ -1,22 +1,31 @@
 import { useParams, useRouter } from 'next/navigation'
-import useSWR from 'swr'
+import { useQuery } from '@tanstack/react-query'
 import { ChevronLeft } from 'lucide-react'
 
-import { getTitle } from '@/actions/get-title'
+import { get } from '@/utils/get'
 import { cn } from '@/utils/classnames'
 import { Button } from '@/components/ui/Button'
 import { Skeleton } from '@/components/Skeleton'
+import type { CardTitleResponse } from '@/app/api/card/title/[id]/route'
+import type { BoardTitleResponse } from '@/app/api/board/title/[id]/route'
 
 export const Breadcrumbs = () => {
   const router = useRouter()
-  const { boardId, cardId } = useParams<{ boardId: string; cardId: string }>()
+  const { boardId, cardId } = useParams()
 
-  const { data: crumbs, isLoading } = useSWR(
-    `/title/${boardId || cardId}`,
-    async () => {
-      return (await getTitle({ boardId, cardId }))?.data
+  const { data: crumbs, isPending } = useQuery<
+    CardTitleResponse | BoardTitleResponse | undefined
+  >({
+    queryKey: ['title', cardId, boardId],
+    queryFn: () => {
+      if (cardId) {
+        return get(`/api/card/title/${cardId}`)
+      }
+      if (boardId) {
+        return get(`/api/board/title/${boardId}`)
+      }
     },
-  )
+  })
 
   return (
     <div className='flex items-center gap-1 overflow-hidden'>
@@ -37,8 +46,8 @@ export const Breadcrumbs = () => {
           home
         </Button>
         <span className='hidden text-slate-300 md:inline'>/</span>
-        {isLoading && <Skeleton rounded='sm' className='h-4 w-20' />}
-        {isLoading && cardId && (
+        {isPending && <Skeleton rounded='sm' className='h-4 w-20' />}
+        {isPending && cardId && (
           <>
             <span className='hidden text-slate-300 md:inline'>/</span>
             <Skeleton rounded='sm' className='h-4 w-20' />

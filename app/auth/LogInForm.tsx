@@ -1,8 +1,8 @@
 'use client'
 
-import { useAction } from 'next-safe-action/hooks'
 import { useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
+import { useMutation } from '@tanstack/react-query'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -17,8 +17,9 @@ export const LogInForm = () => {
   // TODO: handle url error 'OAuthAccountNotLinked'
   // TODO-t98: add callback url
 
-  const { execute, status } = useAction(logIn, {
-    onError: ({ error: { serverError } }) => toast(serverError),
+  const { mutate, isPending } = useMutation({
+    mutationFn: logIn,
+    onError: (error) => toast(error.message),
   })
 
   const {
@@ -34,7 +35,7 @@ export const LogInForm = () => {
 
   return (
     <form
-      onSubmit={handleSubmit(execute)}
+      onSubmit={handleSubmit((values) => mutate(values))}
       className='flex w-full grow flex-col gap-6'
     >
       <FormField
@@ -50,12 +51,8 @@ export const LogInForm = () => {
         type='password'
         labelText='password'
       />
-      <Button
-        type='submit'
-        disabled={status === 'executing'}
-        loader={status === 'executing'}
-      >
-        {status === 'executing' ? 'logging in' : 'log in'}
+      <Button type='submit' disabled={isPending} loader={isPending}>
+        {isPending ? 'logging in' : 'log in'}
       </Button>
     </form>
   )

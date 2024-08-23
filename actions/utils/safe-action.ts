@@ -10,8 +10,8 @@ import { db } from '@/lib/db'
 
 export const actionClient = createSafeActionClient({
   handleReturnedServerError: (error) => {
-    if (error.message) return error.message
-    return DEFAULT_SERVER_ERROR_MESSAGE
+    if (error.message) throw error
+    throw Error(DEFAULT_SERVER_ERROR_MESSAGE)
   },
 })
 

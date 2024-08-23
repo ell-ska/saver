@@ -1,25 +1,29 @@
 import { Plus } from 'lucide-react'
 
 import { useMenu } from '@/hooks/useMenu'
-import { SimpleBoardsWithKeys } from '@/lib/types'
 import { cn } from '@/utils/classnames'
 import { Preview } from '@/components/Preview'
 import { Button } from '@/components/ui/Button'
 import { Tooltip } from '@/components/ui/Tooltip'
+import type { PreviewBoard } from '@/lib/types'
 
-export const SidebarBoards = ({ boards }: { boards: SimpleBoardsWithKeys }) => {
+export const SidebarBoards = ({
+  boards,
+}: {
+  boards: PreviewBoard[] | null
+}) => {
   const [openMenu] = useMenu((state) => [state.open])
 
   const options = [
     {
       name: 'favorites',
       tooltip: 'create new favorite board',
-      boards: boards.favorites,
+      boards: boards?.filter((board) => board.isFavorite),
     },
     {
       name: 'boards',
       tooltip: 'create new board',
-      boards: boards.all,
+      boards: boards,
     },
   ]
 
@@ -27,6 +31,7 @@ export const SidebarBoards = ({ boards }: { boards: SimpleBoardsWithKeys }) => {
     <div className='flex grow flex-col gap-8 overflow-hidden'>
       {options.map(
         ({ name, tooltip, boards }) =>
+          boards &&
           boards.length > 0 && (
             <div
               key={name}

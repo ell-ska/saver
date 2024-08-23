@@ -1,7 +1,7 @@
 'use client'
 
-import { useAction } from 'next-safe-action/hooks'
 import { useForm } from 'react-hook-form'
+import { useMutation } from '@tanstack/react-query'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -23,8 +23,9 @@ export const AddLinkMenu = () => {
   const { parentBoardId, redirectToPickBoard } = useParentBoard()
 
   // TODO: optimistic update
-  const { execute, status } = useAction(createCard, {
-    onError: ({ error: { serverError } }) => toast(serverError),
+  const { mutate, isPending } = useMutation({
+    mutationFn: createCard,
+    onError: (error) => toast(error.message),
     onSuccess: () => {
       closeMenu()
       reset()
@@ -46,7 +47,7 @@ export const AddLinkMenu = () => {
   const onSubmit = async (values: z.infer<typeof schema>) => {
     if (!parentBoardId) return redirectToPickBoard('add', values)
 
-    execute({
+    mutate({
       ...values,
       parentBoardId,
     })
@@ -62,12 +63,8 @@ export const AddLinkMenu = () => {
           type='url'
           labelText='paste link'
         />
-        <Button
-          type='submit'
-          disabled={status === 'executing'}
-          loader={status === 'executing'}
-        >
-          {status === 'executing' ? 'adding link' : 'add link'}
+        <Button type='submit' disabled={isPending} loader={isPending}>
+          {isPending ? 'adding link' : 'add link'}
         </Button>
       </form>
     </MenuWrapper>
