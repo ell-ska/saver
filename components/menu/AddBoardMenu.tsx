@@ -1,6 +1,6 @@
 'use client'
 
-import { useAction } from 'next-safe-action/hooks'
+import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -16,9 +16,10 @@ import { FormField } from '@/components/ui/FormField'
 export const AddBoardMenu = () => {
   const [data] = useMenu((state) => [state.data])
 
-  const { execute: create, status } = useAction(createBoard, {
-    onError: ({ error: { serverError } }) => toast(serverError),
-    onExecute: () => reset(),
+  const { mutate, isPending } = useMutation({
+    mutationFn: createBoard,
+    onError: (error) => toast(error.message),
+    onMutate: () => reset(),
   })
 
   // after optimistic data has been implemented
@@ -33,18 +34,19 @@ export const AddBoardMenu = () => {
     resolver: zodResolver(boardDetailsSchema),
   })
 
-  const onSubmit = (values: z.infer<typeof boardDetailsSchema>) => {
-    create({
-      ...values,
-      card: data.addBoard?.values,
-      isFavorite: data.addBoard?.isFavorite,
-    })
-  }
-
   return (
     <MenuWrapper type='add-board' position='center' closeButton className='p-4'>
       <h3 className='mb-4 text-lg font-bold'>create board</h3>
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
+      <form
+        onSubmit={handleSubmit((values) => {
+          mutate({
+            ...values,
+            card: data.addBoard?.values,
+            isFavorite: data.addBoard?.isFavorite,
+          })
+        })}
+        className='flex flex-col gap-4'
+      >
         <FormField
           {...register('title')}
           error={errors.title}
@@ -57,12 +59,8 @@ export const AddBoardMenu = () => {
           type='text'
           labelText='description (optional)'
         />
-        <Button
-          type='submit'
-          disabled={status === 'executing'}
-          loader={status === 'executing'}
-        >
-          {status === 'executing' ? 'creating board' : 'create board'}
+        <Button type='submit' disabled={isPending} loader={isPending}>
+          {isPending ? 'creating board' : 'create board'}
         </Button>
       </form>
     </MenuWrapper>

@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 
-import { getBoard } from '@/actions/get-board'
+import { db } from '@/lib/db'
+import { memberQuery } from '@/lib/access-control-queries'
 import { Details } from '@/components/Details'
 import { Masonry } from '@/components/Masonry'
 
@@ -9,12 +10,19 @@ export default async function BoardPage({
 }: {
   params: { boardId: string }
 }) {
-  const result = await getBoard({
-    boardId,
-  })
+  const board = await memberQuery({ boardId }, () =>
+    db.board.findUnique({
+      where: { id: boardId },
+      include: {
+        cards: {
+          include: { image: true, link: { include: { image: true } } },
+          orderBy: { updatedAt: 'asc' },
+        },
+      },
+    }),
+  )
 
-  if (!result?.data) return notFound()
-  const board = result.data
+  if (!board) return notFound()
 
   return (
     <>

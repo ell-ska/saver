@@ -1,7 +1,7 @@
 'use client'
 
 import { useParams } from 'next/navigation'
-import { useAction } from 'next-safe-action/hooks'
+import { useMutation } from '@tanstack/react-query'
 import { Eraser, Settings2 } from 'lucide-react'
 
 import { deleteCard } from '@/actions/delete-card'
@@ -10,12 +10,10 @@ import { MenuWrapper } from './MenuWrapper'
 import { MenuAction } from './MenuAction'
 
 export const CardMenu = () => {
-  const { execute: executeDelete, status: deleteStatus } = useAction(
-    deleteCard,
-    {
-      onError: ({ error: { serverError } }) => toast(serverError),
-    },
-  )
+  const { mutate, isPending } = useMutation({
+    mutationFn: deleteCard,
+    onError: (error) => toast(error.message),
+  })
 
   const { cardId } = useParams<{ cardId: string }>()
 
@@ -43,7 +41,7 @@ export const CardMenu = () => {
     {
       icon: <Eraser />,
       text: 'delete',
-      onClick: () => executeDelete({ cardId }),
+      onClick: () => mutate({ cardId }),
     },
     // {
     //   icon: <MessageCircle />,
@@ -63,7 +61,7 @@ export const CardMenu = () => {
         <MenuAction
           key={option.text}
           {...option}
-          isLoading={deleteStatus === 'executing' && option.text === 'delete'}
+          isLoading={isPending && option.text === 'delete'}
         />
       ))}
     </MenuWrapper>

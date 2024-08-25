@@ -11,14 +11,14 @@ import { SidebarBoards } from './SidebarBoards'
 import { SidebarOptions } from './SidebarOptions'
 import { SidebarNavigation } from './SidebarNavigation'
 import { Button } from '@/components/ui/Button'
-import type { SimpleBoardsWithKeys } from '@/lib/types'
+import type { PreviewBoard } from '@/lib/types'
 
 export const Sidebar = ({
   className,
   boards,
 }: {
   className: string
-  boards: SimpleBoardsWithKeys | undefined
+  boards: PreviewBoard[] | null
 }) => {
   const {
     sidebarRef,

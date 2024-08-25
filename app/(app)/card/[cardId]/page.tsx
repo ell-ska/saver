@@ -1,7 +1,9 @@
 import { notFound } from 'next/navigation'
 import { CardType } from '@prisma/client'
+import type { ReactNode } from 'react'
 
-import { getCard } from '@/actions/get-card'
+import { db } from '@/lib/db'
+import { memberQuery } from '@/lib/access-control-queries'
 import { ImagePage } from './ImagePage'
 import { LinkPage } from './LinkPage'
 
@@ -10,12 +12,16 @@ export default async function CardPage({
 }: {
   params: { cardId: string }
 }) {
-  const result = await getCard({ cardId })
+  const card = await memberQuery({ cardId }, () =>
+    db.card.findUnique({
+      where: { id: cardId },
+      include: { image: true, link: { include: { image: true } } },
+    }),
+  )
 
-  if (!result?.data) return notFound()
-  const card = result.data
+  if (!card) return notFound()
 
-  const pageMap: { [key in CardType]: React.ReactNode } = {
+  const pageMap: { [key in CardType]: ReactNode } = {
     [CardType.IMAGE]: card.image && (
       <ImagePage {...card.image} caption={card.caption} />
     ),

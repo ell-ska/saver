@@ -1,7 +1,7 @@
 'use client'
 
-import { useAction } from 'next-safe-action/hooks'
 import { useForm } from 'react-hook-form'
+import { useMutation } from '@tanstack/react-query'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -12,8 +12,9 @@ import { Button } from '@/components/ui/Button'
 import { FormField } from '@/components/ui/FormField'
 
 export const CreateAccountForm = () => {
-  const { execute, status } = useAction(createAccount, {
-    onError: ({ error: { serverError } }) => toast(serverError),
+  const { mutate, isPending } = useMutation({
+    mutationFn: createAccount,
+    onError: (error) => toast(error.message),
   })
 
   const {
@@ -26,7 +27,7 @@ export const CreateAccountForm = () => {
 
   return (
     <form
-      onSubmit={handleSubmit(execute)}
+      onSubmit={handleSubmit((values) => mutate(values))}
       className='flex w-full grow flex-col gap-6'
     >
       <FormField
@@ -53,12 +54,8 @@ export const CreateAccountForm = () => {
         type='password'
         labelText='confirm password'
       />
-      <Button
-        type='submit'
-        disabled={status === 'executing'}
-        loader={status === 'executing'}
-      >
-        {status === 'executing' ? 'creating account' : 'create account'}
+      <Button type='submit' disabled={isPending} loader={isPending}>
+        {isPending ? 'creating account' : 'create account'}
       </Button>
     </form>
   )

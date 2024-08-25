@@ -1,12 +1,14 @@
-import { SimpleBoard } from '@/lib/types'
 import { Board } from '@/components/Board'
+import type { BoardWithCards } from '@/lib/types'
 
 export const BoardSection = ({
   title,
   boards,
 }: {
   title: string
-  boards: SimpleBoard[]
+  boards: (Pick<BoardWithCards, 'id' | 'title' | 'cards'> & {
+    _count: { [key: string]: number }
+  })[]
 }) => {
   return (
     <section>
