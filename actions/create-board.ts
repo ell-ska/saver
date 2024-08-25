@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { authActionClient } from './utils/safe-action'
 import { createCard } from './create-card'
 import { boardDetailsSchema, cardWithoutParentIdSchema } from '@/lib/schemas'
-import { db } from '@/lib/db'
+import { db } from '@/lib/data/db'
 
 export const createBoard = authActionClient
   .schema(

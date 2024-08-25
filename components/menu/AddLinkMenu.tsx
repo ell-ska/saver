@@ -44,19 +44,20 @@ export const AddLinkMenu = () => {
     },
   })
 
-  const onSubmit = async (values: z.infer<typeof schema>) => {
-    if (!parentBoardId) return redirectToPickBoard('add', values)
-
-    mutate({
-      ...values,
-      parentBoardId,
-    })
-  }
-
   return (
     <MenuWrapper type='add-link' position='center' closeButton className='p-4'>
       <h3 className='mb-4 text-lg font-bold'>add link</h3>
-      <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-4'>
+      <form
+        onSubmit={handleSubmit((values) => {
+          if (!parentBoardId) return redirectToPickBoard('add', values)
+
+          mutate({
+            ...values,
+            parentBoardId,
+          })
+        })}
+        className='flex flex-col gap-4'
+      >
         <FormField
           {...register('url')}
           error={errors.url}

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
-import { db } from '@/lib/db'
-import { authenticatedQuery } from '@/lib/access-control-queries'
+import { db } from '@/lib/data/db'
+import { authenticatedQuery } from '@/lib/data/access-control-queries'
 import { MenuProvider } from '@/providers/MenuProvider'
 import { Navigation } from '@/components/navigation/Navigation'
 import { Header } from '@/components/Header'
@@ -39,13 +39,6 @@ export default async function HomeLayout({
       },
     }),
   )
-
-  // const result = await getBoards([
-  //   { title: 'all', previewImage: true },
-  //   { title: 'favorites', previewImage: true },
-  //   { title: 'where you left off', limit: 2, previewImage: true },
-  // ])
-  // const boards = result?.data
 
   return (
     <>

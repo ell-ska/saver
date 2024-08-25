@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { memberActionClient } from './utils/safe-action'
 import { generateCardData } from '@/lib/generateCardData'
 import { createCardSchema } from '@/lib/schemas'
-import { db } from '@/lib/db'
+import { db } from '@/lib/data/db'
 
 export const createCard = memberActionClient
   .schema(createCardSchema)

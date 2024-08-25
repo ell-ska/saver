@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 
 import { ownerActionClient } from './utils/safe-action'
-import { db } from '@/lib/db'
+import { db } from '@/lib/data/db'
 
 export const deleteBoard = ownerActionClient
   .schema(

@@ -2,8 +2,8 @@ import { notFound } from 'next/navigation'
 import { CardType } from '@prisma/client'
 import type { ReactNode } from 'react'
 
-import { db } from '@/lib/db'
-import { memberQuery } from '@/lib/access-control-queries'
+import { db } from '@/lib/data/db'
+import { memberQuery } from '@/lib/data/access-control-queries'
 import { ImagePage } from './ImagePage'
 import { LinkPage } from './LinkPage'
 

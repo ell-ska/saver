@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 
-import { db } from '@/lib/db'
-import { memberQuery } from '@/lib/access-control-queries'
+import { db } from '@/lib/data/db'
+import { memberQuery } from '@/lib/data/access-control-queries'
 import { Details } from '@/components/Details'
 import { Masonry } from '@/components/Masonry'
 

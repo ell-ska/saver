@@ -7,7 +7,7 @@ import { actionClient } from './utils/safe-action'
 import { signIn } from '@/auth'
 import { defaultLoginRedirect } from '@/routes'
 import { logInSchema } from '@/lib/schemas'
-import { db } from '@/lib/db'
+import { db } from '@/lib/data/db'
 
 export const logIn = actionClient
   .schema(logInSchema)

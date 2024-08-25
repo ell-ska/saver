@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs'
 
 import { actionClient } from './utils/safe-action'
 import { createAccountSchema } from '@/lib/schemas'
-import { db } from '@/lib/db'
+import { db } from '@/lib/data/db'
 
 export const createAccount = actionClient
   .schema(createAccountSchema)

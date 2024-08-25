@@ -6,7 +6,7 @@ import {
 import { z } from 'zod'
 
 import { auth } from '@/auth'
-import { db } from '@/lib/db'
+import { db } from '@/lib/data/db'
 
 export const actionClient = createSafeActionClient({
   handleReturnedServerError: (error) => {

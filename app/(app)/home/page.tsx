@@ -1,5 +1,5 @@
-import { db } from '@/lib/db'
-import { authenticatedQuery } from '@/lib/access-control-queries'
+import { db } from '@/lib/data/db'
+import { authenticatedQuery } from '@/lib/data/access-control-queries'
 import { HomeEmpty } from './HomeEmpty'
 import { BoardSection } from '@/components/BoardSection'
 

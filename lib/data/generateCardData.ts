@@ -3,9 +3,9 @@ import { z } from 'zod'
 import { CardType } from '@prisma/client'
 
 import { createCardSchema } from '@/lib/schemas'
-import { backendClient } from '@/lib/edgestore'
+import { backendClient } from '@/lib/data/edgestore'
 import { getImageOrientation } from '@/lib/getImageOrientation'
-import { getOgData } from '@/lib/getOgData'
+import { getOgData } from '@/lib/data/getOgData'
 import { getBase64Blurhash } from '@/utils/blurhash'
 import { getImageDimensions } from '@/utils/getImageDimensions/server'
 import { isImage } from '@/utils/isImage/server'
@@ -52,8 +52,6 @@ const generateLinkData = async (url: string) => {
 
   const blurhashResponse = await fetch(ogData.image.url)
   const blurhashBuffer = await blurhashResponse.arrayBuffer()
-
-  console.log(await getBase64Blurhash(blurhashBuffer))
 
   return {
     link: {

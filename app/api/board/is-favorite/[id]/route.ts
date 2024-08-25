@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-import { db } from '@/lib/db'
-import { memberQuery } from '@/lib/access-control-queries'
+import { db } from '@/lib/data/db'
+import { memberQuery } from '@/lib/data/access-control-queries'
 import { handleServerError } from '@/app/api/utils'
 
 export const GET = async (
