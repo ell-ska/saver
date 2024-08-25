@@ -5,6 +5,8 @@ import { authenticatedQuery } from '@/lib/access-control-queries'
 import { handleServerError } from '@/app/api/utils'
 import type { BoardWithCards } from '@/lib/types'
 
+export const dynamic = 'force-dynamic'
+
 export const GET = async () => {
   try {
     const latestUpdatedBoards = await authenticatedQuery((userId) =>
