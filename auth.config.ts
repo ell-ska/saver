@@ -3,7 +3,7 @@ import Github from 'next-auth/providers/github'
 import Credentials from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 
-import { db } from '@/lib/db'
+import { db } from '@/lib/data/db'
 import { logInSchema } from '@/lib/schemas'
 
 export default {

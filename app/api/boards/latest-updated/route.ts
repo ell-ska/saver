@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 
-import { db } from '@/lib/db'
-import { authenticatedQuery } from '@/lib/access-control-queries'
+import { db } from '@/lib/data/db'
+import { authenticatedQuery } from '@/lib/data/access-control-queries'
 import { handleServerError } from '@/app/api/utils'
 import type { BoardWithCards } from '@/lib/types'
 

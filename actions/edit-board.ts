@@ -5,7 +5,7 @@ import { z } from 'zod'
 
 import { memberActionClient } from './utils/safe-action'
 import { boardDetailsSchema } from '@/lib/schemas'
-import { db } from '@/lib/db'
+import { db } from '@/lib/data/db'
 
 export const editBoard = memberActionClient
   .schema(boardDetailsSchema.merge(z.object({ boardId: z.string().cuid() })))
