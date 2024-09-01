@@ -24,7 +24,7 @@
     "clsx": "2.1.1",
     "lucide-react": "0.437.0",
     "next": "14.2.7",
-    "next-auth": "5.0.0-beta.4",
+    "next-auth": "5.0.0-beta.20",
     "next-safe-action": "7.8.1",
     "open-graph-scraper": "6.8.1",
     "probe-image-size": "7.2.3",
