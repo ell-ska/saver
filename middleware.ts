@@ -18,12 +18,12 @@ export default auth((req) => {
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
 
-  if (isApiAuthRoute) return null
+  if (isApiAuthRoute) return
 
   if (isAuthRoute) {
     if (isLoggedIn)
       return Response.redirect(new URL(defaultLoginRedirect, nextUrl))
-    return null
+    return
   }
 
   if (!isLoggedIn && !isPublicRoute) {
@@ -31,7 +31,7 @@ export default auth((req) => {
     return Response.redirect(new URL('/auth/log-in', nextUrl))
   }
 
-  return null
+  return
 })
 
 // don't invoke middleware on _next static routes
