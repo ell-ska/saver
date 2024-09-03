@@ -17,7 +17,7 @@ export const actionClient = createSafeActionClient({
 
 export const authActionClient = actionClient.use(async ({ next }) => {
   const session = await auth()
-  if (!session?.user) return redirect('/auth/log-in')
+  if (!session?.user?.id) return redirect('/auth/log-in')
 
   return next({ ctx: { userId: session.user.id } })
 })

@@ -6,7 +6,8 @@ export const authenticatedQuery = async <T>(
   options?: Options,
 ): Promise<T | null> => {
   const session = await auth()
-  if (!session?.user) return handleAccessDenied(options?.throwOnAccessDenied)
+  if (!session?.user?.id)
+    return handleAccessDenied(options?.throwOnAccessDenied)
 
   return query(session.user.id)
 }
@@ -17,7 +18,8 @@ export const memberQuery = async <T>(
   options?: Options,
 ): Promise<T | null> => {
   const session = await auth()
-  if (!session?.user) return handleAccessDenied(options?.throwOnAccessDenied)
+  if (!session?.user?.id)
+    return handleAccessDenied(options?.throwOnAccessDenied)
 
   if (cardId) {
     const card = await db.card.findUnique({
@@ -52,7 +54,8 @@ export const ownerQuery = async <T>(
   options?: Options,
 ): Promise<T | null> => {
   const session = await auth()
-  if (!session?.user) return handleAccessDenied(options?.throwOnAccessDenied)
+  if (!session?.user?.id)
+    return handleAccessDenied(options?.throwOnAccessDenied)
 
   if (cardId) {
     const card = await db.card.findUnique({
