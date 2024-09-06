@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "2.4.6",
-    "@types/node": "20.16.3",
+    "@types/node": "20.16.5",
     "@types/probe-image-size": "7.2.5",
     "@types/react": "18.3.5",
     "@types/react-dom": "18.3.0",
