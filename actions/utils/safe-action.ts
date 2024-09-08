@@ -9,7 +9,7 @@ import { auth } from '@/auth'
 import { db } from '@/lib/data/db'
 
 export const actionClient = createSafeActionClient({
-  handleReturnedServerError: (error) => {
+  handleServerError: (error) => {
     if (error.message) throw error
     throw Error(DEFAULT_SERVER_ERROR_MESSAGE)
   },
