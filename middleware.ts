@@ -27,8 +27,9 @@ export default auth((req) => {
   }
 
   if (!isLoggedIn && !isPublicRoute) {
-    // TODO-t98: add callback urls
-    return Response.redirect(new URL('/auth/log-in', nextUrl))
+    return Response.redirect(
+      new URL(`/auth/log-in?callback=${nextUrl.pathname}`, nextUrl),
+    )
   }
 
   return

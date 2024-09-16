@@ -15,7 +15,6 @@ import { FormField } from '@/components/ui/FormField'
 export const LogInForm = () => {
   const searchParams = useSearchParams()
   // TODO: handle url error 'OAuthAccountNotLinked'
-  // TODO-t98: add callback url
 
   const { mutate, isPending } = useMutation({
     mutationFn: logIn,
@@ -29,6 +28,7 @@ export const LogInForm = () => {
   } = useForm<z.infer<typeof logInSchema>>({
     resolver: zodResolver(logInSchema),
     defaultValues: {
+      callbackUrl: searchParams.get('callback') || undefined,
       email: searchParams.get('email') || '',
     },
   })

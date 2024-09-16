@@ -1,17 +1,21 @@
 'use client'
 
-import { ReactNode, useTransition } from 'react'
+import { type ReactNode, useTransition } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { signIn } from 'next-auth/react'
 import { Github } from 'lucide-react'
 
 import { Button } from '@/components/ui/Button'
+
 export const GithubButton = ({ children }: { children: ReactNode }) => {
+  const callbackUrl = useSearchParams().get('callback') || undefined
   const [isLoading, startTransition] = useTransition()
 
   const onClick = async () => {
     startTransition(async () => {
-      // TODO-t98: add callback url
-      await signIn('github')
+      await signIn('github', {
+        callbackUrl,
+      })
     })
   }
 
