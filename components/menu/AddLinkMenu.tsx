@@ -49,7 +49,11 @@ export const AddLinkMenu = () => {
       <h3 className='mb-4 text-lg font-bold'>add link</h3>
       <form
         onSubmit={handleSubmit((values) => {
-          if (!parentBoardId) return redirectToPickBoard('add', values)
+          if (!parentBoardId) {
+            reset()
+            redirectToPickBoard('add', values)
+            return
+          }
 
           mutate({
             ...values,
