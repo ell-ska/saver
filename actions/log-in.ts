@@ -11,7 +11,7 @@ import { db } from '@/lib/data/db'
 
 export const logIn = actionClient
   .schema(logInSchema)
-  .action(async ({ parsedInput: { email, password } }) => {
+  .action(async ({ parsedInput: { email, password, callbackUrl } }) => {
     try {
       const existingUser = await db.user.findUnique({ where: { email } })
       if (!existingUser || !existingUser.email) {
@@ -24,7 +24,7 @@ export const logIn = actionClient
       await signIn('credentials', {
         email,
         password,
-        redirectTo: defaultLoginRedirect,
+        redirectTo: callbackUrl || defaultLoginRedirect,
       })
     } catch (error) {
       if (error instanceof AuthError && error.type === 'CredentialsSignin') {

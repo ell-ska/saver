@@ -15,6 +15,7 @@ export const createAccountSchema = z.object({
 })
 
 export const logInSchema = z.object({
+  callbackUrl: z.string().optional(),
   email: z.string().email(),
   password: z.string().min(1, {
     message: 'password is required',
