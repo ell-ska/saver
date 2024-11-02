@@ -13,7 +13,7 @@
     "@auth/prisma-adapter": "2.7.2",
     "@edgestore/react": "0.2.2",
     "@edgestore/server": "0.2.2",
-    "@hookform/resolvers": "3.9.0",
+    "@hookform/resolvers": "3.9.1",
     "@prisma/client": "5.21.1",
     "@radix-ui/react-dialog": "1.1.2",
     "@radix-ui/react-switch": "1.1.1",
